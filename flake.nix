@@ -5,6 +5,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-colors.url = "github:Misterio77/nix-colors";
   };
   outputs = { self, nixpkgs, ... }@inputs:
     let

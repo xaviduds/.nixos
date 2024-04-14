@@ -91,7 +91,7 @@
       rust-analyzer
       starship
       stremio
-      telegram-desktop
+      swaylock
       tmux
       unzip
       zip
@@ -132,7 +132,10 @@
     };
     xserver = {
       enable = true;
-      displayManager.sddm.enable = true;
+      displayManager.sddm = {
+        enable = true;
+        #theme = pkgs.catppuccin-mocha;
+      };
     };
     pipewire = {
       enable = true;
@@ -157,9 +160,18 @@
     };
   };
 
+  nix = {
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = [ "nix-command" "flakes" ];
+    };
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+  };
+
   system = { stateVersion = "23.11"; };
-
-  nix = { settings.experimental-features = [ "nix-command" "flakes" ]; };
-
 }
 
