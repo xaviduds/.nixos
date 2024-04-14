@@ -1,4 +1,4 @@
-Clone the repo at '~/', that's where it looks for when updating and building; be careful to not overwrite an existing nixos directory:
+Clone the repo at '~/', that's where it looks for when updating and building; be careful to not overwrite an existing nixos directory; take notice that the hardware-configuration.nix is from my machine:
 
 ```bash
 git clone git@github.com:xaviduds/nixos.git ~/
