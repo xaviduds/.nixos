@@ -6,7 +6,7 @@
     homeDirectory = "/home/eduardo";
     stateVersion = "23.11";
     file = {
-      ".alacritty.toml".text = ''
+      ".config/alacritty/alacritty.toml".text = ''
         [window]
         padding = { x = 0, y = 0 }
 
@@ -372,7 +372,88 @@
             background-color: @bg-col-light;
         }
       '';
-      ".config/wlogout/".source = "${config.home.homeDirectory}/nixos/wlogout/";
+      ".config/wlogout/layout".text = ''
+        {
+            "label" : "logout",
+            "action" : "hyprctl dispatch exit 0",
+            "text" : "Logout",
+            "keybind" : "e"
+        }
+
+        {
+            "label" : "suspend",
+            "action" : "systemctl suspend",
+            "text" : "Suspend",
+            "keybind" : "u"
+        }
+
+        {
+            "label" : "shutdown",
+            "action" : "systemctl poweroff",
+            "text" : "Shutdown",
+            "keybind" : "p"
+        }
+
+        {
+            "label" : "reboot",
+            "action" : "systemctl reboot",
+            "text" : "Reboot",
+            "keybind" : "r"
+        }
+      '';
+      ".config/wlogout/style.css".text = ''
+        * {
+          font-family: 'CaskaydiaCove NFM', monospace;
+          background-image: none;
+          transition: 20ms;
+        }
+
+        window {
+          background-color: rgba(12, 12, 12, 0.1);
+        }
+
+        button {
+          color: #FFFFFF;
+          font-size: 20px;
+
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 25%;
+          transition: background-size 300ms ease-in-out;
+
+          border-style: solid;
+          border-width: 3px;
+          border-color: #FFFFFF;
+          border-radius: 20px;
+
+          margin: 10px;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        button:hover,
+        button:active {
+          color: @color11;
+          background-color: rgba(12, 12, 12, 0.5);
+          border-color: @color11;
+          background-size: 30%;
+        }
+
+        #logout {
+          text: "(L)ogout";
+        }
+
+        #suspend {
+        text: "s(U)spend";
+        }
+
+        #shutdown {
+        text: "(S)hutdown";
+        }
+
+        #reboot {
+        text: "(R)eboot";
+        }
+      '';
     };
   };
 
