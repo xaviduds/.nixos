@@ -7,13 +7,12 @@
     stateVersion = "23.11";
     file = {
       ".alacritty.toml".source =
-        "${config.home.homeDirectory}/nixos/alacritty/alacritty.toml";
-      ".config/rofi/config.rasi".source =
-        "${config.home.homeDirectory}/nixos/rofi/config.rasi";
-      ".config/rofi/catppuccin-mocha.rasi".source =
-        "${config.home.homeDirectory}/nixos/rofi/catppuccin-mocha.rasi";
+        "${config.home.homeDirectory}/nixos/alacritty/.alacritty.toml";
+      ".config/rofi/".source = "${config.home.homeDirectory}/nixos/rofi/";
       ".config/helix/themes/xaviduds.toml".source =
         "${config.home.homeDirectory}/nixos/helix/themes/xaviduds.toml";
+      ".config/eww/".source = "${config.home.homeDirectory}/nixos/eww/";
+      ".config/wlogout/".source = "${config.home.homeDirectory}/nixos/wlogout/";
     };
   };
 
@@ -80,44 +79,42 @@
     };
     tmux = {
       enable = true;
-      clock24 = true;
       #git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
       extraConfig = ''
         unbind r 
         bind r source-file ~/.config/tmux/tmux.conf
+
         set -g prefix C-a
         set -g status-interval 1
+        set -g base-index 1
         set -s escape-time 0
+
         bind-key h  select-pane -L
         bind-key j  select-pane -D
         bind-key k  select-pane -U
         bind-key l  select-pane -R
+
         set -g @plugin 'tmux-plugins/tpm'
         set -g @plugin 'catppuccin/tmux'
-        set -g @plugin 'tmux-plugins/tmux-battery'
+        set -g @plugin 'tmux-plugins/tmux-resurrect'
 
-          set -g @catppuccin_window_left_separator ""
-          set -g @catppuccin_window_right_separator " "
-          set -g @catppuccin_window_middle_separator " █"
-          set -g @catppuccin_window_number_position "right"
+        set -g @catppuccin_window_left_separator ""
+        set -g @catppuccin_window_right_separator " "
+        set -g @catppuccin_window_middle_separator " █"
+        set -g @catppuccin_window_number_position "right"
+        set -g @catppuccin_window_default_fill "number"
+        set -g @catppuccin_window_default_text "#W"
+        set -g @catppuccin_window_current_fill "number"
+        set -g @catppuccin_window_current_text "#{b:pane_current_path}"
+        set -g @catppuccin_status_modules_right "session"
+        set -g @catppuccin_status_left_separator  " "
+        set -g @catppuccin_status_right_separator ""
+        set -g @catppuccin_status_right_separator_inverse "no"
+        set -g @catppuccin_status_fill "icon"
+        set -g @catppuccin_status_connect_separator "no"
+        set -g @catppuccin_directory_text "#{pane_current_path}"
 
-          set -g @catppuccin_window_default_fill "number"
-          set -g @catppuccin_window_default_text "#W"
-
-          set -g @catppuccin_window_current_fill "number"
-          set -g @catppuccin_window_current_text "#{b:pane_current_path}"
-
-          set -g @catppuccin_status_modules_right "session date_time battery"
-          set -g @catppuccin_status_left_separator  " "
-          set -g @catppuccin_status_right_separator ""
-          set -g @catppuccin_status_right_separator_inverse "no"
-          set -g @catppuccin_status_fill "icon"
-          set -g @catppuccin_status_connect_separator "no"
-
-          set -g @catppuccin_directory_text "#{pane_current_path}"
-                  set -g @catppuccin_date_time_text "%H:%M %d-%m-%Y"
-
-                          run '~/.tmux/plugins/tpm/tpm'
+        run '~/.tmux/plugins/tpm/tpm'
       '';
     };
     helix = {
@@ -195,7 +192,7 @@
     enable = true;
     settings = {
       monitor = ",highres,auto,1";
-      exec-once = [ "firefox" "waybar" ];
+      exec-once = [ "firefox" "pkill waybar" "waybar" ];
       input = {
         kb_layout = "br";
         kb_variant = "abnt2";

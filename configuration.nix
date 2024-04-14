@@ -99,6 +99,7 @@
       waybar
       wireplumber
       wl-clipboard
+      wlogout
       yazi
     ];
     shellAliases = {
