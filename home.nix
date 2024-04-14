@@ -9,6 +9,7 @@
       ".config/alacritty/alacritty.toml".text = ''
         [window]
         padding = { x = 0, y = 0 }
+        decorations = "None"
 
         [font.bold]
         family = "JetBrainsMono Nerd Font"
@@ -101,6 +102,9 @@
         [[colors.indexed_colors]]
         index = 17
         color = "#F5E0DC"
+
+        [selection]
+        save_to_clipboard = true
       '';
 
       ".config/helix/themes/xaviduds.toml".text = ''

@@ -67,6 +67,7 @@
       brightnessctl
       btop
       eww
+      eza
       gnome.adwaita-icon-theme
       helix
       hyprland
@@ -78,6 +79,7 @@
       lazygit
       libreoffice
       lua-language-server
+      man
       marksman
       nil
       nodePackages.bash-language-server
@@ -111,12 +113,16 @@
       "h" = "hx";
       "y" = "yazi";
       "aa" = "git add .";
-      "s" = "git status";
+      "s" = "if [ -d .git ]; then git status; fi";
       "p" = "git push";
+      "gp" = "git pull";
       "a" = "git add";
       "c" = "git commit";
       "lg" = "lazygit";
       "e" = "exit";
+      "z" =
+        "eza -T -L 2 --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
+      "n" = "cd ~/nixos && z";
     };
   };
   services = {
