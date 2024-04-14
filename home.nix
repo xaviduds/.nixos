@@ -5,6 +5,7 @@
     username = "eduardo";
     homeDirectory = "/home/eduardo";
     stateVersion = "23.11";
+    sessionVariables = { EDITOR = "hx"; };
     file = {
       ".config/alacritty/alacritty.toml".text = ''
         [window]
