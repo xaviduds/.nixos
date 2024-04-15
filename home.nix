@@ -3,37 +3,24 @@
 let
   base00 = "1e1e2e"; # base (cinza azulado escuro)
   base01 = "181825"; # mantle (preto azulado cinza)
-  base02 = "313244"; # surface0 (cinza escuro)
   base03 = "45475a"; # surface1 (cinza medio)
-  base04 = "585b70"; # surface2 (cinza medio-claro)
   base05 = "cdd6f4"; # text (cinza azulado claro)
   base06 = "f5e0dc"; # rosewater (pastel claro)
   base07 = "b4befe"; # lavender (cor de amaciante)
-  base08 = "f38ba8"; # salmao (salmão)
-  base09 = "fab387"; # peach (laranja claro)
   base0A = "f9e2af"; # amareloClaro
   base0B = "a6e3a1"; # verdeClaro (verde claro)
-  base0C = "94e2d5"; # teal (ciano)
-  base0D = "89b4fa"; # azulClaro (azul claro)
-  base0E = "cba6f7"; # mauve (lilás)
-  base0F = "f2cdcd"; # flamingo
 
+  black = "000000";
+  white = "ffffff";
   base = "1e1e2e";
-  baseQuasePreta = "181825";
-  baseEscura = "313244";
   baseMedia = "45475a";
-  baseMediaClara = "585b70";
-  cinzaAzuladoClaro = "cdd6f4";
   pastelClaro = "f5e0dc";
-  amaciante = "b4befe";
   salmao = "f38ba8";
   laranjaClaro = "fab387";
   amareloClaro = "f9e2af";
   verdeClaro = "a6e3a1";
   ciano = "94e2d5";
   azulClaro = "89b4fa";
-  lilas = "cba6f7";
-  corDePorco = "f2cdcd";
 
 in {
   home = {
@@ -41,7 +28,16 @@ in {
     homeDirectory = "/home/eduardo";
     stateVersion = "23.11";
     sessionVariables = { EDITOR = "hx"; };
-    file = { };
+    file = {
+      "/home/eduardo/wayland_tmux.sh".text = ''
+        #!/bin/sh
+
+        SESSION_NAME=$(tmux display-message -p '#S')
+
+        [ -n "$SESSION_NAME" ] && tmux list-windows -t "$SESSION_NAME" -F "#{window_index}: #{window_name}" | awk -F ':' '{printf "Window %s (%s), ", $1, $2}' | sed 's/, $//'
+      '';
+      "/home/eduardo/wayland_tmux.sh".executable = true;
+    };
   };
 
   dconf.settings = {
@@ -95,10 +91,10 @@ in {
 
         colors = {
           primary = {
-            background = "0x${base00}";
-            foreground = "0x${base05}";
-            dim_foreground = "0x${base05}";
-            bright_foreground = "0x${base05}";
+            background = "0x${black}";
+            foreground = "0x${white}";
+            dim_foreground = "0x${white}";
+            bright_foreground = "0x${white}";
           };
 
           cursor = {
@@ -166,7 +162,18 @@ in {
     helix = {
       enable = true;
       settings = {
-        themes = {
+        theme = "blackEwhite";
+        editor = {
+          cursor-shape = {
+            normal = "block";
+            insert = "bar";
+            select = "underline";
+          };
+          line-number = "relative";
+        };
+      };
+      themes = {
+        blackEwhite = {
           "ui.menu" = "none";
           "ui.menu.selected" = { modifiers = [ "reversed" ]; };
           "ui.linenr" = {
@@ -228,14 +235,6 @@ in {
           "warning" = amareloClaro;
           "error" = salmao;
         };
-        editor = {
-          cursor-shape = {
-            normal = "block";
-            insert = "bar";
-            select = "underline";
-          };
-          line-number = "relative";
-        };
       };
       languages.language = [{
         name = "nix";
@@ -270,17 +269,16 @@ in {
         format = "$all";
         nix_shell = {
           disabled = false;
-          impure_msg = "[impure shell](bold ${salmao})";
-          pure_msg = "[pure shell](bold ${verdeClaro})";
-          unknown_msg = "[unknown shell](bold ${amareloClaro})";
-          format = "via [☃️ $state( ($name))](bold ${azulClaro}) ";
+          impure_msg = "[impure shell](${white})";
+          pure_msg = "[pure shell](${white})";
+          unknown_msg = "[unknown shell](${white})";
+          format = "via [☃️ $state( ($name))](${white}) ";
         };
       };
     };
 
     tmux = {
       enable = true;
-      #git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
       extraConfig = ''
         unbind r 
         bind r source-file ~/.config/tmux/tmux.conf
@@ -288,6 +286,14 @@ in {
         set -g prefix C-a
         set -g status-interval 1
         set -g base-index 1
+        set -g default-terminal "screen-256color"
+        set -g status-bg '#${black}'
+        set -g status-fg '#${white}'
+
+        set -g message-command-style fg='#${white}',bg='#${black}'           
+        set -g message-style fg='#{$white}',bg='#${black}'
+        set -g status-right ""
+
         set -s escape-time 0
 
         bind-key h  select-pane -L
@@ -296,29 +302,9 @@ in {
         bind-key l  select-pane -R
 
         set -g @plugin 'tmux-plugins/tpm'
-        set -g @plugin 'catppuccin/tmux'
         set -g @plugin 'tmux-plugins/tmux-resurrect'
 
-        # set -g @catppuccin_window_left_separator ""
-        # set -g @catppuccin_window_right_separator " "
-        # set -g @catppuccin_window_middle_separator " █"
-        set -g @catppuccin_window_number_position "right"
-        set -g @catppuccin_window_default_fill "number"
-        set -g @catppuccin_window_default_text "#W"
-        set -g @catppuccin_window_current_fill "number"
-        set -g @catppuccin_window_current_text "#{b:pane_current_path}"
-        set -g @catppuccin_status_modules_right "session"
-        # set -g @catppuccin_status_left_separator  " "
-        # set -g @catppuccin_status_right_separator ""
-        set -g @catppuccin_status_right_separator_inverse "no"
-        set -g @catppuccin_status_fill "icon"
-        set -g @catppuccin_status_connect_separator "no"
-        set -g @catppuccin_directory_text "#{pane_current_path}"
-
-        set -g default-terminal "screen-256color"
-        set -g status-bg black
-        set -g status-fg white
-        run '~/.tmux/plugins/tpm/tpm'
+        run '~/.tmux/plugins/tpm/tpm' #git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
       '';
     };
 
@@ -327,67 +313,44 @@ in {
       systemd.enable = true;
       settings = [{
         layer = "top";
-        position = "top";
-
+        position = "bottom";
+        modules-left = [ "custom/tmux" ];
         modules-center = [ "hyprland/workspaces" ];
-        modules-left =
-          [ "custom/startmenu" "hyprland/window" "pulseaudio" "cpu" "memory" ];
-        modules-right = [
-          "custom/hyprbindings"
-          "custom/exit"
-          "idle_inhibitor"
-          "custom/themeselector"
-          "custom/notification"
-          "battery"
-          "clock"
-          "tray"
-        ];
+        modules-right = [ "memory" "pulseaudio" "network" "clock" "battery" ];
+
+        "custom/tmux" = {
+          format = "{ }";
+          exec = "$HOME/teste.sh";
+          interval = 5;
+        };
 
         "hyprland/workspaces" = {
-          format = "{icon}";
+          format = "{icon} {name} {windows}";
           format-icons = {
-            default = " ";
-            active = " ";
-            urgent = " ";
+            default = "○";
+            active = "●";
+            urgent = "▲";
           };
           on-scroll-up = "hyprctl dispatch workspace e+1";
           on-scroll-down = "hyprctl dispatch workspace e-1";
         };
-        "clock" = {
-          format = " {:L%I:%M %p}";
-          tooltip = true;
-          tooltip-format =
-            "<big>{:%A, %d.%B %Y }</big><tt><small>{calendar}</small></tt>";
-        };
+        "clock" = { format = " {:%H:%M %d-%m-%Y} "; };
         "hyprland/window" = {
-          max-length = 25;
+          max-length = 50;
           separate-outputs = false;
-          rewrite = { "" = " 🙈 No Windows? "; };
         };
         "memory" = {
-          interval = 5;
-          format = " {}%";
-          tooltip = true;
-        };
-        "cpu" = {
-          interval = 5;
-          format = " {usage:2}%";
-          tooltip = true;
-        };
-        "disk" = {
-          format = " {free}";
-          tooltip = true;
+          interval = 60;
+          format = " {}% ";
         };
         "network" = {
           format-icons = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
           format-ethernet = " {bandwidthDownOctets}";
-          format-wifi = "{icon} {signalStrength}%";
+          format-wifi = "{icon} ";
           format-disconnected = "󰤮";
-          tooltip = false;
         };
-        "tray" = { spacing = 12; };
         "pulseaudio" = {
-          format = "{icon} {volume}% {format_source}";
+          format = "{icon} {volume}% {format_source} ";
           format-azulClarotooth = "{volume}% {icon} {format_source}";
           format-azulClarotooth-muted = " {icon} {format_source}";
           format-muted = " {format_source}";
@@ -402,81 +365,24 @@ in {
             car = "";
             default = [ "" "" "" ];
           };
-          on-click = "sleep 0.1 && pavucontrol";
-        };
-        "custom/themeselector" = {
-          tooltip = false;
-          format = "";
-          on-click = "sleep 0.1 && theme-selector";
-        };
-        "custom/exit" = {
-          tooltip = false;
-          format = "";
-          on-click = "sleep 0.1 && wlogout";
-        };
-        "custom/startmenu" = {
-          tooltip = false;
-          format = " ";
-          # exec = "rofi -show drun";
-          on-click = "sleep 0.1 && rofi-launcher";
-        };
-        "custom/hyprbindings" = {
-          tooltip = false;
-          format = " Bindings";
-          on-click = "sleep 0.1 && list-hypr-bindings";
-        };
-        "idle_inhibitor" = {
-          format = "{icon}";
-          format-icons = {
-            activated = "";
-            deactivated = "";
-          };
-          tooltip = "true";
-        };
-        "custom/notification" = {
-          tooltip = false;
-          format = "{icon} {}";
-          format-icons = {
-            notification = "<span foreground='${salmao}'><sup></sup></span>";
-            none = "";
-            dnd-notification =
-              "<span foreground='${salmao}'><sup></sup></span>";
-            dnd-none = "";
-            inhibited-notification =
-              "<span foreground='${salmao}'><sup></sup></span>";
-            inhibited-none = "";
-            dnd-inhibited-notification =
-              "<span foreground='${salmao}'><sup></sup></span>";
-            dnd-inhibited-none = "";
-          };
-          return-type = "json";
-          exec-if = "which swaync-client";
-          exec = "swaync-client -swb";
-          on-click = "sleep 0.1 && task-waybar";
-          escape = true;
+          on-click = "pavucontrol";
         };
         "battery" = {
-          states = {
-            warning = 30;
-            critical = 15;
-          };
-          format = "{icon} {capacity}%";
+          format = "{icon} ";
           format-charging = "󰂄 {capacity}%";
           format-plugged = "󱘖 {capacity}%";
           format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
-          on-click = "";
-          tooltip = false;
         };
       }];
       style = ''
         * {
           border: none;
           border-radius: 0;
-          font-family: Source Code Pro;
+          font-family: JetBrainsMono Nerd Font;
         }
         window#waybar {
-          background: #16191C;
-          color: #AAB2BF;
+          background: #${black};
+          color: #${white};
         }
         #workspaces button {
           padding: 0 5px;
