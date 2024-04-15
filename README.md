@@ -1,4 +1,11 @@
-### My NixOS config, under frequent development, might bug, I don't unit test for my OS.
+![imagem](https://github.com/xaviduds/nixos/blob/main/img/desktop.png?raw=true)
+
+> ### "This NixOS config has been appointed to you. And if you do not test it, besides me, no one will."
+> 
+> -- Nixodriel, The Fellowship of the Nix.
+
+## Installation:
+Warning: Under frequent development, not even full black&white yet, might bug, I don't unit test for my OS.
 
 Clone the repo at '~/', that's where it looks for when updating and building; be careful to not overwrite an existing nixos directory; take notice that the hardware-configuration.nix is from my machine:
 
@@ -16,11 +23,11 @@ After that, to update and build, just type:
 u
 ```
 
-> #### "This NixOS config has been appointed to you. And if you do not test it, besides me, no one will."
-> 
-> -- Nixodriel, The Fellowship of the Nix.
+
+## Stuff:
 
 Cool unicode characters storage:
+
 δ ⛧  ҉ ම ࠈ Ⲫ ⦵ ⟒ ⟐ ⟁ ₶ᮍ ᨅ ᨉ ᨖ ᥭ ᱅ ᮵ ᮏ ᮓ ᮚ ᮄ
 
 <details>
