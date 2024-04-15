@@ -4,7 +4,6 @@ let
   base00 = "1e1e2e"; # base (cinza azulado escuro)
   base01 = "181825"; # mantle (preto azulado cinza)
   base03 = "45475a"; # surface1 (cinza medio)
-  base05 = "cdd6f4"; # text (cinza azulado claro)
   base06 = "f5e0dc"; # rosewater (pastel claro)
   base07 = "b4befe"; # lavender (cor de amaciante)
   base0A = "f9e2af"; # amareloClaro
@@ -93,51 +92,51 @@ in {
           primary = {
             background = "0x${black}";
             foreground = "0x${white}";
-            dim_foreground = "0x${white}";
-            bright_foreground = "0x${white}";
+            # dim_foreground = "0x${white}";
+            # bright_foreground = "0x${white}";
           };
 
-          cursor = {
-            text = "0x${base00}";
-            cursor = "0x${base06}";
-          };
+          # cursor = {
+          #   text = "0x${base00}";
+          #   cursor = "0x${base06}";
+          # };
 
-          vi_mode_cursor = {
-            text = "0x${base00}";
-            cursor = "0x${base07}";
-          };
+          # vi_mode_cursor = {
+          #   text = "0x${base00}";
+          #   cursor = "0x${base07}";
+          # };
 
-          search = {
-            matches = {
-              foreground = "0x${base00}";
-              background = "0xa6adc8";
-            };
-            focused_match = {
-              foreground = "0x${base00}";
-              background = "0x${base0B}";
-            };
-          };
+          # search = {
+          #   matches = {
+          #     foreground = "0x${base00}";
+          #     background = "0xa6adc8";
+          #   };
+          #   focused_match = {
+          #     foreground = "0x${base00}";
+          #     background = "0x${base0B}";
+          #   };
+          # };
 
-          footer_bar = {
-            foreground = "0x${base00}";
-            background = "0xa6adc8";
-          };
+          # footer_bar = {
+          #   foreground = "0x${base00}";
+          #   background = "0xa6adc8";
+          # };
 
-          hints = {
-            start = {
-              foreground = "0x${base00}";
-              background = "0x${base0A}";
-            };
-            end = {
-              foreground = "0x${base00}";
-              background = "0xa6adc8";
-            };
-          };
+          # hints = {
+          #   start = {
+          #     foreground = "0x${base00}";
+          #     background = "0x${base0A}";
+          #   };
+          #   end = {
+          #     foreground = "0x${base00}";
+          #     background = "0xa6adc8";
+          #   };
+          # };
 
-          selection = {
-            text = "0x${base00}";
-            background = "0x${base06}";
-          };
+          # selection = {
+          #   text = "0x${base00}";
+          #   background = "0x${base06}";
+          # };
         };
       };
     };
@@ -182,7 +181,7 @@ in {
           };
           "ui.popup" = { modifiers = [ "reversed" ]; };
           "ui.linenr.selected" = {
-            fg = base05;
+            fg = white;
             bg = base01;
             modifiers = [ "bold" ];
           };
@@ -196,10 +195,10 @@ in {
             fg = pastelClaro;
             bg = base;
           };
-          "ui.statusline.inactive" = {
-            fg = base;
-            bg = pastelClaro;
-          };
+          # "ui.statusline.inactive" = {
+          #   fg = base;
+          #   bg = pastelClaro;
+          # };
           "ui.help" = {
             fg = base;
             bg = pastelClaro;
