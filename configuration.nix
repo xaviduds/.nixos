@@ -143,6 +143,7 @@
       bat
       brightnessctl
       btop
+      cbonsai
       eww
       eza
       gnome.adwaita-icon-theme
@@ -158,6 +159,7 @@
       lua-language-server
       man
       marksman
+      neofetch
       nil
       nodePackages.bash-language-server
       nodePackages.typescript-language-server
