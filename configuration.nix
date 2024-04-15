@@ -64,6 +64,7 @@
     systemPackages = with pkgs; [
       acpi
       alacritty
+      bat
       brightnessctl
       btop
       eww
@@ -101,7 +102,6 @@
       waybar
       wireplumber
       wl-clipboard
-      wlogout
       yazi
     ];
     shellAliases = {
