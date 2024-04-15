@@ -2,18 +2,13 @@
 
 let
   base01 = "181825"; # mantle (preto azulado cinza)
-  base03 = "45475a"; # surface1 (cinza medio)
 
   black = "000000";
   white = "ffffff";
-  base = "1e1e2e";
   baseMedia = "45475a";
-  pastelClaro = "f5e0dc";
   salmao = "f38ba8";
   laranjaClaro = "fab387";
   amareloClaro = "f9e2af";
-  verdeClaro = "a6e3a1";
-  ciano = "94e2d5";
   azulClaro = "89b4fa";
 
 in {
@@ -22,16 +17,7 @@ in {
     homeDirectory = "/home/eduardo";
     stateVersion = "23.11";
     sessionVariables = { EDITOR = "hx"; };
-    file = {
-      "/home/eduardo/wayland_tmux.sh".text = ''
-        #!/bin/sh
-
-        SESSION_NAME=$(tmux display-message -p '#S')
-
-        [ -n "$SESSION_NAME" ] && tmux list-windows -t "$SESSION_NAME" -F "#{window_index}: #{window_name}" | awk -F ':' '{printf "Window %s (%s), ", $1, $2}' | sed 's/, $//'
-      '';
-      "/home/eduardo/wayland_tmux.sh".executable = true;
-    };
+    file = { };
   };
 
   dconf.settings = {
@@ -126,10 +112,6 @@ in {
         blackEwhite = {
           "ui.menu" = "none";
           "ui.menu.selected" = { modifiers = [ "reversed" ]; };
-          "ui.linenr" = {
-            fg = baseMedia;
-            bg = base01;
-          };
           "ui.popup" = { modifiers = [ "reversed" ]; };
           "ui.linenr.selected" = {
             fg = white;
@@ -141,45 +123,8 @@ in {
             bg = azulClaro;
           };
           "ui.selection.primary" = { modifiers = [ "reversed" ]; };
-          "comment" = { fg = base03; };
-          "ui.statusline" = {
-            fg = pastelClaro;
-            bg = base;
-          };
-          "ui.help" = {
-            fg = base;
-            bg = pastelClaro;
-          };
           "ui.cursor" = { modifiers = [ "reversed" ]; };
-          "variable" = salmao;
-          "variable.builtin" = laranjaClaro;
-          "constant.numeric" = laranjaClaro;
-          "constant" = laranjaClaro;
-          "attributes" = amareloClaro;
-          "type" = amareloClaro;
-          "ui.cursor.match" = {
-            fg = amareloClaro;
-            modifiers = [ "underlined" ];
-          };
-          "string" = verdeClaro;
-          "variable.other.member" = salmao;
-          "constant.character.escape" = ciano;
-          "function" = azulClaro;
-          "constructor" = azulClaro;
-          "special" = azulClaro;
-          "keyword" = salmao;
-          "label" = salmao;
-          "namespace" = azulClaro;
-          "diff.plus" = verdeClaro;
-          "diff.delta" = amareloClaro;
-          "diff.minus" = salmao;
           "diagnostic" = { modifiers = [ "underlined" ]; };
-          "ui.gutter" = { bg = base01; };
-          "info" = azulClaro;
-          "hint" = base;
-          "debug" = base;
-          "warning" = amareloClaro;
-          "error" = salmao;
         };
       };
       languages.language = [{
@@ -263,12 +208,6 @@ in {
         modules-left = [ "custom/tmux" ];
         modules-center = [ "hyprland/workspaces" ];
         modules-right = [ "memory" "pulseaudio" "network" "clock" "battery" ];
-
-        "custom/tmux" = {
-          format = "{ }";
-          exec = "$HOME/teste.sh";
-          interval = 5;
-        };
 
         "hyprland/workspaces" = {
           format = "{icon} {name} {windows}";
