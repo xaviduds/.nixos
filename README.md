@@ -1,3 +1,4 @@
+### My NixOS config, under frequent development, might bug, I don't unit test for my OS.
 
 Clone the repo at '~/', that's where it looks for when updating and building; be careful to not overwrite an existing nixos directory; take notice that the hardware-configuration.nix is from my machine:
 
@@ -19,10 +20,11 @@ u
 > 
 > -- Nixodriel, The Fellowship of the Nix.
 
+Cool unicode characters storage:
 δ ⛧  ҉ ම ࠈ Ⲫ ⦵ ⟒ ⟐ ⟁ ₶ᮍ ᨅ ᨉ ᨖ ᥭ ᱅ ᮵ ᮏ ᮓ ᮚ ᮄ
 
 <details>
-<summary>ASCII Art</summary>
+<summary>ASCII Art Storage (looks good in my editor):</summary>
 
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠛⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡄⠀⠀⠀⠀
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀⠀⠀⠀⠀⠀⠀⣀⣠⣤⣴⣶⣶⣶⣶⣶⣶⣤⣤⣀⡀⠀⠀⢀⠠⠔⠀⠀⠀⠀⠀⠀⠀⣠⣴⣿⠋⠀⠀⠀⠀⠀
