@@ -1,8 +1,12 @@
 ![imagem](https://github.com/xaviduds/nixos/blob/main/img/desktop.png?raw=true)
 
+<img align="right" width="100" src="https://github.com/xaviduds/nixos/blob/main/img/Tuxgaucho.png?raw=true">
+
 > #### "This NixOS config has been appointed to you. And if you do not test it, besides me, no one will."
 > 
 > -- Nixodriel, The Fellowship of the Nix.
+
+<br>
 
 ## Installation:
 Under frequent development, might bug:
