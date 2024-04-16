@@ -149,8 +149,10 @@
       gnome.adwaita-icon-theme
       helix
       hyprland
+      hyprpaper
       feh
       firefox
+      gimp
       git
       gopls
       gscreenshot
@@ -172,7 +174,7 @@
       rust-analyzer
       starship
       stremio
-      swaylock
+      swww
       tmux
       unzip
       zip
@@ -180,6 +182,7 @@
       waybar
       wireplumber
       wl-clipboard
+      wpaperd
       yazi
     ];
     shellAliases = {
@@ -201,6 +204,8 @@
       "z" =
         "eza -T -L 2 --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
       "n" = "cd ~/nixos && z";
+      "nt" = "cd ~/notas && z";
+      "lc" = "cd ~/lince && z";
     };
   };
   services = {
