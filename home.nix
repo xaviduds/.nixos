@@ -68,6 +68,12 @@ in {
     stateVersion = "23.11";
     sessionVariables = { EDITOR = "hx"; };
     file = {
+      ".config/wpaperd/config.toml".text = ''
+        [any]
+        path = "/home/eduardo/notas/wallpapers/"
+        sorting = "random"
+        duration = "10s"
+      '';
       ".config/rofi/xaviduds.rasi".text = ''
         * {
             bg-col:  #1e1e2e;
@@ -188,7 +194,7 @@ in {
     enable = true;
     settings = {
       monitor = ",highres,auto,1";
-      exec-once = [ "firefox" "pkill waybar" "waybar" ];
+      exec-once = [ "firefox" "pkill waybar" "waybar" "wpaperd" ];
       input = {
         kb_layout = "br";
         kb_variant = "abnt2";
@@ -837,8 +843,8 @@ in {
       enable = true;
       settings = {
         any = {
-          path = "~/nixos/wallpapers";
-          duration = "30m";
+          path = "/home/eduardo/notas/wallpapers/";
+          duration = "10s";
           sorting = "random";
         };
       };

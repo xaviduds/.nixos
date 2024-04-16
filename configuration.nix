@@ -144,6 +144,7 @@
       brightnessctl
       btop
       cbonsai
+      egl-wayland
       eww
       eza
       gnome.adwaita-icon-theme
@@ -161,6 +162,7 @@
       lua-language-server
       man
       marksman
+      mesa
       neofetch
       nil
       nodePackages.bash-language-server
@@ -180,6 +182,7 @@
       zip
       zls
       waybar
+      waydroid
       wireplumber
       wl-clipboard
       wpaperd
