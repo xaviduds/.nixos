@@ -53,7 +53,13 @@ in {
     enable = true;
     settings = {
       monitor = ",highres,auto,1";
-      exec-once = [ "firefox" "pkill waybar" "waybar" "swww-daemon" ];
+      exec-once = [
+        "firefox"
+        "pkill waybar"
+        "waybar"
+        "swww-daemon"
+        "swww img ~/nixos/wallpaper.png"
+      ];
       input = {
         kb_layout = "br";
         kb_variant = "abnt2";
@@ -71,7 +77,6 @@ in {
         "SUPER SHIFT, B, exec, waybar"
         "SUPER, B, exec, pkill waybar && waybar"
         "SUPER CONTROL, B, exec, pkill waybar"
-        "SUPER, W, exec, swww kill && swww-daemon & shuf -n 1 -e ~/nixos/img/wallpapers/* | xargs -I {} swww img {}"
         "SUPER, Q, exec, alacritty"
         "SUPER, P, exec, pavucontrol"
         "SUPER, S, exec, stremio"
