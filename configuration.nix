@@ -185,7 +185,6 @@
       waydroid
       wireplumber
       wl-clipboard
-      wpaperd
       yazi
     ];
     shellAliases = {

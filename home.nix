@@ -68,12 +68,6 @@ in {
     stateVersion = "23.11";
     sessionVariables = { EDITOR = "hx"; };
     file = {
-      ".config/wpaperd/config.toml".text = ''
-        [any]
-        path = "/home/eduardo/notas/wallpapers/"
-        sorting = "random"
-        duration = "10s"
-      '';
       ".config/rofi/xaviduds.rasi".text = ''
         * {
             width: 600px;
@@ -116,7 +110,7 @@ in {
     enable = true;
     settings = {
       monitor = ",highres,auto,1";
-      exec-once = [ "firefox" "pkill waybar" "waybar" "wpaperd" ];
+      exec-once = [ "firefox" "pkill waybar" "waybar" "~/swww.sh" ];
       input = {
         kb_layout = "br";
         kb_variant = "abnt2";
@@ -131,18 +125,21 @@ in {
       animations = { enabled = "false"; };
       misc = { disable_hyprland_logo = "true"; };
       bind = [
-        "SUPER SHIFT, W, exec, waybar"
-        "SUPER, W, exec, pkill waybar && waybar"
-        "SUPER CONTROL, W, exec, pkill waybar"
+        "SUPER SHIFT, B, exec, waybar"
+        "SUPER, B, exec, pkill waybar && waybar"
+        "SUPER CONTROL, B, exec, pkill waybar"
+        "SUPER, W, exec, swww kill && swww-daemon & shuf -n 1 -e /home/eduardo/notas/wallpapers/* | xargs -I {} swww img {}"
         "SUPER, Q, exec, alacritty"
         "SUPER, P, exec, pavucontrol"
         "SUPER, S, exec, stremio"
         "SUPER, F, exec, firefox"
         "SUPER, O, exec, obsidian"
         "SUPER, G, exec, gimp"
+        "SUPER, T, exec, btop"
         "SUPER, C, killactive"
+        "SUPER, V, togglefloating"
         "SUPER, M, exit"
-        "SUPER, R, exec, rofi -show drun -steal-focus"
+        "SUPER, R, exec, rofi -show drun -normal-window -steal-focus"
         "SUPER, h, movefocus, l"
         "SUPER, l, movefocus, r"
         "SUPER, k, movefocus, u"
@@ -151,6 +148,10 @@ in {
         "SUPER CONTROL, l, movewindow, r"
         "SUPER CONTROL, k, movewindow, u"
         "SUPER CONTROL, j, movewindow, d"
+        "SUPER ALT, l, moveactive, 50 0"
+        "SUPER ALT, h, moveactive, -50 0"
+        "SUPER ALT, k, moveactive, 0 -50"
+        "SUPER ALT, j, moveactive, 0 50"
         "SUPER SHIFT, l, resizeactive, 50 0"
         "SUPER SHIFT, h, resizeactive, -50 0"
         "SUPER SHIFT, k, resizeactive, 0 -50"
@@ -272,6 +273,36 @@ in {
           primary = {
             background = "0x${black}";
             foreground = "0x${white}";
+          };
+          normal = {
+            black = "#${white}";
+            red = "#${white}";
+            green = "#${white}";
+            yellow = "#${white}";
+            blue = "#${white}";
+            magenta = "#${white}";
+            cyan = "#${white}";
+            white = "#${white}";
+          };
+          bright = {
+            black = "#${white}";
+            red = "#${white}";
+            green = "#${white}";
+            yellow = "#${white}";
+            blue = "#${white}";
+            magenta = "#${white}";
+            cyan = "#${white}";
+            white = "#${white}";
+          };
+          dim = {
+            black = "#${white}";
+            red = "#${white}";
+            green = "#${white}";
+            yellow = "#${white}";
+            blue = "#${white}";
+            magenta = "#${white}";
+            cyan = "#${white}";
+            white = "#${white}";
           };
         };
       };
@@ -532,6 +563,7 @@ in {
       enable = true;
       settings = {
         format = "$all";
+        # prompt = { color = "white"; };
         character = {
           success_symbol = "δ";
           error_symbol = "Ⲫ";
@@ -554,10 +586,10 @@ in {
         nix_shell = {
           disabled = false;
           style = "${style}";
-          impure_msg = "[impure shell]";
-          pure_msg = "[pure shell]";
-          unknown_msg = "[unknown shell]";
-          format = "via [ ҉ $state( ($name))] ";
+          impure_msg = "[impure shell](${white})";
+          pure_msg = "[pure shell](${white})";
+          unknown_msg = "[unknown shell](${white})";
+          format = "via  [ ҉ $state( ($name))](${white}) ";
         };
       };
     };
@@ -612,6 +644,10 @@ in {
         set -g message-command-style fg='#${white}',bg='#${black}'           
         set -g message-style fg='#{$white}',bg='#${black}'
         set -g status-right ""
+
+        set -g allow-passthrough on
+        set -ga update-environment TERM
+        set -ga update-environment TERM_PROGRAM
 
         set -s escape-time 0
 
@@ -705,7 +741,7 @@ in {
           format-source-muted = "";
           format-icons = {
             headphone = "";
-            default = [ "" "" "" ];
+            default = [ " " "" " " ];
           };
           on-click = "pavucontrol";
         };
@@ -765,17 +801,6 @@ in {
     # ⠀⠀⠀⠀⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
     # ⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
     # ⡀⢀⠀⠀⢀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-
-    wpaperd = {
-      enable = true;
-      settings = {
-        any = {
-          path = "/home/eduardo/notas/wallpapers/";
-          duration = "10s";
-          sorting = "random";
-        };
-      };
-    };
 
     # ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
     # ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
