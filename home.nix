@@ -23,13 +23,7 @@ in {
     enable = true;
     settings = {
       monitor = ",highres,auto,1";
-      exec-once = [
-        "firefox"
-        "pkill waybar"
-        "waybar"
-        "swww-daemon"
-        "swww img ~/nixos/wallpaper.png"
-      ];
+      exec-once = [ "firefox" "pkill waybar" "waybar" ];
       input = {
         kb_layout = "br";
         kb_variant = "abnt2";
@@ -325,11 +319,11 @@ in {
       settings = [{
         layer = "top";
         position = "bottom";
-        modules-left = [ "custom/tmux" ];
+        modules-left = [ ];
         modules-center = [ "hyprland/workspaces" ];
         modules-right = [ "memory" "pulseaudio" "network" "clock" "battery" ];
         "hyprland/workspaces" = {
-          format = "{icon} {name} {windows}";
+          format = "{icon} {name}";
           format-icons = {
             default = "○";
             active = "●";
