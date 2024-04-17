@@ -5,10 +5,10 @@
 > -- Nixodriel, The Fellowship of the Nix.
 
 ```bash
-# Might bug. Clone the repo at '~/', that's where it looks for when updating and building:
+#Clone:
 git clone git@github.com:xaviduds/nixos.git ~/
 
-# To build the system for the first time (after that, you can use the 'u' alias), type:
-sudo nixos-rebuild switch --flake ~/nixos#default --impure
+# Then update and build my system (after that, you can use the 'u' alias):
+sudo nix flake update ~/nixos/ && sudo nixos-rebuild switch --flake ~/nixos#default --impure
 ```
 
