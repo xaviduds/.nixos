@@ -71,7 +71,7 @@ in {
         "SUPER SHIFT, B, exec, waybar"
         "SUPER, B, exec, pkill waybar && waybar"
         "SUPER CONTROL, B, exec, pkill waybar"
-        "SUPER, W, exec, swww kill && swww-daemon & shuf -n 1 -e /home/eduardo/notas/wallpapers/* | xargs -I {} swww img {}"
+        "SUPER, W, exec, swww kill && swww-daemon & shuf -n 1 -e ~/nixos/img/wallpapers/* | xargs -I {} swww img {}"
         "SUPER, Q, exec, alacritty"
         "SUPER, P, exec, pavucontrol"
         "SUPER, S, exec, stremio"
