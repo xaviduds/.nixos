@@ -53,7 +53,7 @@ in {
     enable = true;
     settings = {
       monitor = ",highres,auto,1";
-      exec-once = [ "firefox" "pkill waybar" "waybar" "~/swww.sh" ];
+      exec-once = [ "firefox" "pkill waybar" "waybar" "swww-daemon" ];
       input = {
         kb_layout = "br";
         kb_variant = "abnt2";
