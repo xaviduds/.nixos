@@ -12,40 +12,10 @@ in {
     sessionVariables = { EDITOR = "hx"; };
     file = {
       ".config/rofi/xaviduds.rasi".text = ''
-        * {
-            width: 600px;
-            font: "JetBrainsMono Nerd Font 14";
-            text-color: #${white};
-            background-color: #${black};
-        }
-
-        window {
-            height: 600px;
-            border: 3px;
-            border-color: #${white};
-        }
-
-        inputbar {
-            children: [prompt,entry];
-            border-radius: 5px;
-            padding: 2px;
-        }
-
-        prompt {
-            padding: 6px;
-            border-radius: 3px;
-            margin: 20px 0px 0px 20px;
-        }
-
-        entry {
-            padding: 6px;
-            margin: 20px 0px 0px 10px;
-        }
-
-        element {
-            padding: 5px;
-        }
-      '';
+        * { font: "JetBrainsMono Nerd Font 14"; text-color: #${white}; background-color: #${black}; padding: 4px; margin: 20px 0px 0px 20px; }
+        window { border: 1px; border-color: #${white}; }
+        inputbar { children: [prompt,entry]; border-radius: 5px; padding: 2px; }
+        prompt { border-radius: 3px; } '';
     };
   };
 
@@ -133,7 +103,6 @@ in {
       ];
     };
   };
-
   dconf.settings = {
     "org/gnome/desktop/interface" = { color-scheme = "prefer-dark"; };
   };
@@ -149,7 +118,6 @@ in {
     platformTheme = "gnome";
     style = { name = "adwaita-dark"; };
   };
-
   programs = {
     home-manager.enable = true;
 
