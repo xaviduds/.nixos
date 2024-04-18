@@ -4,6 +4,16 @@ let
   black = "000000";
   white = "ffffff";
   style = "bg:#${black} fg:#${white}";
+  colorPalette = {
+    black = "#${white}";
+    red = "#${white}";
+    green = "#${white}";
+    yellow = "#${white}";
+    blue = "#${white}";
+    magenta = "#${white}";
+    cyan = "#${white}";
+    white = "#${white}";
+  };
 in {
   home = {
     username = "eduardo";
@@ -148,36 +158,9 @@ in {
             background = "0x${black}";
             foreground = "0x${white}";
           };
-          normal = {
-            black = "#${white}";
-            red = "#${white}";
-            green = "#${white}";
-            yellow = "#${white}";
-            blue = "#${white}";
-            magenta = "#${white}";
-            cyan = "#${white}";
-            white = "#${white}";
-          };
-          bright = {
-            black = "#${white}";
-            red = "#${white}";
-            green = "#${white}";
-            yellow = "#${white}";
-            blue = "#${white}";
-            magenta = "#${white}";
-            cyan = "#${white}";
-            white = "#${white}";
-          };
-          dim = {
-            black = "#${white}";
-            red = "#${white}";
-            green = "#${white}";
-            yellow = "#${white}";
-            blue = "#${white}";
-            magenta = "#${white}";
-            cyan = "#${white}";
-            white = "#${white}";
-          };
+          normal = colorPalette;
+          bright = colorPalette;
+          dim = colorPalette;
         };
       };
     };
@@ -290,6 +273,7 @@ in {
         set -g status-interval 1
         set -g base-index 1
         set -g default-terminal "screen-256color"
+        set -g mouse on
         set -g status-bg '#${black}'
         set -g status-fg '#${white}'
         set -g message-command-style fg='#${white}',bg='#${black}'           
