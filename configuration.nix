@@ -126,8 +126,9 @@
       "z" =
         "eza -T -L 2 --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
       "n" = "cd ~/nixos && z";
-      "nt" = "cd ~/notas && z";
+      "lp" = "cd ~/lincePessoal && z";
       "lc" = "cd ~/lince && z";
+      "x" = "cd ~/xaviduds.github.io && z";
     };
   };
   services = {

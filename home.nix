@@ -33,7 +33,13 @@ in {
     enable = true;
     settings = {
       monitor = ",highres,auto,1";
-      exec-once = [ "firefox" "pkill waybar" "waybar" ];
+      exec-once = [
+        "firefox"
+        "pkill waybar"
+        "waybar"
+        "swww-daemon"
+        "swww img ~/nixos/wallpaper.png"
+      ];
       input = {
         kb_layout = "br";
         kb_variant = "abnt2";
@@ -186,6 +192,19 @@ in {
       enable = true;
       settings = {
         theme = "blackEwhite";
+        keys = {
+          normal = {
+            "A-j" =
+              [ "extend_to_line_bounds" "delete_selection" "paste_after" ];
+            "A-k" = [
+              "extend_to_line_bounds"
+              "delete_selection"
+              "move_line_up"
+              "paste_before"
+            ];
+
+          };
+        };
         editor = {
           cursor-shape = {
             normal = "block";
