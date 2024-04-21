@@ -144,7 +144,7 @@
     };
     xserver = {
       enable = true;
-      displayManager.sddm = { enable = true; };
+      displayManager.sddm.enable = true;
     };
     pipewire = {
       enable = true;
