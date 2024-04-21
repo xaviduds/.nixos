@@ -129,6 +129,7 @@
       "lp" = "cd ~/.lincePessoal && z";
       "lc" = "cd ~/lince && z";
       "x" = "cd ~/xaviduds.github.io && z";
+      "dc" = "cd ~/ && z";
     };
   };
   services = {
