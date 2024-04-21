@@ -124,7 +124,7 @@
       "lg" = "lazygit";
       "e" = "exit";
       "z" =
-        "eza -T -L 2 --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
+        "clear && eza -T -L 2 --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
       "n" = "cd ~/.nixos && z";
       "lp" = "cd ~/lincePessoal && z";
       "lc" = "cd ~/lince && z";
