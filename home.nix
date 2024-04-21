@@ -38,7 +38,7 @@ in {
         "pkill waybar"
         "waybar"
         "swww-daemon"
-        "swww img ~/nixos/wallpaper.png"
+        "swww img ~/.nixos/wallpaper.png"
       ];
       input = {
         kb_layout = "br";
@@ -125,7 +125,7 @@ in {
   };
   qt = {
     enable = true;
-    platformTheme = "gnome";
+    platformTheme = { name = "adwaita"; };
     style = { name = "adwaita-dark"; };
   };
   programs = {
@@ -228,7 +228,7 @@ in {
       languages.language = [{
         name = "nix";
         auto-format = true;
-        formatter.command = "${pkgs.nixfmt}/bin/nixfmt";
+        formatter.command = "${pkgs.nixfmt-classic}/bin/nixfmt";
         indent = {
           tab-width = 4;
           unit = " ";
