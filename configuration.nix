@@ -100,6 +100,7 @@
       swww
       tmux
       unzip
+      vscode-langservers-extracted
       zip
       zls
       waybar
