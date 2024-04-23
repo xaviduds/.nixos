@@ -113,6 +113,7 @@
         "rm -rf ~/.ssh && ssh-keygen -t ed25519 -C 'xaviduds@gmail.com' && eval '$(ssh-agent -s)' && ssh-add ~/.ssh/id_ed25519 && cat ~/.ssh/id_ed25519.pub";
       "u" =
         "sudo nix flake update ~/.nixos/ && sudo nixos-rebuild switch --flake ~/.nixos#default --impure";
+      "jn" = "jupyter notebook";
       "t" = "tmux";
       "h" = "hx";
       "y" = "yazi";
@@ -126,6 +127,7 @@
       "e" = "exit";
       "z" =
         "clear && eza -T -L 2 --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
+      "nd" = "nix flake update && nix develop && z";
       "n" = "cd ~/.nixos && z";
       "lp" = "cd ~/.lincePessoal && z";
       "lc" = "cd ~/lince && z";
