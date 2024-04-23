@@ -194,6 +194,7 @@ in {
         theme = "blackEwhite";
         keys = {
           normal = {
+            "C-e" = "increment";
             "A-j" =
               [ "extend_to_line_bounds" "delete_selection" "paste_after" ];
             "A-k" = [
