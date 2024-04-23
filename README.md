@@ -1,4 +1,4 @@
-<img src="https://github.com/xaviduds/xaviduds/blob/main/desktop.png"></img>
+<img src="https://github.com/xaviduds/xaviduds.github.io/blob/main/media/desktop.png"></img>
 ```bash
 #Clone at ~/:
 git clone git@github.com:xaviduds/nixos.git ~/
