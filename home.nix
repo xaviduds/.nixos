@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 let
   black = "000000";
@@ -15,7 +15,21 @@ let
     white = "#${white}";
   };
 in {
+imports = [
+  inputs.impermanence.nixosModules.home-manager.impermanence
+];
   home = {
+  persistence."/persist/home/eduardo" = {
+    directories = [
+    ".nixos"
+    ".lincePessoal"
+    "lince"
+    "xaviduds.github.io"
+      ".ssh"
+      ".mozilla"
+    ];
+    allowOther = true;
+  };
     username = "eduardo";
     homeDirectory = "/home/eduardo";
     stateVersion = "23.11";
