@@ -105,6 +105,7 @@
       zls
       waybar
       wireplumber
+      where-is-my-sddm-theme
       wl-clipboard
       yazi
     ];
@@ -148,7 +149,10 @@
     };
     xserver = {
       enable = true;
-      displayManager.sddm.enable = true;
+      displayManager.sddm = {
+        enable = true;
+        theme = "where-is-my-sddm-theme";
+      };
     };
     pipewire = {
       enable = true;
