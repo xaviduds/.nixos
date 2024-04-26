@@ -77,8 +77,19 @@
   };
 
   networking = {
+    wireless.iwd = {
+      enable = true;
+      settings = {
+
+        IPv6 = { Enabled = true; };
+        Settings = { AutoConnect = true; };
+      };
+    };
     hostName = "nixos";
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      wifi.backend = "iwd";
+    };
   };
 
   time.timeZone = "America/Sao_Paulo";
@@ -126,6 +137,7 @@
       git
       gopls
       gscreenshot
+      kitty
       lazygit
       libreoffice
       lua-language-server
@@ -144,7 +156,6 @@
       rofi-wayland
       rust-analyzer
       starship
-      stremio
       swww
       tmux
       unzip
