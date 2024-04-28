@@ -149,7 +149,6 @@
       nodePackages.bash-language-server
       nodePackages.typescript-language-server
       obsidian
-      ollama
       pavucontrol
       postgresql
       python311Packages.python-lsp-server
@@ -188,11 +187,13 @@
       "z" =
         "clear && eza -T -L 2 --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
       "nd" = "nix flake update && nix develop && z";
+      "ns" = "nix-shell";
       "n" = "cd ~/.nixos && z";
       "lp" = "cd ~/.lincePessoal && z";
       "lc" = "cd ~/lince && z";
       "x" = "cd ~/xaviduds.github.io && z";
       "dc" = "cd ~/ && z";
+      ".." = "cd ..";
     };
   };
   services = {
