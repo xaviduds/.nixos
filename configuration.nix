@@ -137,6 +137,7 @@
       hyprland
       feh
       firefox
+      gajim
       gimp
       git
       gopls
@@ -148,10 +149,13 @@
       man
       marksman
       mesa
+      mkcert
       neofetch
       nil
       nodePackages.bash-language-server
       nodePackages.typescript-language-server
+      nss
+      obs-studio
       obsidian
       pavucontrol
       postgresql
