@@ -8,7 +8,7 @@
     loader = {
       systemd-boot = {
         enable = true;
-        configurationLimit = 20;
+        configurationLimit = 50;
       };
       efi.canTouchEfiVariables = true;
     };
@@ -77,18 +77,18 @@
   };
 
   networking = {
-    wireless.iwd = {
-      enable = true;
-      settings = {
+    # wireless.iwd = {
+    #   enable = true;
+    #   settings = {
 
-        IPv6 = { Enabled = true; };
-        Settings = { AutoConnect = true; };
-      };
-    };
+    #     IPv6 = { Enabled = true; };
+    #     Settings = { AutoConnect = true; };
+    #   };
+    # };
     hostName = "nixos";
     networkmanager = {
       enable = true;
-      wifi.backend = "iwd";
+      # wifi.backend = "iwd";
     };
   };
 
@@ -116,9 +116,12 @@
 
   security.rtkit.enable = true;
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
 
-  fonts.packages = with pkgs; [ nerdfonts ];
+  fonts.packages = with pkgs;
+    [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
 
   environment = {
     systemPackages = with pkgs; [
@@ -127,6 +130,7 @@
       bat
       brightnessctl
       btop
+      diskonaut
       eza
       gnome.adwaita-icon-theme
       helix
@@ -163,7 +167,6 @@
       zls
       waybar
       wireplumber
-      where-is-my-sddm-theme
       wl-clipboard
       yazi
     ];
@@ -197,6 +200,18 @@
     };
   };
   services = {
+    # nginx = {
+    #   enable = true;
+    #   virtualHosts."localhost" = {
+    #     enable = true;
+    #     root = "~/xaviduds.github.io/index.html";
+    #     ssl = {
+    #       enable = true;
+    #       certificate = "~/.secrets/cert.pem";
+    #       certificateKey = "~/.secrets/key.pem";
+    #     };
+    #   };
+    # };
     postgresql = {
       enable = true;
       ensureDatabases = [ "lince" ];
@@ -209,10 +224,13 @@
     };
     xserver = {
       enable = true;
-      displayManager.sddm = {
-        enable = true;
-        theme = "where-is-my-sddm-theme";
+      displayManager = {
+        sddm = {
+          enable = true;
+          wayland.enable = true;
+        };
       };
+      # desktopManager.plasma6.enable = true;
     };
     pipewire = {
       enable = true;
