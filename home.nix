@@ -15,21 +15,20 @@ let
     white = "#${white}";
   };
 in {
-imports = [
-  inputs.impermanence.nixosModules.home-manager.impermanence
-];
+  imports = [ inputs.impermanence.nixosModules.home-manager.impermanence ];
   home = {
-  persistence."/persist/home/eduardo" = {
-    directories = [
-    ".nixos"
-    ".lincePessoal"
-    "lince"
-    "xaviduds.github.io"
-      ".ssh"
-      ".mozilla"
-    ];
-    allowOther = true;
-  };
+    persistence."/persist/home/eduardo" = {
+      directories = [
+        ".nixos"
+        ".lincePessoal"
+        "lince"
+        "xaviduds.github.io"
+        ".ssh"
+        ".mozilla"
+        ".secrets"
+      ];
+      allowOther = true;
+    };
     username = "eduardo";
     homeDirectory = "/home/eduardo";
     stateVersion = "23.11";
