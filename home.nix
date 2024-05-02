@@ -78,6 +78,7 @@ in {
         "SUPER, O, exec, obsidian"
         "SUPER, G, exec, gimp"
         "SUPER, T, exec, kitty"
+        "SUPER, Y, exec, btop"
         "SUPER, C, killactive"
         "SUPER, V, togglefloating"
         "SUPER, M, exit"
