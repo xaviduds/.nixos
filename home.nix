@@ -26,6 +26,7 @@ in {
         ".ssh"
         ".mozilla"
         ".secrets"
+        ".config/obsidian"
       ];
       allowOther = true;
     };
