@@ -136,6 +136,7 @@
       feh
       firefox
       gajim
+      gh
       gimp
       git
       gopls
@@ -148,9 +149,9 @@
       marksman
       mesa
       mkcert
-      neofetch
       nil
       nodePackages.bash-language-server
+      nodePackages_latest.nodejs
       nodePackages.typescript-language-server
       nss
       obs-studio
