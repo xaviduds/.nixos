@@ -8,7 +8,7 @@
     loader = {
       systemd-boot = {
         enable = true;
-        configurationLimit = 50;
+        configurationLimit = 20;
       };
       efi.canTouchEfiVariables = true;
     };
@@ -38,7 +38,7 @@
         btrfs subvolume delete "$1"
     }
 
-    for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +14); do
+    for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +7); do
         delete_subvolume_recursively "$i"
     done
 
@@ -116,9 +116,7 @@
 
   security.rtkit.enable = true;
 
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
+  nixpkgs.config = { allowUnfree = true; };
 
   fonts.packages = with pkgs;
     [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
@@ -265,6 +263,10 @@
   ];
 
   nix = {
+    optimise = {
+      automatic = true;
+      dates = [ "02:00" ];
+    };
     settings = {
       auto-optimise-store = true;
       experimental-features = [ "nix-command" "flakes" ];
@@ -276,6 +278,19 @@
     };
   };
 
-  system = { stateVersion = "23.11"; };
+  system = {
+    autoUpgrade = {
+      enable = true;
+      flake = inputs.self.outPath;
+      flags = [
+        "--update-input"
+        "nixpkgs"
+        "-L" # print build logs
+      ];
+      dates = "02:00";
+      randomizedDelaySec = "45min";
+    };
+    stateVersion = "23.11";
+  };
 }
 
