@@ -39,6 +39,7 @@ in {
         window { border: 1px; border-color: #${white}; }
         inputbar { children: [prompt,entry]; border-radius: 5px; padding: 2px; }
         prompt { border-radius: 3px; } '';
+      ".config/lazygit/config.yml".source = ./lazygit.yml;
     };
   };
 
