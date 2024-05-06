@@ -101,9 +101,9 @@
 
   sound.enable = true;
 
-  hardware.pulseaudio.enable = false;
+  hardware = { pulseaudio.enable = false; };
 
-  security.rtkit.enable = true;
+  security = { rtkit.enable = true; };
 
   nixpkgs.config = { allowUnfree = true; };
 
@@ -191,6 +191,7 @@
       ".." = "cd ..";
     };
   };
+
   services = {
     postgresql = {
       enable = true;
