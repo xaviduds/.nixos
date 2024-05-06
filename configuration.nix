@@ -114,7 +114,9 @@
     systemPackages = with pkgs; [
       acpi
       alacritty
+      ansible-language-server
       bat
+      bottles
       brightnessctl
       btop
       diskonaut
@@ -150,9 +152,13 @@
       python311Packages.python-lsp-server
       rofi-wayland
       rust-analyzer
+      rustc
+      rustfmt
+      rustup
       starship
       swww
       tmux
+      unrar
       unzip
       vscode-langservers-extracted
       zip
@@ -160,6 +166,7 @@
       waybar
       wireplumber
       wl-clipboard
+      yaml-language-server
       yazi
     ];
     shellAliases = {
