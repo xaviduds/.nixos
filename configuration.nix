@@ -77,19 +77,8 @@
   };
 
   networking = {
-    # wireless.iwd = {
-    #   enable = true;
-    #   settings = {
-
-    #     IPv6 = { Enabled = true; };
-    #     Settings = { AutoConnect = true; };
-    #   };
-    # };
     hostName = "nixos";
-    networkmanager = {
-      enable = true;
-      # wifi.backend = "iwd";
-    };
+    networkmanager = { enable = true; };
   };
 
   time.timeZone = "America/Sao_Paulo";
