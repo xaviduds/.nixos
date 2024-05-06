@@ -184,6 +184,7 @@
       "nd" = "nix flake update && nix develop && z";
       "ns" = "nix-shell";
       "n" = "cd ~/.nixos && z";
+      "sc" = "cd ~/.secrets && z";
       "lp" = "cd ~/.lincePessoal && z";
       "lc" = "cd ~/lince && z";
       "x" = "cd ~/xaviduds.github.io && z";
