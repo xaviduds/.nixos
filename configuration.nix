@@ -203,18 +203,6 @@
     };
   };
   services = {
-    # nginx = {
-    #   enable = true;
-    #   virtualHosts."localhost" = {
-    #     enable = true;
-    #     root = "~/xaviduds.github.io/index.html";
-    #     ssl = {
-    #       enable = true;
-    #       certificate = "~/.secrets/cert.pem";
-    #       certificateKey = "~/.secrets/key.pem";
-    #     };
-    #   };
-    # };
     postgresql = {
       enable = true;
       ensureDatabases = [ "lince" ];
