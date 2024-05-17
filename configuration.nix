@@ -18,7 +18,7 @@
     isNormalUser = true;
     description = "eduardo";
     initialPassword = "1";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" ];
   };
 
   boot.initrd.postDeviceCommands = lib.mkAfter ''
@@ -38,7 +38,7 @@
         btrfs subvolume delete "$1"
     }
 
-    for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +7); do
+    for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +2); do
         delete_subvolume_recursively "$i"
     done
 
@@ -73,7 +73,18 @@
   programs = {
     hyprland.enable = true;
     dconf.enable = true;
+    virt-manager.enable = true;
+    steam.enable = true;
+    gamemode.enable = true;
     fuse.userAllowOther = true;
+  };
+
+  virtualisation = {
+    docker = {
+      enable = true;
+      storageDriver = "btrfs";
+    };
+    libvirtd.enable = true;
   };
 
   networking = {
@@ -101,7 +112,14 @@
 
   sound.enable = true;
 
-  hardware = { pulseaudio.enable = false; };
+  hardware = {
+    opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+    };
+    pulseaudio.enable = false;
+  };
 
   security = { rtkit.enable = true; };
 
@@ -120,10 +138,14 @@
       brightnessctl
       btop
       diskonaut
+      docker
+      docker-compose
       eza
+      google-chrome
       gnome.adwaita-icon-theme
       helix
       hyprland
+      fastfetch
       feh
       firefox
       gajim
@@ -136,19 +158,24 @@
       lazygit
       libreoffice
       lua-language-server
+      lutris
       man
       marksman
       mesa
       mkcert
       nil
+      nnn
       nodePackages.bash-language-server
       nodePackages_latest.nodejs
       nodePackages.typescript-language-server
       nss
       obs-studio
       obsidian
+      openssl
       pavucontrol
+      pgmodeler
       postgresql
+      protonup
       python311Packages.python-lsp-server
       rofi-wayland
       rust-analyzer
@@ -164,11 +191,19 @@
       zip
       zls
       waybar
+      waydroid
+      winetricks
+      wineWowPackages.stable
+      wineWowPackages.waylandFull
       wireplumber
       wl-clipboard
       yaml-language-server
       yazi
     ];
+    sessionVariables = {
+      STEAM_EXTRA_COMPAT_TOOLS_PATHS =
+        "/home/eduardo/.steam/root/compatibilitytools.d";
+    };
     shellAliases = {
       "sshgithub" =
         "rm -rf ~/.ssh && ssh-keygen -t ed25519 -C 'xaviduds@gmail.com' && eval '$(ssh-agent -s)' && ssh-add ~/.ssh/id_ed25519 && cat ~/.ssh/id_ed25519.pub";
@@ -192,6 +227,7 @@
       "ns" = "nix-shell";
       "n" = "cd ~/.nixos && z";
       "sc" = "cd ~/.secrets && z";
+      "pro" = "cd ~/.projects && z";
       "lp" = "cd ~/.lincePessoal && z";
       "lc" = "cd ~/lince && z";
       "x" = "cd ~/xaviduds.github.io && z";
@@ -213,6 +249,7 @@
     };
     xserver = {
       enable = true;
+      videoDrivers = [ "intel" ];
       displayManager = {
         sddm = {
           enable = true;

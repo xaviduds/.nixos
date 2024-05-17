@@ -19,6 +19,8 @@ in {
   home = {
     persistence."/persist/home/eduardo" = {
       directories = [
+        ".local/state/lazygit"
+        ".local/share/bottles"
         ".nixos"
         ".lincePessoal"
         "lince"
@@ -26,7 +28,9 @@ in {
         ".ssh"
         ".mozilla"
         ".secrets"
+        ".projects"
         ".config/obsidian"
+        ".config/pulse"
       ];
       allowOther = true;
     };
@@ -123,7 +127,7 @@ in {
         "SUPER, Print, exec, gscreenshot --selection"
         ", XF86AudioRaiseVolume,exec, volume --inc"
         ", XF86AudioLowerVolume,exec, volume --dec"
-        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && pkill waybar && waybar"
         ", XF86MonBrightnessUp, exec, brightnessctl s +5%"
         ", XF86MonBrightnessDown, exec, brightnessctl s 5%-"
       ];
@@ -131,6 +135,10 @@ in {
   };
   dconf.settings = {
     "org/gnome/desktop/interface" = { color-scheme = "prefer-dark"; };
+    "org/virt-manager/virt-manager/connections" = {
+      autoconnect = [ "qemu:///system" ];
+      uris = [ "qemu:///system" ];
+    };
   };
   gtk = {
     enable = true;
