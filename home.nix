@@ -20,7 +20,6 @@ in {
     persistence."/persist/home/eduardo" = {
       directories = [
         ".local/state/lazygit"
-        ".local/share/bottles"
         ".nixos"
         ".lincePessoal"
         "lince"
@@ -28,7 +27,7 @@ in {
         ".ssh"
         ".mozilla"
         ".secrets"
-        ".projects"
+        "projects"
         ".config/obsidian"
         ".config/pulse"
       ];
