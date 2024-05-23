@@ -12,39 +12,31 @@
       };
       efi.canTouchEfiVariables = true;
     };
+    initrd.postDeviceCommands = lib.mkAfter ''
+      mkdir /btrfs_tmp
+      mount /dev/root_vg/root /btrfs_tmp
+      if [[ -e /btrfs_tmp/root ]]; then
+          mkdir -p /btrfs_tmp/old_roots
+          timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%-d_%H:%M:%S")
+          mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
+      fi
+
+      delete_subvolume_recursively() {
+          IFS=$'\n'
+          for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
+              delete_subvolume_recursively "/btrfs_tmp/$i"
+          done
+          btrfs subvolume delete "$1"
+      }
+
+      for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +2); do
+          delete_subvolume_recursively "$i"
+      done
+
+      btrfs subvolume create /btrfs_tmp/root
+      umount /btrfs_tmp
+    '';
   };
-
-  users.users.eduardo = {
-    isNormalUser = true;
-    description = "eduardo";
-    initialPassword = "1";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" ];
-  };
-
-  boot.initrd.postDeviceCommands = lib.mkAfter ''
-    mkdir /btrfs_tmp
-    mount /dev/root_vg/root /btrfs_tmp
-    if [[ -e /btrfs_tmp/root ]]; then
-        mkdir -p /btrfs_tmp/old_roots
-        timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%-d_%H:%M:%S")
-        mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
-    fi
-
-    delete_subvolume_recursively() {
-        IFS=$'\n'
-        for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
-            delete_subvolume_recursively "/btrfs_tmp/$i"
-        done
-        btrfs subvolume delete "$1"
-    }
-
-    for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +2); do
-        delete_subvolume_recursively "$i"
-    done
-
-    btrfs subvolume create /btrfs_tmp/root
-    umount /btrfs_tmp
-  '';
 
   fileSystems."/persist".neededForBoot = true;
   environment.persistence."/persist/system" = {
@@ -74,8 +66,6 @@
     hyprland.enable = true;
     dconf.enable = true;
     virt-manager.enable = true;
-    steam.enable = true;
-    gamemode.enable = true;
     fuse.userAllowOther = true;
   };
 
@@ -90,6 +80,13 @@
   networking = {
     hostName = "nixos";
     networkmanager = { enable = true; };
+  };
+
+  users.users.eduardo = {
+    isNormalUser = true;
+    description = "eduardo";
+    initialPassword = "1";
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" ];
   };
 
   time.timeZone = "America/Sao_Paulo";
@@ -134,7 +131,6 @@
       alacritty
       ansible-language-server
       bat
-      bottles
       brightnessctl
       btop
       diskonaut
@@ -145,7 +141,6 @@
       gnome.adwaita-icon-theme
       helix
       hyprland
-      fastfetch
       feh
       firefox
       gajim
@@ -158,24 +153,20 @@
       lazygit
       libreoffice
       lua-language-server
-      lutris
       man
       marksman
       mesa
-      mkcert
       nil
-      nnn
       nodePackages.bash-language-server
       nodePackages_latest.nodejs
       nodePackages.typescript-language-server
-      nss
       obs-studio
       obsidian
       openssl
       pavucontrol
       pgmodeler
       postgresql
-      protonup
+      pv
       python311Packages.python-lsp-server
       rofi-wayland
       rust-analyzer
@@ -183,6 +174,7 @@
       rustfmt
       rustup
       starship
+      stremio
       swww
       tmux
       unrar
@@ -192,37 +184,31 @@
       zls
       waybar
       waydroid
-      winetricks
-      wineWowPackages.stable
-      wineWowPackages.waylandFull
       wireplumber
       wl-clipboard
       yaml-language-server
       yazi
     ];
-    sessionVariables = {
-      STEAM_EXTRA_COMPAT_TOOLS_PATHS =
-        "/home/eduardo/.steam/root/compatibilitytools.d";
-    };
     shellAliases = {
       "sshgithub" =
         "rm -rf ~/.ssh && ssh-keygen -t ed25519 -C 'xaviduds@gmail.com' && eval '$(ssh-agent -s)' && ssh-add ~/.ssh/id_ed25519 && cat ~/.ssh/id_ed25519.pub";
-      "u" =
+      "s" = "if [ -d .git ]; then git status; fi";
+      "z" =
+        "clear && eza -T -L 2 --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
+      "u" = "sudo nix flake update ~/.nixos/";
+      "b" = "sudo nixos-rebuild switch --flake ~/.nixos#default --impure";
+      "ub" =
         "sudo nix flake update ~/.nixos/ && sudo nixos-rebuild switch --flake ~/.nixos#default --impure";
-      "jn" = "jupyter notebook";
       "t" = "tmux";
       "h" = "hx";
       "y" = "yazi";
       "aa" = "git add .";
-      "s" = "if [ -d .git ]; then git status; fi";
       "p" = "git push";
       "gp" = "git pull";
       "a" = "git add";
       "c" = "git commit";
       "lg" = "lazygit";
       "e" = "exit";
-      "z" =
-        "clear && eza -T -L 2 --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
       "nd" = "nix flake update && nix develop && z";
       "ns" = "nix-shell";
       "n" = "cd ~/.nixos && z";
@@ -233,6 +219,7 @@
       "x" = "cd ~/xaviduds.github.io && z";
       "dc" = "cd ~/ && z";
       ".." = "cd ..";
+      "pvp" = "pv -p -t -e -I -r -a -b";
     };
   };
 
@@ -249,7 +236,6 @@
     };
     xserver = {
       enable = true;
-      videoDrivers = [ "intel" ];
       displayManager = {
         sddm = {
           enable = true;
