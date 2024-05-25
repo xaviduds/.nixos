@@ -38,6 +38,13 @@
     '';
   };
 
+  users.users.eduardo = {
+    isNormalUser = true;
+    description = "eduardo";
+    initialPassword = "1";
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" ];
+  };
+
   fileSystems."/persist".neededForBoot = true;
   environment.persistence."/persist/system" = {
     hideMounts = true;
@@ -80,13 +87,6 @@
   networking = {
     hostName = "nixos";
     networkmanager = { enable = true; };
-  };
-
-  users.users.eduardo = {
-    isNormalUser = true;
-    description = "eduardo";
-    initialPassword = "1";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" ];
   };
 
   time.timeZone = "America/Sao_Paulo";
@@ -191,7 +191,7 @@
     ];
     shellAliases = {
       "sshgithub" =
-        "rm -rf ~/.ssh && ssh-keygen -t ed25519 -C 'xaviduds@gmail.com' && eval '$(ssh-agent -s)' && ssh-add ~/.ssh/id_ed25519 && cat ~/.ssh/id_ed25519.pub";
+        "ssh-keygen -t ed25519 -C 'xaviduds@gmail.com' && eval '$(ssh-agent -s)' && ssh-add ~/.ssh/id_ed25519 && cat ~/.ssh/id_ed25519.pub";
       "s" = "if [ -d .git ]; then git status; fi";
       "z" =
         "clear && eza -T -L 2 --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
@@ -219,7 +219,6 @@
       "x" = "cd ~/xaviduds.github.io && z";
       "dc" = "cd ~/ && z";
       ".." = "cd ..";
-      "pvp" = "pv -p -t -e -I -r -a -b";
     };
   };
 
