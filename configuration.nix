@@ -210,6 +210,7 @@
       "lp" = "cd ~/.lincePessoal && z";
       "lc" = "cd ~/lince && z";
       "x" = "cd ~/xaviduds.github.io && z";
+      "co" = "cd ~/.config && eza";
       "dc" = "cd ~/ && z";
       ".." = "cd ..";
     };
