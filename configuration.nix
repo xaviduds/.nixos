@@ -207,7 +207,7 @@
       "n" = "cd ~/.nixos && z";
       "sc" = "cd ~/.secrets && z";
       "pro" = "cd ~/projects && z";
-      "lp" = "cd ~/.lincePessoal && z";
+      "lp" = "cd ~/.lince_pessoal && z";
       "lc" = "cd ~/lince && z";
       "x" = "cd ~/xaviduds.github.io && z";
       "co" = "cd ~/.config && eza";
