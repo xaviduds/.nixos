@@ -21,7 +21,7 @@ in {
       directories = [
         ".local/state/lazygit"
         ".nixos"
-        ".lincePessoal"
+        ".lince_pessoal"
         "lince"
         "xaviduds.github.io"
         ".ssh"
@@ -29,6 +29,7 @@ in {
         ".secrets"
         "projects"
         ".config/obsidian"
+        ".config/gh"
         ".config/pulse"
       ];
       allowOther = true;
