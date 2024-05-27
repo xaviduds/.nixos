@@ -123,7 +123,6 @@
       acpi
       alacritty
       ansible-language-server
-      bat
       brightnessctl
       btop
       diskonaut
