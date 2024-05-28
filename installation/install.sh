@@ -1,6 +1,7 @@
 #!/bin/bash
 
 sudo su
+
  read -pr "NixOS install script.
 [1] Partitioning with disko and nixos install with impermanence.
 [2] Configuring after install and reboot
@@ -8,13 +9,13 @@ Your answer: " answer
 
 case $answer in  
 1) curl https://raw.githubusercontent.com/xaviduds/.nixos/main/disko.nix -o /tmp/disko.nix
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko.nix --arg device '"/dev/nvme0n1"'
-sudo nixos-generate-config --no-filesystems --root /mnt
-sudo mv /tmp/disko.nix /mnt/etc/nixos/
+nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko.nix --arg device '"/dev/nvme0n1"'
+nixos-generate-config --no-filesystems --root /mnt
+mv /tmp/disko.nix /mnt/etc/nixos/
 curl https://raw.githubusercontent.com/xaviduds/.nixos/main/installation/flake.nix -o /mnt/etc/nixos
 curl https://raw.githubusercontent.com/xaviduds/.nixos/main/installation/configuration.nix -o /mnt/etc/nixos
-sudo cp -r /mnt/etc/nixos /persist
-sudo nixos-install --root /mnt --flake /mnt/etc/nixos#default
+cp -r /mnt/etc/nixos /persist
+nixos-install --root /mnt --flake /mnt/etc/nixos#nixos
 reboot ;;
 
 2) sudo rm -rf /etc/nixos/*
@@ -26,4 +27,4 @@ case $answer in
   git clone git@github.com:xaviduds/xaviduds.github.io.git ~/xaviduds.github.io
   git clone git@github.com:xaviduds/.lince_pessoal.git ~/.lince_pessoal
   git clone git@github.com:lince-social/lince.git ~/lince ;; esac done
-sudo nix flake update ~/.nixos/ && sudo nixos-rebuild switch --flake ~/.nixos#default --impure && reboot ;; esac
+nix flake update ~/.nixos/ && nixos-rebuild switch --flake ~/.nixos#nixos--impure && reboot ;; esac
