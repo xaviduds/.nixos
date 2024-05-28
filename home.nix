@@ -58,6 +58,7 @@ in {
         "waybar"
         "swww-daemon"
         "swww img ~/.nixos/wallpaper.png"
+        "export NIXPKGS_ALLOW_UNFREE=1"
       ];
       input = {
         kb_layout = "br";
@@ -204,6 +205,28 @@ in {
         tmux
         clear
       '';
+    };
+    firefox = {
+      enable = true;
+      profiles.default = {
+        settings = {
+          "browser.download.panel.shown" = true;
+          "signon.rememberSignons" = false;
+        };
+        userChrome = ''
+          /* Some css */
+          body {background-color: #000000;}
+        '';
+        extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
+          darkreader
+          enhancer-for-youtube
+          onetab
+          privacy-badger
+          ublock-origin
+          videospeed
+          web-archives
+        ];
+      };
     };
 
     git = {
