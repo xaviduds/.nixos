@@ -191,10 +191,8 @@
       "s" = "if [ -d .git ]; then git status; fi";
       "z" =
         "clear && eza -T -L 2 --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
-      "u" = "sudo nix flake update ~/.nixos/";
-      "b" = "sudo nixos-rebuild switch --flake ~/.nixos#default --impure";
-      "ub" =
-        "sudo nix flake update ~/.nixos/ && sudo nixos-rebuild switch --flake ~/.nixos#default --impure";
+      "bah" = "nh os switch -u -- --impure && nh clean all";
+      "b" = "nh os switch -- --impure";
       "t" = "tmux";
       "h" = "hx";
       "y" = "yazi";
