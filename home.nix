@@ -370,9 +370,9 @@ in {
       settings = [{
         layer = "top";
         position = "bottom";
-        modules-left = [ ];
+        modules-left = [ "disk" "memory" "cpu" "temperature" ];
         modules-center = [ "hyprland/workspaces" ];
-        modules-right = [ "memory" "pulseaudio" "network" "clock" "battery" ];
+        modules-right = [ "pulseaudio" "network" "clock" "battery" ];
         "hyprland/workspaces" = {
           format = "{icon} {name}";
           format-icons = {
@@ -386,6 +386,18 @@ in {
         "hyprland/window" = {
           max-length = 50;
           separate-outputs = false;
+        };
+        "temperature" = {
+          interval = 60;
+          format = " {temperatureC}°C";
+        };
+        "disk" = {
+          interval = 60;
+          format = "{used}/{total} ";
+        };
+        "cpu" = {
+          interval = 60;
+          format = " {usage}% ";
         };
         "memory" = {
           interval = 60;
