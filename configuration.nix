@@ -126,7 +126,6 @@
       ansible-language-server
       brightnessctl
       btop
-      diskonaut
       docker
       docker-compose
       eza
@@ -149,6 +148,7 @@
       man
       marksman
       mesa
+      ncdu
       nh
       nil
       nix-output-monitor
