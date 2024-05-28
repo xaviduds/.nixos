@@ -15,8 +15,8 @@
     };
   };
 
-    nixosConfigurations.default = nixpkgs.lib.nixosSystem {
   outputs = { nixpkgs, ... }@inputs: {
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       modules = [
         inputs.disko.nixosModules.default

@@ -119,6 +119,7 @@
     [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
 
   environment = {
+    sessionVariables = { FLAKE = "/home/eduardo/.nixos"; };
     systemPackages = with pkgs; [
       acpi
       alacritty
@@ -148,10 +149,13 @@
       man
       marksman
       mesa
+      nh
       nil
+      nix-output-monitor
       nodePackages.bash-language-server
       nodePackages_latest.nodejs
       nodePackages.typescript-language-server
+      nvd
       obs-studio
       obsidian
       openssl
