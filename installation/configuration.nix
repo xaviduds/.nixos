@@ -42,9 +42,4 @@
   '';
 
   programs.fuse.userAllowOther = true;
-  home-manager = {
-    extraSpecialArgs = { inherit inputs; };
-    users = { "eduardo" = import ./home.nix; };
-  };
-
 }
