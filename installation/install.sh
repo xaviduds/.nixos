@@ -20,5 +20,5 @@ C)
           git clone git@github.com:xaviduds/xaviduds.github.io.git ~/xaviduds.github.io
           git clone git@github.com:xaviduds/.lince_pessoal.git ~/.lince_pessoal
           git clone git@github.com:lince-social/lince.git ~/lince
-        nix flake update ~/.nixos/ && nixos-rebuild boot --flake ~/.nixos#default--impure && reboot ;;
+        nix flake --extra-experimental-features "nix-command flakes" update ~/.nixos/ && nixos-rebuild boot --flake ~/.nixos#default--impure && reboot ;;
 esac
