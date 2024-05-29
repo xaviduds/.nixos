@@ -1,5 +1,6 @@
 #!/bin/bash
 read -p " [I]nstall or [C]" -r answer
+
 case $answer in
 I)
     echo "Partitioning with disko and nixos install with impermanence..."
@@ -20,3 +21,4 @@ I)
           git clone git@github.com:xaviduds/.lince_pessoal.git ~/.lince_pessoal
           git clone git@github.com:lince-social/lince.git ~/lince
         nix flake update ~/.nixos/ && nixos-rebuild boot --flake ~/.nixos#default--impure && reboot ;;
+esac
