@@ -1,5 +1,5 @@
 #!/bin/bash
-read -p " [I]nstall or [C]lone repos and build" -r answer
+read -p "NixOS Install script, what do you want? [I]nstall or [C]lone repos and build: " -r answer
 
 case $answer in
 I)
