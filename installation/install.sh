@@ -16,9 +16,9 @@ I)
     sudo rm -rf /etc/nixos/*
     ssh-keygen -t ed25519 -C 'xaviduds@gmail.com' && eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519 && cat ~/.ssh/id_ed25519.pub ;;
 C)
-          git clone git@github.com:xaviduds/.nixos.git ~/.nixos
-          git clone git@github.com:xaviduds/xaviduds.github.io.git ~/xaviduds.github.io
-          git clone git@github.com:xaviduds/.lince_pessoal.git ~/.lince_pessoal
-          git clone git@github.com:lince-social/lince.git ~/lince
+          git clone git@github.com:xaviduds/.nixos.git /home/eduardo/.nixos
+          git clone git@github.com:xaviduds/xaviduds.github.io.git /home/eduardo/xaviduds.github.io
+          git clone git@github.com:xaviduds/.lince_pessoal.git /home/eduardo/.lince_pessoal
+          git clone git@github.com:lince-social/lince.git /home/eduardo/lince
         nix flake --extra-experimental-features "nix-command flakes" update ~/.nixos/ && nixos-rebuild boot --flake ~/.nixos#default--impure && reboot ;;
 esac
