@@ -23,7 +23,7 @@
     nixosConfigurations.default = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       modules = [
-        inputs.disko.nixosModules.nixos
+        inputs.disko.nixosModules.default
         (import ./disko.nix { device = "/dev/nvme0n1"; })
 
         ./configuration.nix
