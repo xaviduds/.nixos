@@ -41,5 +41,9 @@
     umount /btrfs_tmp
   '';
 
+services.xserver.enable = true;
+services.xserver.displayManager.sddm.enable = true;
+services.xserver.desktopManager.plasma5.enable = true;
+
   programs.fuse.userAllowOther = true;
 }
