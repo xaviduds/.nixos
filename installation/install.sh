@@ -13,10 +13,11 @@ case $answer in
     nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko.nix --arg device '"/dev/nvme0n1"'
     nixos-generate-config --no-filesystems --root /mnt
     mv /tmp/disko.nix /mnt/etc/nixos/
+    nix flake init --template github:vimjoyer/impermanent-setup
     curl https://raw.githubusercontent.com/xaviduds/.nixos/main/installation/flake.nix -o /mnt/etc/nixos/flake.nix
     curl https://raw.githubusercontent.com/xaviduds/.nixos/main/installation/configuration.nix -o /mnt/etc/nixos/configuration.nix
-    cp -r /mnt/etc/nixos /persist
-    nixos-install --root /mnt --flake /mnt/etc/nixos#nixos
+    cp -r /mnt/etc/nixos /mnt/persist
+    nixos-install --root /mnt --flake /mnt/etc/nixos#default
     ;;
   2)
     echo "Configuring after install and reboot..."
@@ -34,5 +35,5 @@ case $answer in
         *) ;;
       esac
     done
-    nix flake update ~/.nixos/ && nixos-rebuild switch --flake ~/.nixos#nixos--impure && reboot ;;
+    nix flake update ~/.nixos/ && nixos-rebuild switch --flake ~/.nixos#default--impure && reboot ;;
 esac
