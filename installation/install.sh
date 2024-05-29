@@ -22,4 +22,4 @@
           break ;;
         *) ;;
       esac
-    nix flake update ~/.nixos/ && nixos-rebuild boot --flake ~/.nixos#default--impure && reboot ;;
+    nix flake update ~/.nixos/ && nixos-rebuild boot --flake ~/.nixos#default--impure && reboot
