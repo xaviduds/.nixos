@@ -13,7 +13,7 @@ case $answer in
     nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko.nix --arg device '"/dev/nvme0n1"'
     nixos-generate-config --no-filesystems --root /mnt
     mv /tmp/disko.nix /mnt/etc/nixos/
-    nix flake init --template github:vimjoyer/impermanent-setup
+    nix flake init --template github:vimjoyer/impermanent-setup --extra-experimental-features "nix-command flakes"
     curl https://raw.githubusercontent.com/xaviduds/.nixos/main/installation/flake.nix -o /mnt/etc/nixos/flake.nix
     curl https://raw.githubusercontent.com/xaviduds/.nixos/main/installation/configuration.nix -o /mnt/etc/nixos/configuration.nix
     cp -r /mnt/etc/nixos /mnt/persist
