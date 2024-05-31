@@ -191,7 +191,8 @@
       "s" = "if [ -d .git ]; then git status; fi";
       "z" =
         "clear && eza -T -L 2 --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
-      "bah" = "nh os switch -u -- --impure && nh clean all";
+      "bah" =
+        "export NIXPKGS_ALLOW_UNFREE=1 && nh os switch -u -- --impure && nh clean all";
       "b" = "nh os switch -- --impure";
       "t" = "tmux";
       "h" = "hx";
