@@ -67,6 +67,13 @@
     dconf.enable = true;
     virt-manager.enable = true;
     fuse.userAllowOther = true;
+    steam = {
+      enable = true;
+      gamescopeSession.enable = true;
+      remotePlay.openFirewall = true;
+      dedicatedServer.openFirewall = true;
+    };
+    gamemode.enable = true;
   };
 
   virtualisation = {
@@ -113,7 +120,18 @@
 
   security = { rtkit.enable = true; };
 
-  nixpkgs.config = { allowUnfree = true; };
+  nixpkgs = {
+
+    config = {
+      allowUnfree = true;
+      allowUnfreePredicate = pkg:
+        builtins.elem (lib.getName pkg) [
+          "steam"
+          "steam-original"
+          "steam-run"
+        ];
+    };
+  };
 
   fonts.packages = with pkgs;
     [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
@@ -162,6 +180,7 @@
       pavucontrol
       pgmodeler
       postgresql
+      protonup
       pv
       python311Packages.python-lsp-server
       rofi-wayland
@@ -170,12 +189,14 @@
       rustfmt
       rustup
       starship
+      steam
       stremio
       swww
       tmux
       unrar
       unzip
       vscode-langservers-extracted
+      vulkan-tools
       zip
       zls
       waybar
@@ -185,6 +206,10 @@
       yaml-language-server
       yazi
     ];
+    sessionVariables = {
+      STEAM_EXTRA_COMPAT_TOOLS_PATHS =
+        "\${HOME}/.steam/root/compatibilitytools.d";
+    };
     shellAliases = {
       "sshgithub" =
         "ssh-keygen -t ed25519 -C 'xaviduds@gmail.com' && eval '$(ssh-agent -s)' && ssh-add ~/.ssh/id_ed25519 && cat ~/.ssh/id_ed25519.pub";
@@ -193,7 +218,7 @@
         "clear && eza -T -L 2 --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
       "bah" =
         "export NIXPKGS_ALLOW_UNFREE=1 && nh os switch -u -- --impure && nh clean all";
-      "b" = "nh os switch -- --impure";
+      "b" = "export NIXPKGS_ALLOW_UNFREE=1 && nh os switch -- --impure";
       "t" = "tmux";
       "h" = "hx";
       "y" = "yazi";
@@ -231,6 +256,7 @@
     };
     xserver = {
       enable = true;
+      videoDrivers = [ "intel" ];
       displayManager = {
         sddm = {
           enable = true;
