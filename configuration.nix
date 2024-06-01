@@ -321,7 +321,7 @@
       dates = "02:00";
       randomizedDelaySec = "45min";
     };
-    stateVersion = "23.11";
+    stateVersion = "24.04";
   };
 }
 
