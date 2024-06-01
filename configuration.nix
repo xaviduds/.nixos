@@ -67,21 +67,13 @@
     dconf.enable = true;
     virt-manager.enable = true;
     fuse.userAllowOther = true;
-    steam = {
-      enable = true;
-      gamescopeSession.enable = true;
-      remotePlay.openFirewall = true;
-      dedicatedServer.openFirewall = true;
-    };
-    gamemode.enable = true;
   };
-
   virtualisation = {
+    libvirtd.enable = true;
     docker = {
       enable = true;
       storageDriver = "btrfs";
     };
-    libvirtd.enable = true;
   };
 
   networking = {
@@ -109,29 +101,11 @@
 
   sound.enable = true;
 
-  hardware = {
-    opengl = {
-      enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
-    };
-    pulseaudio.enable = false;
-  };
+  hardware = { pulseaudio.enable = false; };
 
   security = { rtkit.enable = true; };
 
-  nixpkgs = {
-
-    config = {
-      allowUnfree = true;
-      allowUnfreePredicate = pkg:
-        builtins.elem (lib.getName pkg) [
-          "steam"
-          "steam-original"
-          "steam-run"
-        ];
-    };
-  };
+  nixpkgs = { config = { allowUnfree = true; }; };
 
   fonts.packages = with pkgs;
     [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
@@ -180,7 +154,6 @@
       pavucontrol
       pgmodeler
       postgresql
-      protonup
       pv
       python311Packages.python-lsp-server
       rofi-wayland
@@ -189,14 +162,11 @@
       rustfmt
       rustup
       starship
-      steam
-      stremio
       swww
       tmux
       unrar
       unzip
       vscode-langservers-extracted
-      vulkan-tools
       zip
       zls
       waybar
@@ -256,14 +226,13 @@
     };
     xserver = {
       enable = true;
-      videoDrivers = [ "intel" ];
       displayManager = {
         sddm = {
           enable = true;
           wayland.enable = true;
         };
       };
-      # desktopManager.plasma6.enable = true;
+      desktopManager.plasma6.enable = true;
     };
     pipewire = {
       enable = true;
@@ -321,7 +290,7 @@
       dates = "02:00";
       randomizedDelaySec = "45min";
     };
-    stateVersion = "24.04";
+    stateVersion = "23.11";
   };
 }
 

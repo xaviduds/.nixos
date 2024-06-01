@@ -31,7 +31,6 @@ in {
         ".config/obsidian"
         ".config/gh"
         ".config/pulse"
-        ".steam"
       ];
       allowOther = true;
     };
