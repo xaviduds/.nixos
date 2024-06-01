@@ -217,6 +217,12 @@ in {
           /* Some css */
           body {background-color: #000000;}
         '';
+        bookmarks = [{
+          name = "whatsapp";
+          tags = [ "whats" ];
+          keyword = "whats";
+          url = "https://web.whatsapp.com/";
+        }];
         extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
           darkreader
           enhancer-for-youtube
