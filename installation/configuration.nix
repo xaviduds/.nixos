@@ -38,8 +38,8 @@
     openssh.enable = true;
     xserver = {
       enable = true;
-      xserver.desktopManager.plasma5.enable = true;
-      xserver.displayManager.sddm.enable = true;
+      desktopManager.plasma5.enable = true;
+      displayManager.sddm.enable = true;
     };
   };
 
