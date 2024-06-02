@@ -36,14 +36,11 @@
 
   services = {
     openssh.enable = true;
-    xserver = {
-      enable = true;
-      desktopManager.plasma5.enable = true;
       displayManager.sddm.enable = true;
-    };
+      desktopManager.plasma5.enable = true;
   };
 
-  system.stateVersion = "23.05"; # Did you read the comment?
+  system.stateVersion = "24.05"; # Did you read the comment?
 
   users.users."eduardo" = {
     isNormalUser = true;
