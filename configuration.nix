@@ -162,6 +162,7 @@
       rustfmt
       rustup
       starship
+      stremio
       swww
       tmux
       unrar
