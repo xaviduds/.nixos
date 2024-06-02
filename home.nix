@@ -401,7 +401,6 @@ in {
           on-click = "maximize";
           on-click-middle = "close";
           on-click-right = "fullscreen";
-          rewrite = { "Firefox Web Browser" = "Firefox"; };
         };
 
         "keyboard-state" = {
@@ -431,7 +430,7 @@ in {
 
         "custom/logo" = { format = " "; };
 
-        "backlight" = { format = " ҉ {percent}% "; };
+        "backlight" = { format = "⛧{percent}% "; };
 
         "idle_inhibitor" = {
           format = "{icon}  ";
@@ -442,12 +441,22 @@ in {
           timeout = 60.0;
         };
 
-        "clock" = { format = "{:%H:%M %d-%m-%Y} "; };
-
-        # "hyprland/window" = {
-        #   max-length = 50;
-        #   separate-outputs = false;
-        # };
+        "clock" = {
+          format = "  {:%H:%M %d-%m-%Y %A} ";
+          tooltip = true;
+          tooltip-format = "<tt><small>{calendar}</small></tt>";
+          "calendar" = {
+            mode = "year";
+            mode-mon-col = 3;
+            weeks-pos = "right";
+            on-scroll = 1;
+          };
+          "actions" = {
+            on-click-right = "mode";
+            on-scroll-up = "shift_up";
+            on-scroll-down = "shift_down";
+          };
+        };
 
         "temperature" = {
           interval = 60;
@@ -457,7 +466,7 @@ in {
 
         "disk" = {
           interval = 60;
-          format = "{used}/{total} ";
+          format = "ᮍ {used}/{total} ";
           on-click = "alacritty -e btop";
         };
 
@@ -477,7 +486,7 @@ in {
           format-icons = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
           format-disconnected = "󰤮";
           format-wifi =
-            "{bandwidthDownBytes} ᮵ {bandwidthUpBytes} {icon} {signalStrength}% ";
+            "᮵ {bandwidthUpBytes} ᮚ {bandwidthDownBytes} {essid} {icon} {signalStrength}% ";
           format-ethernet = " {bandwidthDownOctets}";
           on-click = "kitty -e nmtui";
         };
