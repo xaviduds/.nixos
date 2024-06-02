@@ -371,14 +371,54 @@ in {
     };
 
     waybar = {
+      # δ ⛧  ҉ ම ࠈ Ⲫ ⦵ ⟒ ⟐ ⟁ ₶ᮍ ᨉ ᨖ ᥭ ᱅ ᮵ ᮏ ᮓ ᮚ ᮄ
       enable = true;
       systemd.enable = true;
       settings = [{
         layer = "top";
         position = "bottom";
-        modules-left = [ "disk" "memory" "cpu" "temperature" ];
-        modules-center = [ "hyprland/workspaces" ];
-        modules-right = [ "pulseaudio" "network" "clock" "battery" ];
+        modules-left =
+          [ "custom/logo" "hyprland/workspaces" "wlr/taskbar" "tray" ];
+        modules-right = [
+          "idle_inhibitor"
+          "keyboard-state"
+          "backlight"
+          "pulseaudio"
+          "disk"
+          "memory"
+          "cpu"
+          "temperature"
+          "network"
+          "clock"
+          "battery"
+        ];
+
+        "tray" = { show-passive-items = true; };
+
+        "wlr/taskbar" = {
+          all-outputs = true;
+          format = "{icon}";
+          on-click = "maximize";
+          on-click-middle = "close";
+          on-click-right = "fullscreen";
+          rewrite = { "Firefox Web Browser" = "Firefox"; };
+        };
+
+        "keyboard-state" = {
+          "numlock" = true;
+          "capslock" = true;
+          "format" = {
+            "numlock" = "N {icon} ";
+            "capslock" = "C {icon} ";
+          };
+          "format-icons" = {
+            "locked" = "";
+            "unlocked" = "";
+          };
+        };
+
+        # "bluetooth" = { format = " {status} "; };
+
         "hyprland/workspaces" = {
           format = "{icon} {name}";
           format-icons = {
@@ -388,33 +428,60 @@ in {
           on-scroll-up = "hyprctl dispatch workspace e+1";
           on-scroll-down = "hyprctl dispatch workspace e-1";
         };
-        "clock" = { format = " {:%H:%M %d-%m-%Y} "; };
-        "hyprland/window" = {
-          max-length = 50;
-          separate-outputs = false;
+
+        "custom/logo" = { format = " "; };
+
+        "backlight" = { format = " ҉ {percent}% "; };
+
+        "idle_inhibitor" = {
+          format = "{icon}  ";
+          format-icons = {
+            activated = "";
+            deactivated = "";
+          };
+          timeout = 60.0;
         };
+
+        "clock" = { format = "{:%H:%M %d-%m-%Y} "; };
+
+        # "hyprland/window" = {
+        #   max-length = 50;
+        #   separate-outputs = false;
+        # };
+
         "temperature" = {
           interval = 60;
-          format = " {temperatureC}°C";
+          format = " {temperatureC}°C ";
+          on-click = "alacritty -e btop";
         };
+
         "disk" = {
           interval = 60;
           format = "{used}/{total} ";
+          on-click = "alacritty -e btop";
         };
+
         "cpu" = {
           interval = 60;
           format = " {usage}% ";
+          on-click = "alacritty -e btop";
         };
+
         "memory" = {
           interval = 60;
           format = " {}% ";
+          on-click = "alacritty -e btop";
         };
+
         "network" = {
           format-icons = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
-          format-ethernet = " {bandwidthDownOctets}";
-          format-wifi = "{icon} ";
           format-disconnected = "󰤮";
+          format-wifi =
+            "{bandwidthDownBytes} ᮵ {bandwidthUpBytes} {icon} {signalStrength}% ";
+          format-ethernet = " {bandwidthDownOctets}";
+          on-click = "kitty -e nmtui";
         };
+
         "pulseaudio" = {
           format = "{icon} {volume}% {format_source} ";
           format-muted = "︎︎︎︎︎︎ {︎format_source}";
@@ -426,13 +493,16 @@ in {
           };
           on-click = "pavucontrol";
         };
+
         "battery" = {
-          format = "{icon} ";
+          format = "{icon} {capacity}% ";
           format-charging = "󰂄 {capacity}%";
           format-plugged = "󱘖 {capacity}%";
           format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+          on-click = "alacritty -e btop";
         };
       }];
+
       style = ''
         * {
           border: none;
