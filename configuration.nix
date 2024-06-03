@@ -211,7 +211,6 @@
   };
 
   services = {
-    xserver.enable = true;
     postgresql = {
       enable = true;
       ensureDatabases = [ "lince" ];
@@ -222,7 +221,16 @@
         				host all       all     ::1/128        trust		
         				'';
     };
-    displayManager.sddm.wayland.enable = true;
+    xserver = {
+      enable = true;
+      displayManager = {
+        sddm = {
+          enable = true;
+          wayland.enable = true;
+        };
+      };
+      desktopManager.plasma6.enable = true;
+    };
     pipewire = {
       enable = true;
       alsa.enable = true;
