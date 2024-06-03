@@ -38,9 +38,10 @@
 
   services = {
     openssh.enable = true;
-      displayManager.sddm.wayland.enable = true;
-      desktopManager.plasma6.enable = true;
-  };
+      displayManager.sddm = {
+enable = true;
+wayland.enable = true;
+};  };
 
   system.stateVersion = "24.05"; # Did you read the comment?
 
