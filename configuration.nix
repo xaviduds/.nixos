@@ -221,16 +221,8 @@
         				host all       all     ::1/128        trust		
         				'';
     };
-    xserver = {
-      enable = true;
-      displayManager = {
-        sddm = {
-          enable = true;
-          wayland.enable = true;
-        };
-      };
-      desktopManager.plasma6.enable = true;
-    };
+    displayManager.sddm.wayland.enable = true;
+    desktopManager.plasma6.enable = true;
     pipewire = {
       enable = true;
       alsa.enable = true;
