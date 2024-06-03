@@ -12,7 +12,7 @@ I)
     sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko.nix --arg device '"/dev/nvme0n1"'
     sudo nixos-generate-config --no-filesystems --root /mnt
     sudo mv /tmp/disko.nix /mnt/etc/nixos/
-    sudo nix flake init --template github:xaviduds/.nixos/installation --extra-experimental-features "nix-command flakes"
+    # sudo nix flake init --extra-experimental-features "nix-command flakes"
     sudo curl https://raw.githubusercontent.com/xaviduds/.nixos/main/installation/flake.nix -o /mnt/etc/nixos/flake.nix
     sudo curl https://raw.githubusercontent.com/xaviduds/.nixos/main/installation/configuration.nix -o /mnt/etc/nixos/configuration.nix
     sudo cp -r /mnt/etc/nixos /mnt/persist
