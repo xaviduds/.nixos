@@ -466,27 +466,28 @@ in {
 
         "disk" = {
           interval = 60;
-          format = "ᮍ {used}/{total} ";
+          format = "᠅ {used}/{total} ";
           on-click = "alacritty -e btop";
         };
 
         "cpu" = {
-          interval = 60;
+          interval = 30;
           format = " {usage}% ";
           on-click = "alacritty -e btop";
         };
 
         "memory" = {
-          interval = 60;
+          interval = 30;
           format = " {}% ";
           on-click = "alacritty -e btop";
         };
 
         "network" = {
+          interval = 10;
           format-icons = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
           format-disconnected = "󰤮";
           format-wifi =
-            "᮵ {bandwidthUpBytes} ᮚ {bandwidthDownBytes} {essid} {icon} {signalStrength}% ";
+            "↑ {bandwidthUpBytes} ↓ {bandwidthDownBytes} {essid} {icon} {signalStrength}% ";
           format-ethernet = " {bandwidthDownOctets}";
           on-click = "kitty -e nmtui";
         };
