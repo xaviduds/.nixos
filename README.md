@@ -20,7 +20,7 @@ sudo git clone https://github.com/xaviduds/.nixos.git /mnt/persist/.nixos && sud
 ```
 Second boot - Prepare and build system:
 ```bash
-sudo cp -r /persist/.nixos ~/.nixos && sudo nixos-rebuild boot --flake ~/.nixos#default && reboot
+sudo cp -r /persist/.nixos ~/.nixos && sudo nixos-rebuild boot --flake ~/.nixos#nixos && reboot
 ```
 Third boot - Configure GitHub repo access, then clone repos:
 ```bash
@@ -28,8 +28,8 @@ ssh-keygen -t ed25519 -C 'xaviduds@gmail.com' && eval "$(ssh-agent -s)" && ssh-a
 gh auth login
 ```
 ```bash
-gh repo clone xaviduds/.nixos ~/
-gh repo clone xaviduds/xaviduds.github.io ~/
-gh repo clone xaviduds/.lince_pessoal ~/
-gh repo clone lince-social/lince ~/
+gh repo clone xaviduds/.nixos
+gh repo clone xaviduds/xaviduds.github.io
+gh repo clone xaviduds/.lince_pessoal
+gh repo clone lince-social/lince
 ```
