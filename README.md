@@ -16,12 +16,11 @@ sudo mv /tmp/*.nix /mnt/etc/nixos/ && sudo mv /mnt/etc/nixos /mnt/persist
 sudo nixos-install --root /mnt --flake /mnt/persist/nixos#default
 
 # Clone real repo to a persistent dir and reboot
-git clone https://github.com/xaviduds/.nixos.git /mnt/persist/.nixos && reboot
+sudo git clone https://github.com/xaviduds/.nixos.git /mnt/persist/.nixos && sudo mv /mnt/persist/.nixos/installation/home_second_boot.nix /mnt/persist/.nixos/home.nix && reboot
 ```
 Second boot - Prepare and build system:
 ```bash
-sudo cp -r /persist/.nixos ~/.nixos && mv ~/.nixos/installation/home_second_boot.nix ~/.nixos/home.nix
-sudo nixos-rebuild boot --flake ~/.nixos#default && reboot
+sudo cp -r /persist/.nixos ~/.nixos && sudo nixos-rebuild boot --flake ~/.nixos#default && reboot
 ```
 Third boot - Configure GitHub repo access, then clone repos:
 ```bash
