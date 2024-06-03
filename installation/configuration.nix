@@ -39,7 +39,7 @@
   services = {
     openssh.enable = true;
       displayManager.sddm.enable = true;
-      desktopManager.plasma5.enable = true;
+      desktopManager.plasma6.enable = true;
   };
 
   system.stateVersion = "24.05"; # Did you read the comment?
