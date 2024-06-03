@@ -8,13 +8,13 @@ read -p "[I]nstall | [R]ebuild, [S]SH GitHub config | Repo [C]loning: " -r answe
 case $answer in
 I)
     echo "Partitioning with disko and nixos install with impermanence..."
-    sudo curl https://raw.githubusercontent.com/xaviduds/.nixos/main/disko.nix -o /tmp/disko.nix
+    sudo curl -L https://raw.githubusercontent.com/xaviduds/.nixos/main/disko.nix -o /tmp/disko.nix
     sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko.nix --arg device '"/dev/nvme0n1"'
     sudo nixos-generate-config --no-filesystems --root /mnt
     sudo mv /tmp/disko.nix /mnt/etc/nixos/
     # sudo nix flake init --extra-experimental-features "nix-command flakes"
-    sudo curl https://raw.githubusercontent.com/xaviduds/.nixos/main/installation/flake.nix -o /mnt/etc/nixos/flake.nix
-    sudo curl https://raw.githubusercontent.com/xaviduds/.nixos/main/installation/configuration.nix -o /mnt/etc/nixos/configuration.nix
+    sudo curl -L https://raw.githubusercontent.com/xaviduds/.nixos/main/installation/flake.nix -o /mnt/etc/nixos/flake.nix
+    sudo curl -L https://raw.githubusercontent.com/xaviduds/.nixos/main/installation/configuration.nix -o /mnt/etc/nixos/configuration.nix
     sudo cp -r /mnt/etc/nixos /mnt/persist
     sudo nixos-install --root /mnt --flake /mnt/etc/nixos#default && reboot
     ;;
