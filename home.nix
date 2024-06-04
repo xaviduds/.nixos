@@ -20,6 +20,7 @@ in {
     persistence."/persist/home/eduardo" = {
       directories = [
         ".local/state/lazygit"
+        ".local/share/Smart Code ltd/Stremio"
         ".nixos"
         ".lince_pessoal"
         "lince"
