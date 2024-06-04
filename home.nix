@@ -127,11 +127,12 @@ in {
         "SUPER SHIFT, 9, movetoworkspace, 9"
         "SUPER SHIFT, 0, movetoworkspace, 10"
         "SUPER, Print, exec, gscreenshot --selection"
-        ", XF86AudioRaiseVolume,exec, volume --inc"
-        ", XF86AudioLowerVolume,exec, volume --dec"
-        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && pkill waybar && waybar"
+        ", XF86AudioRaiseVolume,exec, amixer sset -q Master 5%+"
+        ", XF86AudioLowerVolume,exec, amixer sset -q Master 5%-"
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" # && pkill waybar && waybar
         ", XF86MonBrightnessUp, exec, brightnessctl s +5%"
         ", XF86MonBrightnessDown, exec, brightnessctl s 5%-"
+        # ", oidcjsdiojcdoijsdoicj, exec amixer set Capture toggle"
       ];
     };
   };
@@ -497,12 +498,14 @@ in {
           format = "{icon} {volume}% {format_source} ";
           format-muted = "︎︎︎︎︎︎ {︎format_source}";
           format-source = " {volume}%";
-          format-source-muted = "";
+          format-source-muted = " {volume}%";
           format-icons = {
             headphone = "";
-            default = [ " " "" " " ];
+            default = [ "" "" " " ];
           };
           on-click = "pavucontrol";
+          on-click-middle = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+          on-click-right = "amixer set Capture toggle";
         };
 
         "battery" = {
