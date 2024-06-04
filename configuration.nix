@@ -42,7 +42,7 @@
     isNormalUser = true;
     description = "eduardo";
     initialPassword = "1";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" ];
+    extraGroups = [ "audio" "networkmanager" "wheel" "libvirtd" "docker" ];
   };
 
   fileSystems."/persist".neededForBoot = true;
