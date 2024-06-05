@@ -1,39 +1,61 @@
 # My NixOS Setup Process:
-## First boot (from usb):
-###Install
+## Create Bootable USB:
+Go to the NixOS<a href="https://nixos.org/download/#nixos-iso">Download Page</a>, and select the installer you preffer. When the download is finished:
+```bash
+cat NixOS-iso-name-goes-here.iso > /dev/your-device-name (i.e. 'sda')
+```
+After that, just boot from the device.
 
-# Pull install config files
+## First boot (from usb):
+```bash
+# After connecting to the internet, open the terminal and close the GUI installer. Pull install config files:
 sudo curl -L https://raw.githubusercontent.com/xaviduds/.nixos/main/disko.nix -o /tmp/disko.nix
 sudo curl -L https://raw.githubusercontent.com/xaviduds/.nixos/main/installation/flake.nix -o /tmp/flake.nix
 sudo curl -L https://raw.githubusercontent.com/xaviduds/.nixos/main/installation/configuration.nix -o /tmp/configuration.nix
 
-# Scheme
+# Scheme:
 sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko.nix --arg device '"/dev/nvme0n1"'
 sudo nixos-generate-config --no-filesystems --root /mnt
 
-# mv install config files to it`s place
+# mv install config files to it`s place:
 sudo mv /tmp/*.nix /mnt/etc/nixos/ && sudo mv /mnt/etc/nixos /mnt/persist
 
-# Install
+# Install:
 sudo nixos-install --root /mnt --flake /mnt/persist/nixos#default
 
-# Clone real repo to a persistent dir and reboot
-sudo git clone https://github.com/xaviduds/.nixos.git /mnt/persist/.nixos && sudo mv /mnt/persist/.nixos/installation/home_second_boot.nix /mnt/persist/.nixos/home.nix && reboot
+# Clone real repo to a persistent dir:
+sudo git clone https://github.com/xaviduds/.nixos.git /mnt/persist/.nixos
 
-Second boot:
-Prepare and build system
+# Temporarily remove unfree packages untill first real build at second boot:
+sudo mv /mnt/persist/.nixos/installation/home_second_boot.nix /mnt/persist/.nixos/home.nix && reboot
+```
+## Second boot:
+```bash
+# Configure wifi, if not from GUI then:
+nmtui
 
-sudo cp -r /persist/.nixos ~/.nixos && sudo nixos-rebuild boot --flake ~/.nixos#nixos && reboot
+# mv config files to right location:
+sudo mv /persist/.nixos ~/
 
-Third boot:
-Configure GitHub repo access
+# Sometimes 'nixos-rebuild switch' bugs out on first disk boot, so I first build with 'boot'; hence the three boots;
+# Also good to test if Impermanence and Persistance are working correctly:
+sudo nixos-rebuild boot --flake ~/.nixos#nixos
 
+# Cleanup wifi info, sometimes it bugs if you maintain wifi files from before persistence, and reboot
+sudo rm -rf /persist/system/etc/NetworkManager/system-connections/* && reboot
+```
+## Third boot:
+```bash
+# Configure your GitHub SSH Key:
 ssh-keygen -t ed25519 -C 'xaviduds@gmail.com' && eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519 && cat ~/.ssh/id_ed25519.pub
+
+# Set up GitHub CLI:
 gh auth login
-
-Clone repos
-
+```
+```bash
+# Then, after all the keys have been configured, clone the repos:
 gh repo clone xaviduds/.nixos
 gh repo clone xaviduds/xaviduds.github.io
 gh repo clone xaviduds/.lince_pessoal
 gh repo clone lince-social/lince
+```
