@@ -67,6 +67,11 @@
     dconf.enable = true;
     virt-manager.enable = true;
     fuse.userAllowOther = true;
+    steam = {
+      enable = true;
+      gamescopeSession.enable = true;
+    };
+    gamemode.enable = true;
   };
   virtualisation = {
     libvirtd.enable = true;
@@ -101,7 +106,14 @@
 
   sound.enable = true;
 
-  hardware = { pulseaudio.enable = false; };
+  hardware = {
+    opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+    };
+    pulseaudio.enable = false;
+  };
 
   security = { rtkit.enable = true; };
 
@@ -111,11 +123,16 @@
     [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
 
   environment = {
-    sessionVariables = { FLAKE = "/home/eduardo/.nixos"; };
+    sessionVariables = {
+      FLAKE = "/home/eduardo/.nixos";
+      STEAM_EXTRA_COMPAT_TOOLS_PATHS =
+        "\${HOME}/.steam/root/compatibilitytools.d";
+    };
     systemPackages = with pkgs; [
       acpi
       alacritty
       ansible-language-server
+      bottles
       brightnessctl
       btop
       docker
@@ -125,6 +142,7 @@
       gnome.adwaita-icon-theme
       helix
       hyprland
+      fastfetch
       feh
       firefox
       gajim
@@ -137,7 +155,9 @@
       lazygit
       libreoffice
       lua-language-server
+      lutris
       man
+      mangohud
       marksman
       mesa
       ncdu
@@ -154,8 +174,10 @@
       pavucontrol
       pgmodeler
       postgresql
+      protonup
       pv
       python311Packages.python-lsp-server
+      r2modman
       rofi-wayland
       rust-analyzer
       rustc
@@ -183,6 +205,8 @@
       "s" = "if [ -d .git ]; then git status; fi";
       "z" =
         "clear && eza -T -L 2 --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
+      "zl" =
+        "clear && eza -a --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
       "bah" =
         "export NIXPKGS_ALLOW_UNFREE=1 && nh os switch -u -- --impure && nh clean all";
       "b" = "export NIXPKGS_ALLOW_UNFREE=1 && nh os switch -- --impure";

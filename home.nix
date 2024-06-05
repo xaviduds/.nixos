@@ -21,6 +21,8 @@ in {
       directories = [
         ".local/state/lazygit"
         ".local/share/Smart Code ltd/Stremio"
+        ".local/share/bottles"
+        ".stremio-server"
         ".nixos"
         ".lince_pessoal"
         "lince"
