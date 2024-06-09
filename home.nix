@@ -381,8 +381,7 @@ in {
       settings = [{
         layer = "top";
         position = "bottom";
-        modules-left =
-          [ "custom/logo" "hyprland/workspaces" "wlr/taskbar" "tray" ];
+        modules-left = [ "hyprland/workspaces" "wlr/taskbar" "tray" ];
         modules-right = [
           "idle_inhibitor"
           "keyboard-state"
@@ -431,8 +430,6 @@ in {
           on-scroll-up = "hyprctl dispatch workspace e+1";
           on-scroll-down = "hyprctl dispatch workspace e-1";
         };
-
-        "custom/logo" = { format = " "; };
 
         "backlight" = { format = "⛧{percent}% "; };
 
