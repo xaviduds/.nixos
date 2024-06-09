@@ -479,7 +479,7 @@ in {
 
         "memory" = {
           interval = 30;
-          format = " {}% ";
+          format = "  R {}% {avail}GB | S {swapPercentage}% {swapAvail}GB ";
           on-click = "alacritty -e btop";
         };
 
