@@ -57,6 +57,7 @@ in {
       monitor = ",highres,auto,1";
       exec-once = [
         "firefox"
+        "obsidian"
         "pkill waybar"
         "waybar"
         "swww-daemon"
