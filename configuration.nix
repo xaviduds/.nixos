@@ -202,7 +202,12 @@
     shellAliases = {
       "sshgithub" =
         "ssh-keygen -t ed25519 -C 'xaviduds@gmail.com' && eval '$(ssh-agent -s)' && ssh-add ~/.ssh/id_ed25519 && cat ~/.ssh/id_ed25519.pub";
-      "s" = "if [ -d .git ]; then git status; fi";
+      "aa" = "git add .";
+      "p" = "git push";
+      "gp" = "git pull --rebase";
+      "a" = "git add";
+      "c" = "git commit";
+      "s" = "if [ -d .git ]; then git status && gp; fi";
       "z" =
         "clear && eza -T -L 2 --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
       "zl" =
@@ -213,11 +218,6 @@
       "t" = "tmux";
       "h" = "hx";
       "y" = "yazi";
-      "aa" = "git add .";
-      "p" = "git push";
-      "gp" = "git pull";
-      "a" = "git add";
-      "c" = "git commit";
       "lg" = "lazygit";
       "e" = "exit";
       "nd" = "nix flake update && nix develop && z";
