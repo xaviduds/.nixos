@@ -1,6 +1,6 @@
 # My NixOS Setup Process:
 ## Create Bootable USB:
-Go to the NixOS<a href="https://nixos.org/download/#nixos-iso">Download Page</a>, and select the installer you preffer. When the download is finished:
+Go to the NixOS <a href="https://nixos.org/download/#nixos-iso">Download</a> page, and select the ISO for the installer you preffer. When the download is finished:
 ```bash
 cat NixOS-iso-name-goes-here.iso > /dev/your-device-name (i.e. 'sda')
 ```
@@ -59,3 +59,6 @@ gh repo clone xaviduds/xaviduds.github.io
 gh repo clone xaviduds/.lince_pessoal
 gh repo clone lince-social/lince
 ```
+After that the finishing touches are:
+1. Enabling the installed firefox extensions, loggin in GitHub, Whastsapp Web, Gmail, Notion...
+2. And opening Obsidian to set it to the .lince_pessoal vault.
