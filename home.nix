@@ -62,7 +62,6 @@ in {
         "waybar"
         "swww-daemon"
         "swww img ~/.nixos/wallpaper.png"
-        "export NIXPKGS_ALLOW_UNFREE=1"
       ];
       input = {
         kb_layout = "br";
