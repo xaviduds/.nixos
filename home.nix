@@ -383,6 +383,7 @@ in {
         position = "bottom";
         modules-left = [ "hyprland/workspaces" "wlr/taskbar" "tray" ];
         modules-right = [
+          "network"
           "idle_inhibitor"
           "backlight"
           "pulseaudio"
@@ -390,7 +391,6 @@ in {
           "memory"
           "cpu"
           "temperature"
-          "network"
           "clock"
           "battery"
         ];
@@ -429,7 +429,8 @@ in {
         };
 
         "clock" = {
-          format = "  {:%H:%M %d-%m-%Y %A} ";
+          interval = 1;
+          format = "  {:%H:%M:%S %d/%m/%Y %A} ";
           tooltip = true;
           tooltip-format = "<tt><small>{calendar}</small></tt>";
           "calendar" = {
@@ -446,26 +447,30 @@ in {
         };
 
         "temperature" = {
-          interval = 60;
+          interval = 1;
+          hwmon-path = "/sys/class/hwmon/hwmon4/temp1_input";
           format = " {temperatureC}°C ";
+          critical-threshold = 80;
+          format-critical = "🔥 {temperatureC}°C ";
           on-click = "alacritty -e btop";
         };
 
         "disk" = {
-          interval = 60;
+          interval = 1;
           format = "᠅ {used}/{total} ";
           on-click = "alacritty -e btop";
         };
 
         "cpu" = {
-          interval = 30;
-          format = " {usage}% ";
+          interval = 1;
+          format = " {usage:2}% ";
           on-click = "alacritty -e btop";
         };
 
         "memory" = {
-          interval = 30;
-          format = "  R {}% {avail}GB | S {swapPercentage}% {swapAvail}GB ";
+          interval = 1;
+          format =
+            " R {}% {avail:0.0f}GB  S {swapPercentage}% {swapAvail}GB ";
           on-click = "alacritty -e btop";
         };
 
@@ -497,7 +502,7 @@ in {
           format = "{icon} {capacity}% ";
           format-charging = "󰂄 {capacity}%";
           format-plugged = "󱘖 {capacity}%";
-          format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+          format-icons = [ "🪫" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
           on-click = "alacritty -e btop";
         };
       }];
