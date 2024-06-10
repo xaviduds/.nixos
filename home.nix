@@ -485,7 +485,7 @@ in {
         "network" = {
           interval = 10;
           format-icons = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
-          format-disconnected = "󰤮";
+          format-disconnected = "󰤮  ";
           format-wifi =
             "↑ {bandwidthUpBytes} ↓ {bandwidthDownBytes} {essid} {icon} {signalStrength}% ";
           format-ethernet = " {bandwidthDownOctets}";
