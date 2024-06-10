@@ -62,6 +62,7 @@ in {
         "waybar"
         "swww-daemon"
         "swww img ~/.nixos/wallpaper.png"
+        "sleep 5 && amixer sset -q Capture 10%"
       ];
       input = {
         kb_layout = "br";
