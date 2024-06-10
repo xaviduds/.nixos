@@ -207,6 +207,7 @@
       "gp" = "git pull --rebase";
       "a" = "git add";
       "c" = "git commit";
+      "cc" = "git add . && git commit -m 'commit' && git push";
       "s" = "if [ -d .git ]; then git status; fi";
       "z" =
         "clear && eza -T -L 2 --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
@@ -224,11 +225,12 @@
       "ns" = "nix-shell";
       "n" = "cd ~/.nixos && z";
       "sc" = "cd ~/.secrets && z";
+      "d" = "cd ~/Downloads && z";
       "pro" = "cd ~/projects && z";
       "v" = "cd ~/.vida && zl";
       "lc" = "cd ~/lince && z";
       "x" = "cd ~/xaviduds.github.io && z";
-      "co" = "cd ~/.config && eza";
+      "co" = "cd ~/.config && zl";
       "dc" = "cd ~/ && z";
       ".." = "cd ..";
     };
