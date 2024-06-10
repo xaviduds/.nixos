@@ -375,7 +375,6 @@ in {
     };
 
     waybar = {
-      # δ ⛧  ҉ ම ࠈ Ⲫ ⦵ ⟒ ⟐ ⟁ ₶ᮍ ᨉ ᨖ ᥭ ᱅ ᮵ ᮏ ᮓ ᮚ ᮄ
       enable = true;
       systemd.enable = true;
       settings = [{
