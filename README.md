@@ -56,7 +56,7 @@ gh auth login
 # Then, after all the keys have been configured, clone the repos:
 gh repo clone xaviduds/.nixos
 gh repo clone xaviduds/xaviduds.github.io
-gh repo clone xaviduds/.lince_pessoal
+gh repo clone xaviduds/.vida
 gh repo clone lince-social/lince
 ```
 After that the finishing touches are:

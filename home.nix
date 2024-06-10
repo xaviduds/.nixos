@@ -24,7 +24,7 @@ in {
         ".local/share/bottles"
         ".stremio-server"
         ".nixos"
-        ".lince_pessoal"
+        ".vida"
         "lince"
         "xaviduds.github.io"
         ".ssh"
