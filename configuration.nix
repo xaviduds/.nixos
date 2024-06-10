@@ -207,7 +207,7 @@
       "gp" = "git pull --rebase";
       "a" = "git add";
       "c" = "git commit";
-      "s" = "if [ -d .git ]; then git status && gp; fi";
+      "s" = "if [ -d .git ]; then git status; fi";
       "z" =
         "clear && eza -T -L 2 --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
       "zl" =
