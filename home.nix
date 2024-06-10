@@ -384,7 +384,6 @@ in {
         modules-left = [ "hyprland/workspaces" "wlr/taskbar" "tray" ];
         modules-right = [
           "idle_inhibitor"
-          "keyboard-state"
           "backlight"
           "pulseaudio"
           "disk"
@@ -404,19 +403,6 @@ in {
           on-click = "maximize";
           on-click-middle = "close";
           on-click-right = "fullscreen";
-        };
-
-        "keyboard-state" = {
-          "numlock" = true;
-          "capslock" = true;
-          "format" = {
-            "numlock" = "N {icon} ";
-            "capslock" = "C {icon} ";
-          };
-          "format-icons" = {
-            "locked" = "";
-            "unlocked" = "";
-          };
         };
 
         # "bluetooth" = { format = " {status} "; };
