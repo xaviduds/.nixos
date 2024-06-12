@@ -386,9 +386,7 @@ in {
         position = "bottom";
         modules-left = [ "hyprland/workspaces" "wlr/taskbar" "tray" ];
         modules-right = [
-          "network"
-          "idle_inhibitor"
-          "backlight"
+          "group/network_and_friends"
           "pulseaudio"
           "disk"
           "memory"
@@ -399,6 +397,12 @@ in {
         ];
 
         "tray" = { show-passive-items = true; };
+
+        "group/network_and_friends" = {
+          orientation = "inherit";
+          modules = [ "network" "idle_inhibitor" "backlight" ];
+          drawer = { };
+        };
 
         "wlr/taskbar" = {
           all-outputs = true;
