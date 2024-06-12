@@ -63,4 +63,4 @@ gh repo clone lince-social/lince
 ```
 After that the finishing touches are:
 1. Enabling the installed firefox extensions, loggin in GitHub, Whastsapp Web, Gmail, Notion...
-2. And opening Obsidian to set it to the .lince_pessoal vault.
+2. And opening Obsidian to set it to the .vida vault.
