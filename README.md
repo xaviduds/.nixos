@@ -1,5 +1,5 @@
 # My NixOS Setup Process:
-For a NixOS explanation, go to something I <a href="xaviduds.github.io/src/nixos">wrote</a>.
+For a NixOS explanation, go to something I <a href="https://xaviduds.github.io/src/nixos">wrote</a>.
 
 ## Create Bootable USB:
 Go to the NixOS <a href="https://nixos.org/download/#nixos-iso">Download</a> page, and select the ISO for the installer you preffer. When the download is finished:
