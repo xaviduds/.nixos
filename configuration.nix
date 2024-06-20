@@ -130,19 +130,19 @@
     };
     systemPackages = with pkgs; [
       acpi
+      # ags
       alacritty
       ansible-language-server
+      blender
       bottles
       brightnessctl
       btop
       docker
       docker-compose
       eza
-      google-chrome
       gnome.adwaita-icon-theme
       helix
       hyprland
-      fastfetch
       feh
       firefox
       gajim
@@ -157,7 +157,6 @@
       lua-language-server
       lutris
       man
-      mangohud
       marksman
       mesa
       ncdu
@@ -177,7 +176,6 @@
       protonup
       pv
       python311Packages.python-lsp-server
-      r2modman
       rofi-wayland
       rust-analyzer
       rustc
@@ -200,6 +198,11 @@
       yazi
     ];
     shellAliases = {
+      "s" = "if [ -d .git ]; then git status; fi";
+      "z" =
+        "clear && eza -T -L 2 --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
+      "zl" =
+        "clear && eza -a --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
       "sshgithub" =
         "ssh-keygen -t ed25519 -C 'xaviduds@gmail.com' && eval '$(ssh-agent -s)' && ssh-add ~/.ssh/id_ed25519 && cat ~/.ssh/id_ed25519.pub";
       "aa" = "git add .";
@@ -207,12 +210,7 @@
       "gp" = "git pull --rebase";
       "a" = "git add";
       "c" = "git commit";
-      "cc" = "git add . && git commit -m 'commit' && git push";
-      "s" = "if [ -d .git ]; then git status; fi";
-      "z" =
-        "clear && eza -T -L 2 --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
-      "zl" =
-        "clear && eza -a --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
+      "cc" = "git add . && git commit -m 'commit' && git push && zl";
       "bah" =
         "export NIXPKGS_ALLOW_UNFREE=1 && nh os switch -u -- --impure && nh clean all";
       "b" = "export NIXPKGS_ALLOW_UNFREE=1 && nh os switch -- --impure";
