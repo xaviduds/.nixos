@@ -34,6 +34,7 @@ in {
         ".config/obsidian"
         ".config/gh"
         ".config/pulse"
+        # ".config/ags"
       ];
       allowOther = true;
     };
@@ -78,9 +79,10 @@ in {
       animations = { enabled = "false"; };
       misc = { disable_hyprland_logo = "true"; };
       bind = [
-        "SUPER SHIFT, B, exec, waybar"
-        "SUPER, B, exec, pkill waybar && waybar"
-        "SUPER CONTROL, B, exec, pkill waybar"
+        "SUPER SHIFT, W, exec, waybar"
+        "SUPER, W, exec, pkill waybar && waybar"
+        "SUPER CONTROL, W, exec, pkill waybar"
+        "SUPER, B, exec, blender"
         "SUPER, Q, exec, alacritty"
         "SUPER, P, exec, pavucontrol"
         "SUPER, S, exec, stremio"
@@ -135,7 +137,6 @@ in {
         ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" # && pkill waybar && waybar
         ", XF86MonBrightnessUp, exec, brightnessctl s +5%"
         ", XF86MonBrightnessDown, exec, brightnessctl s 5%-"
-        # ", oidcjsdiojcdoijsdoicj, exec amixer set Capture toggle"
       ];
     };
   };
@@ -217,6 +218,14 @@ in {
         settings = {
           "browser.download.panel.shown" = true;
           "signon.rememberSignons" = false;
+          "browser.newtabpage.enabled" = false;
+          "browser.urlbar.suggest.bookmark" = false;
+          "browser.urlbar.suggest.history" = false;
+          "browser.urlbar.suggest.openpage" = false;
+          "browser.urlbar.suggest.searches" = false;
+          "browser.urlbar.suggest.topsites" = false;
+          "privacy.sanitize.pending" = ''
+            [{"id":"shutdown","itemsToClear":["cache","offlineApps"],"options":{}},{"id":"newtab-container","itemsToClear":[],"options":{}}]'';
         };
         userChrome = ''
           /* Some css */
@@ -415,13 +424,11 @@ in {
         # "bluetooth" = { format = " {status} "; };
 
         "hyprland/workspaces" = {
-          format = "{icon} {name}";
+          format = "{icon}";
           format-icons = {
             default = "○";
             active = "●";
           };
-          on-scroll-up = "hyprctl dispatch workspace e+1";
-          on-scroll-down = "hyprctl dispatch workspace e-1";
         };
 
         "backlight" = { format = "⛧{percent}% "; };
@@ -476,8 +483,7 @@ in {
 
         "memory" = {
           interval = 1;
-          format =
-            " R {}% {avail:0.0f}GB  S {swapPercentage}% {swapAvail}GB ";
+          format = " {}% {avail:0.0f}GB ";
           on-click = "alacritty -e btop";
         };
 
@@ -501,8 +507,8 @@ in {
             default = [ "" "" " " ];
           };
           on-click = "pavucontrol";
-          on-click-middle = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-          on-click-right = "amixer set Capture toggle";
+          on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+          on-click-middle = "amixer set Capture toggle";
         };
 
         "battery" = {
