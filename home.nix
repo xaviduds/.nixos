@@ -365,14 +365,14 @@ in {
       settings = [{
         layer = "top";
         position = "bottom";
-        spacing = 10;
+        spacing = 8;
         modules-left = [ "custom/tmux" ];
         modules-center = [ "tray" ];
         modules-right = [
           "network"
           "memory"
-          "temperature"
           "cpu"
+          "temperature"
           "disk"
           "clock"
           "pulseaudio"
@@ -430,7 +430,7 @@ in {
           format-icons = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
           format-disconnected = "󰤮 ";
           format-wifi =
-            "↑ {bandwidthUpBytes} ↓ {bandwidthDownBytes} {essid} {icon} {signalStrength}%";
+            "↑ {bandwidthUpBytes} ↓ {bandwidthDownBytes} {essid} {icon} ";
           format-ethernet = " {bandwidthDownOctets}";
           on-click = "xterm -e nmtui";
         };
