@@ -53,7 +53,7 @@ in {
         "waybar"
         "swww-daemon"
         "swww img ~/.nixos/wallpaper.png"
-        "sleep 5 && amixer sset -q Capture 10%"
+        "sleep 5 && wpctl set-volume @DEFAULT_SOURCE@ 0.1"
       ];
       input = {
         kb_layout = "br";
@@ -343,6 +343,7 @@ in {
         set -s escape-time 0
         bind r source-file ~/.config/tmux/tmux.conf
         set -g prefix C-a
+        set -g status off
         set -g status-interval 1
         set -g base-index 1
         set -g default-terminal "screen-256color"
@@ -364,20 +365,22 @@ in {
       settings = [{
         layer = "top";
         position = "bottom";
-        modules-left = [ "hyprland/workspaces" "wlr/taskbar" "tray" ];
+        spacing = 10;
+        modules-left = [ "custom/tmux" ];
+        modules-center = [ "tray" ];
         modules-right = [
           "network"
-          "pulseaudio"
-          "disk"
           "memory"
-          "cpu"
           "temperature"
+          "cpu"
+          "disk"
           "clock"
+          "pulseaudio"
           "battery"
         ];
 
         "battery" = {
-          format = "{icon} {capacity}% ";
+          format = "{icon} {capacity}%";
           format-charging = "󰂄 {capacity}%";
           format-plugged = "󱘖 {capacity}%";
           format-icons = [ "🪫" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
@@ -385,7 +388,7 @@ in {
 
         "clock" = {
           interval = 1;
-          format = "  {:%H:%M:%S %d/%m/%Y %A} ";
+          format = "  {:%H:%M:%S %d/%m/%Y %A}";
           tooltip = true;
           tooltip-format = "<tt><small>{calendar}</small></tt>";
           "calendar" = {
@@ -403,39 +406,37 @@ in {
 
         "cpu" = {
           interval = 1;
-          format = " {usage:2}% ";
+          format = " {usage:2}%";
+        };
+
+        "custom/tmux" = {
+          interval = 1;
+          exec = "~/.nixos/tmux.sh";
+          format = { };
         };
 
         "disk" = {
           interval = 1;
-          format = "᠅ {used}/{total} ";
-        };
-
-        "hyprland/workspaces" = {
-          format = "{icon}";
-          format-icons = {
-            default = "○";
-            active = "●";
-          };
+          format = "᠅ {used}/{total}";
         };
 
         "memory" = {
           interval = 1;
-          format = " {}% ";
+          format = " {}%";
         };
 
         "network" = {
           interval = 10;
           format-icons = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
-          format-disconnected = "󰤮  ";
+          format-disconnected = "󰤮 ";
           format-wifi =
-            "↑ {bandwidthUpBytes} ↓ {bandwidthDownBytes} {essid} {icon} {signalStrength}% ";
+            "↑ {bandwidthUpBytes} ↓ {bandwidthDownBytes} {essid} {icon} {signalStrength}%";
           format-ethernet = " {bandwidthDownOctets}";
           on-click = "xterm -e nmtui";
         };
 
         "pulseaudio" = {
-          format = "{icon} {volume}% {format_source} ";
+          format = "{icon} {volume}% {format_source}";
           format-muted = "︎︎︎︎︎︎ {︎format_source}";
           format-source = " {volume}%";
           format-source-muted = " {volume}%";
@@ -451,20 +452,12 @@ in {
         "temperature" = {
           interval = 1;
           hwmon-path = "/sys/class/hwmon/hwmon4/temp1_input";
-          format = " {temperatureC}°C ";
+          format = " {temperatureC}°C";
           critical-threshold = 80;
-          format-critical = "🔥 {temperatureC}°C ";
+          format-critical = "🔥 {temperatureC}°C";
         };
 
         "tray" = { show-passive-items = true; };
-
-        "wlr/taskbar" = {
-          all-outputs = true;
-          format = "{icon}";
-          on-click = "maximize";
-          on-click-middle = "close";
-          on-click-right = "fullscreen";
-        };
       }];
       style = ''
         * {

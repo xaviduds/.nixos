@@ -143,7 +143,6 @@
       # Utilizades do sistema
       brightnessctl
       feh
-      # gnome.adwaita-icon-theme
       gscreenshot
       mesa
       pavucontrol
@@ -162,6 +161,7 @@
 
       # Versionamento
       git
+      gh
       lazygit
 
       # Browser
@@ -169,13 +169,10 @@
 
       # Terminal life
       eza
-      gh
-      lynx
       man
       nh
       nix-output-monitor
       nvd
-      pv
       starship
       tmux
 
@@ -198,7 +195,6 @@
 
       # Criptografia
       openssl
-
     ];
     shellAliases = {
       "s" = "if [ -d .git ]; then git status; fi";
@@ -218,8 +214,9 @@
       "c" = "git commit";
       "cc" = "git add . && git commit -m 'commit' && git push && zl";
       "bah" =
-        "export NIXPKGS_ALLOW_UNFREE=1 && nh os switch -u -- --impure && nh clean all";
-      "b" = "export NIXPKGS_ALLOW_UNFREE=1 && nh os switch -- --impure";
+        "export NIXPKGS_ALLOW_UNFREE=1 && nh os switch -u -- --impure && wpctl set-volume @DEFAULT_SOURCE@ 0.1 && nh clean all ";
+      "b" =
+        "export NIXPKGS_ALLOW_UNFREE=1 && nh os switch -- --impure && wpctl set-volume @DEFAULT_SOURCE@ 0.1";
       "t" = "tmux";
       "h" = "hx";
       "y" = "yazi";
