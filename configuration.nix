@@ -118,7 +118,7 @@
     sessionVariables = { FLAKE = "/home/eduardo/.nixos"; };
     systemPackages = with pkgs; [
 
-      # Terminal (xterm vem instalado)
+      # Terminal
       alacritty
 
       # Language Servers
@@ -132,9 +132,7 @@
       nodePackages.typescript-language-server
       python311Packages.python-lsp-server
       rust-analyzer
-      rustc
       rustfmt
-      rustup
       vscode-langservers-extracted
       zls
       yaml-language-server
@@ -142,23 +140,20 @@
       # Editor de texto
       helix
 
-      # Navegador de arquivos
-      ncdu
-
       # Utilizades do sistema
-      feh
-      pavucontrol
-      swww
-      wireplumber
       brightnessctl
-      gnome.adwaita-icon-theme
+      feh
+      # gnome.adwaita-icon-theme
       gscreenshot
       mesa
+      pavucontrol
+      swww
       unrar
       unzip
       waybar
-      zip
+      wireplumber
       wl-clipboard
+      zip
 
       # Virtualização
       docker
@@ -172,12 +167,10 @@
       # Browser
       firefox
 
-      # Messenger
-      gajim
-
       # Terminal life
       eza
       gh
+      lynx
       man
       nh
       nix-output-monitor
@@ -196,12 +189,9 @@
       # Streaming e gravação
       obs-studio
 
-      # Se livrar
-      obsidian
-
       # Database
-      pgmodeler
       postgresql
+      pgmodeler
 
       # Cultura e entretenimento
       stremio
