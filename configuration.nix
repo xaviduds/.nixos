@@ -215,7 +215,9 @@
       "z" =
         "clear && eza -T -L 2 --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
       "zl" =
-        "clear && eza -a --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time --total-size && s";
+        "clear && eza -a --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
+      "zs" =
+        "clear && eza -a --icons=always --group-directories-first -s size -r -I .git -lh --no-user --no-permissions --git-repos --git --no-time --total-size && s";
       "sshgithub" =
         "ssh-keygen -t ed25519 -C 'xaviduds@gmail.com' && eval '$(ssh-agent -s)' && ssh-add ~/.ssh/id_ed25519 && cat ~/.ssh/id_ed25519.pub";
       "aa" = "git add .";

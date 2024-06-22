@@ -210,6 +210,8 @@ in {
           "browser.urlbar.suggest.openpage" = false;
           "browser.urlbar.suggest.searches" = false;
           "browser.urlbar.suggest.topsites" = false;
+          "browser.aboutConfig.showWarning" = false;
+          "app.shield.optoutstudies.enabled" = false;
           "privacy.sanitize.pending" = ''
             [{"id":"shutdown","itemsToClear":["cache","offlineApps"],"options":{}},{"id":"newtab-container","itemsToClear":[],"options":{}}]'';
         };
