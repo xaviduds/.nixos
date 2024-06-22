@@ -21,7 +21,6 @@ in {
       directories = [
         ".local/state/lazygit"
         ".local/share/Smart Code ltd/Stremio"
-        ".local/share/bottles"
         ".stremio-server"
         ".nixos"
         ".vida"
@@ -34,7 +33,6 @@ in {
         ".config/obsidian"
         ".config/gh"
         ".config/pulse"
-        # ".config/ags"
       ];
       allowOther = true;
     };
@@ -42,7 +40,6 @@ in {
     homeDirectory = "/home/eduardo";
     stateVersion = "23.11";
     sessionVariables = { EDITOR = "hx"; };
-    # file = { };
   };
 
   wayland.windowManager.hyprland = {
@@ -75,7 +72,6 @@ in {
         "SUPER SHIFT, W, exec, waybar"
         "SUPER, W, exec, pkill waybar && waybar"
         "SUPER CONTROL, W, exec, pkill waybar"
-        "SUPER, B, exec, blender"
         "SUPER, Q, exec, alacritty"
         "SUPER, P, exec, pavucontrol"
         "SUPER, F, exec, firefox"
@@ -85,7 +81,6 @@ in {
         "SUPER, C, killactive"
         "SUPER, V, togglefloating"
         "SUPER, M, exit"
-        "SUPER, R, exec, rofi -show drun -normal-window -steal-focus"
         "SUPER, h, movefocus, l"
         "SUPER, l, movefocus, r"
         "SUPER, k, movefocus, u"
@@ -229,8 +224,7 @@ in {
           url = "https://web.whatsapp.com/";
         }];
         extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
-          # to search for extension's names:
-          # nix flake show "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons"
+          # to search for extension's names: nix flake show "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons"
           darkreader
           news-feed-eradicator
           enhancer-for-youtube
@@ -356,14 +350,8 @@ in {
         set -g message-command-style fg='#${white}',bg='#${black}'           
         set -g message-style fg='#{$white}',bg='#${black}'
         set -g status-right ""
-        set -g allow-passthrough on
-        set -g allow-passthrough on
         set -g @plugin 'tmux-plugins/tpm'
         set -g @plugin 'tmux-plugins/tmux-resurrect'
-        set -ga update-environment TERM
-        set -ga update-environment TERM_PROGRAM
-        set -ga update-environment TERM
-        set -ga update-environment TERM_PROGRAM
         run '~/.tmux/plugins/tpm/tpm' #git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
       '';
     };
@@ -491,6 +479,5 @@ in {
         }
       '';
     };
-    yazi = { enable = true; };
   };
 }

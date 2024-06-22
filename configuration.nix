@@ -50,13 +50,13 @@
     hideMounts = true;
     directories = [
       "/etc/NetworkManager/system-connections"
-      "/var/log"
+      # "/var/log"
       "/var/lib/bluetooth"
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
       "/var/lib/waydroid"
     ];
-    files = [ ];
+    # files = [ ];
   };
 
   home-manager = {
@@ -105,14 +105,7 @@
 
   sound.enable = true;
 
-  hardware = {
-    opengl = {
-      enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
-    };
-    pulseaudio.enable = false;
-  };
+  hardware = { pulseaudio.enable = false; };
 
   security = { rtkit.enable = true; };
 
@@ -150,15 +143,11 @@
       helix
 
       # Navegador de arquivos
-      eza
       ncdu
-      yazi
-      ueberzugpp
 
       # Utilizades do sistema
       feh
       pavucontrol
-      rofi-wayland
       swww
       wireplumber
       brightnessctl
@@ -172,7 +161,6 @@
       wl-clipboard
 
       # Virtualização
-      bottles
       docker
       docker-compose
       waydroid
@@ -188,6 +176,7 @@
       gajim
 
       # Terminal life
+      eza
       gh
       man
       nh
