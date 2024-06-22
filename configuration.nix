@@ -49,11 +49,12 @@
   environment.persistence."/persist/system" = {
     hideMounts = true;
     directories = [
+      "/etc/NetworkManager/system-connections"
       "/var/log"
       "/var/lib/bluetooth"
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
-      "/etc/NetworkManager/system-connections"
+      "/var/lib/waydroid"
     ];
     files = [ ];
   };
@@ -62,23 +63,21 @@
     extraSpecialArgs = { inherit inputs; };
     users = { "eduardo" = import ./home.nix; };
   };
+
   programs = {
     hyprland.enable = true;
     dconf.enable = true;
     virt-manager.enable = true;
     fuse.userAllowOther = true;
-    steam = {
-      enable = true;
-      gamescopeSession.enable = true;
-    };
-    gamemode.enable = true;
   };
+
   virtualisation = {
-    libvirtd.enable = true;
     docker = {
       enable = true;
       storageDriver = "btrfs";
     };
+    libvirtd.enable = true;
+    waydroid.enable = true;
   };
 
   networking = {
@@ -123,91 +122,117 @@
     [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
 
   environment = {
-    sessionVariables = {
-      FLAKE = "/home/eduardo/.nixos";
-      STEAM_EXTRA_COMPAT_TOOLS_PATHS =
-        "\${HOME}/.steam/root/compatibilitytools.d";
-    };
+    sessionVariables = { FLAKE = "/home/eduardo/.nixos"; };
     systemPackages = with pkgs; [
-      acpi
-      # ags
+
+      # Terminal (xterm vem instalado)
       alacritty
+
+      # Language Servers
       ansible-language-server
-      blender
-      bottles
-      brightnessctl
-      btop
-      docker
-      docker-compose
-      eza
-      gnome.adwaita-icon-theme
-      helix
-      hyprland
-      feh
-      firefox
-      gajim
-      gh
-      gimp
-      git
       gopls
-      gscreenshot
-      kitty
-      lazygit
-      libreoffice
       lua-language-server
-      lutris
-      man
       marksman
-      mesa
-      ncdu
-      nh
       nil
-      nix-output-monitor
       nodePackages.bash-language-server
       nodePackages_latest.nodejs
       nodePackages.typescript-language-server
-      nvd
-      obs-studio
-      obsidian
-      openssl
-      pavucontrol
-      pgmodeler
-      postgresql
-      protonup
-      pv
       python311Packages.python-lsp-server
-      rofi-wayland
       rust-analyzer
       rustc
       rustfmt
       rustup
-      starship
-      stremio
+      vscode-langservers-extracted
+      zls
+      yaml-language-server
+
+      # Editor de texto
+      helix
+
+      # Navegador de arquivos
+      eza
+      ncdu
+      yazi
+      ueberzugpp
+
+      # Utilizades do sistema
+      feh
+      pavucontrol
+      rofi-wayland
       swww
-      tmux
+      wireplumber
+      brightnessctl
+      gnome.adwaita-icon-theme
+      gscreenshot
+      mesa
       unrar
       unzip
-      vscode-langservers-extracted
-      zip
-      zls
       waybar
-      waydroid
-      wireplumber
+      zip
       wl-clipboard
-      yaml-language-server
-      yazi
+
+      # Virtualização
+      bottles
+      docker
+      docker-compose
+      waydroid
+
+      # Versionamento
+      git
+      lazygit
+
+      # Browser
+      firefox
+
+      # Messenger
+      gajim
+
+      # Terminal life
+      gh
+      man
+      nh
+      nix-output-monitor
+      nvd
+      pv
+      starship
+      tmux
+
+      # Editor de foto/vídeo/3D
+      blender
+      gimp
+
+      # Pacote Office
+      libreoffice
+
+      # Streaming e gravação
+      obs-studio
+
+      # Se livrar
+      obsidian
+
+      # Database
+      pgmodeler
+      postgresql
+
+      # Cultura e entretenimento
+      stremio
+
+      # Criptografia
+      openssl
+
     ];
     shellAliases = {
       "s" = "if [ -d .git ]; then git status; fi";
       "z" =
         "clear && eza -T -L 2 --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
       "zl" =
-        "clear && eza -a --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
+        "clear && eza -a --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time --total-size && s";
       "sshgithub" =
         "ssh-keygen -t ed25519 -C 'xaviduds@gmail.com' && eval '$(ssh-agent -s)' && ssh-add ~/.ssh/id_ed25519 && cat ~/.ssh/id_ed25519.pub";
       "aa" = "git add .";
       "p" = "git push";
-      "gp" = "git pull --rebase";
+      "gp" = "git pull";
+      "gpr" = "git pull --rebase";
       "a" = "git add";
       "c" = "git commit";
       "cc" = "git add . && git commit -m 'commit' && git push && zl";
@@ -235,6 +260,7 @@
   };
 
   services = {
+    ollama.enable = true;
     postgresql = {
       enable = true;
       ensureDatabases = [ "lince" ];

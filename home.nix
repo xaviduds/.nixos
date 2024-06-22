@@ -42,14 +42,7 @@ in {
     homeDirectory = "/home/eduardo";
     stateVersion = "23.11";
     sessionVariables = { EDITOR = "hx"; };
-    file = {
-      ".config/rofi/xaviduds.rasi".text = ''
-        * { font: "JetBrainsMono Nerd Font 14"; text-color: #${white}; background-color: #${black}; padding: 4px; margin: 20px 0px 0px 20px; }
-        window { border: 1px; border-color: #${white}; }
-        inputbar { children: [prompt,entry]; border-radius: 5px; padding: 2px; }
-        prompt { border-radius: 3px; } '';
-      # ".config/lazygit/config.yml".source = ./lazygit.yml;
-    };
+    # file = { };
   };
 
   wayland.windowManager.hyprland = {
@@ -85,12 +78,10 @@ in {
         "SUPER, B, exec, blender"
         "SUPER, Q, exec, alacritty"
         "SUPER, P, exec, pavucontrol"
-        "SUPER, S, exec, stremio"
         "SUPER, F, exec, firefox"
         "SUPER, O, exec, obsidian"
         "SUPER, G, exec, gimp"
-        "SUPER, T, exec, kitty"
-        "SUPER, Y, exec, btop"
+        "SUPER, T, exec, xterm"
         "SUPER, C, killactive"
         "SUPER, V, togglefloating"
         "SUPER, M, exit"
@@ -307,25 +298,12 @@ in {
       }];
     };
 
-    rofi = {
-      enable = true;
-      extraConfig = {
-        modi = "drun";
-        show-icons = false;
-        terminal = "alacritty";
-        # drun-display-format = "{name}";
-        # display-drun = "";
-      };
-      theme = "xaviduds.rasi";
-    };
-
     starship = {
       enable = true;
       settings = {
         format = "$all";
-        # prompt = { color = "white"; };
         character = {
-          success_symbol = "δ";
+          success_symbol = "";
           error_symbol = "Ⲫ";
         };
         cmd_duration = { style = "${style}"; };
@@ -358,6 +336,15 @@ in {
       enable = true;
       extraConfig = ''
         unbind r 
+        bind-key h  select-pane -L
+        bind-key j  select-pane -D
+        bind-key k  select-pane -U
+        bind-key l  select-pane -R
+        bind-key C-h  resize-pane -L 5
+        bind-key C-j  resize-pane -D 5
+        bind-key C-k  resize-pane -U 5
+        bind-key C-l  resize-pane -R 5
+        set -s escape-time 0
         bind r source-file ~/.config/tmux/tmux.conf
         set -g prefix C-a
         set -g status-interval 1
@@ -370,19 +357,13 @@ in {
         set -g message-style fg='#{$white}',bg='#${black}'
         set -g status-right ""
         set -g allow-passthrough on
-        set -ga update-environment TERM
-        set -ga update-environment TERM_PROGRAM
-        set -s escape-time 0
-        bind-key h  select-pane -L
-        bind-key j  select-pane -D
-        bind-key k  select-pane -U
-        bind-key l  select-pane -R
-        bind-key C-h  resize-pane -L 5
-        bind-key C-j  resize-pane -D 5
-        bind-key C-k  resize-pane -U 5
-        bind-key C-l  resize-pane -R 5
+        set -g allow-passthrough on
         set -g @plugin 'tmux-plugins/tpm'
         set -g @plugin 'tmux-plugins/tmux-resurrect'
+        set -ga update-environment TERM
+        set -ga update-environment TERM_PROGRAM
+        set -ga update-environment TERM
+        set -ga update-environment TERM_PROGRAM
         run '~/.tmux/plugins/tpm/tpm' #git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
       '';
     };
@@ -395,7 +376,7 @@ in {
         position = "bottom";
         modules-left = [ "hyprland/workspaces" "wlr/taskbar" "tray" ];
         modules-right = [
-          "group/network_and_friends"
+          "network"
           "pulseaudio"
           "disk"
           "memory"
@@ -405,41 +386,11 @@ in {
           "battery"
         ];
 
-        "tray" = { show-passive-items = true; };
-
-        "group/network_and_friends" = {
-          orientation = "inherit";
-          modules = [ "network" "idle_inhibitor" "backlight" ];
-          drawer = { };
-        };
-
-        "wlr/taskbar" = {
-          all-outputs = true;
-          format = "{icon}";
-          on-click = "maximize";
-          on-click-middle = "close";
-          on-click-right = "fullscreen";
-        };
-
-        # "bluetooth" = { format = " {status} "; };
-
-        "hyprland/workspaces" = {
-          format = "{icon}";
-          format-icons = {
-            default = "○";
-            active = "●";
-          };
-        };
-
-        "backlight" = { format = "⛧{percent}% "; };
-
-        "idle_inhibitor" = {
-          format = "{icon}  ";
-          format-icons = {
-            activated = "";
-            deactivated = "";
-          };
-          timeout = 60.0;
+        "battery" = {
+          format = "{icon} {capacity}% ";
+          format-charging = "󰂄 {capacity}%";
+          format-plugged = "󱘖 {capacity}%";
+          format-icons = [ "🪫" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
         };
 
         "clock" = {
@@ -460,31 +411,27 @@ in {
           };
         };
 
-        "temperature" = {
+        "cpu" = {
           interval = 1;
-          hwmon-path = "/sys/class/hwmon/hwmon4/temp1_input";
-          format = " {temperatureC}°C ";
-          critical-threshold = 80;
-          format-critical = "🔥 {temperatureC}°C ";
-          on-click = "alacritty -e btop";
+          format = " {usage:2}% ";
         };
 
         "disk" = {
           interval = 1;
           format = "᠅ {used}/{total} ";
-          on-click = "alacritty -e btop";
         };
 
-        "cpu" = {
-          interval = 1;
-          format = " {usage:2}% ";
-          on-click = "alacritty -e btop";
+        "hyprland/workspaces" = {
+          format = "{icon}";
+          format-icons = {
+            default = "○";
+            active = "●";
+          };
         };
 
         "memory" = {
           interval = 1;
-          format = " {}% {avail:0.0f}GB ";
-          on-click = "alacritty -e btop";
+          format = " {}% ";
         };
 
         "network" = {
@@ -494,7 +441,7 @@ in {
           format-wifi =
             "↑ {bandwidthUpBytes} ↓ {bandwidthDownBytes} {essid} {icon} {signalStrength}% ";
           format-ethernet = " {bandwidthDownOctets}";
-          on-click = "kitty -e nmtui";
+          on-click = "xterm -e nmtui";
         };
 
         "pulseaudio" = {
@@ -511,15 +458,24 @@ in {
           on-click-middle = "amixer set Capture toggle";
         };
 
-        "battery" = {
-          format = "{icon} {capacity}% ";
-          format-charging = "󰂄 {capacity}%";
-          format-plugged = "󱘖 {capacity}%";
-          format-icons = [ "🪫" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
-          on-click = "alacritty -e btop";
+        "temperature" = {
+          interval = 1;
+          hwmon-path = "/sys/class/hwmon/hwmon4/temp1_input";
+          format = " {temperatureC}°C ";
+          critical-threshold = 80;
+          format-critical = "🔥 {temperatureC}°C ";
+        };
+
+        "tray" = { show-passive-items = true; };
+
+        "wlr/taskbar" = {
+          all-outputs = true;
+          format = "{icon}";
+          on-click = "maximize";
+          on-click-middle = "close";
+          on-click-right = "fullscreen";
         };
       }];
-
       style = ''
         * {
           border: none;
@@ -535,5 +491,6 @@ in {
         }
       '';
     };
+    yazi = { enable = true; };
   };
 }

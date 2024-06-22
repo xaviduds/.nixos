@@ -84,7 +84,6 @@ in {
         "SUPER, O, exec, obsidian"
         "SUPER, G, exec, gimp"
         "SUPER, T, exec, kitty"
-        "SUPER, Y, exec, btop"
         "SUPER, C, killactive"
         "SUPER, V, togglefloating"
         "SUPER, M, exit"
@@ -459,25 +458,21 @@ in {
         "temperature" = {
           interval = 60;
           format = " {temperatureC}°C ";
-          on-click = "alacritty -e btop";
         };
 
         "disk" = {
           interval = 60;
           format = "ᮍ {used}/{total} ";
-          on-click = "alacritty -e btop";
         };
 
         "cpu" = {
           interval = 60;
           format = " {usage}% ";
-          on-click = "alacritty -e btop";
         };
 
         "memory" = {
           interval = 60;
           format = " {}% ";
-          on-click = "alacritty -e btop";
         };
 
         "network" = {
@@ -506,7 +501,6 @@ in {
           format-charging = "󰂄 {capacity}%";
           format-plugged = "󱘖 {capacity}%";
           format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
-          on-click = "alacritty -e btop";
         };
       }];
 
