@@ -50,8 +50,7 @@
     hideMounts = true;
     directories = [
       "/etc/NetworkManager/system-connections"
-      # "/var/log"
-      "/var/lib/bluetooth"
+      # "/var/lib/bluetooth"
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
       "/var/lib/waydroid"
@@ -71,14 +70,7 @@
     fuse.userAllowOther = true;
   };
 
-  virtualisation = {
-    docker = {
-      enable = true;
-      storageDriver = "btrfs";
-    };
-    libvirtd.enable = true;
-    waydroid.enable = true;
-  };
+  virtualisation = { libvirtd.enable = true; };
 
   networking = {
     hostName = "nixos";
@@ -118,8 +110,13 @@
     sessionVariables = { FLAKE = "/home/eduardo/.nixos"; };
     systemPackages = with pkgs; [
 
+      # Probably gonna stay
+
       # Terminal
       alacritty
+
+      # Editor de texto
+      helix
 
       # Language Servers
       ansible-language-server
@@ -137,14 +134,25 @@
       zls
       yaml-language-server
 
-      # Editor de texto
-      helix
+      # Criptografia
+      openssl
 
-      # Utilizades do sistema
-      brightnessctl
+      # Versionamento
+      git
+
+      # Terminal life
+      eza
+      tmux
+
+      # Utilities
       feh
+      brightnessctl
       gscreenshot
+      man
       mesa
+      nh
+      nix-output-monitor
+      nvd
       pavucontrol
       swww
       unrar
@@ -152,49 +160,18 @@
       waybar
       wireplumber
       wl-clipboard
-      zip
-
-      # Virtualização
-      docker
-      docker-compose
-      waydroid
-
-      # Versionamento
-      git
-      gh
-      lazygit
 
       # Browser
       firefox
 
-      # Terminal life
-      eza
-      man
-      nh
-      nix-output-monitor
-      nvd
-      starship
-      tmux
-
       # Editor de foto/vídeo/3D
-      blender
       gimp
 
-      # Pacote Office
+      # Office
       libreoffice
-
-      # Streaming e gravação
-      obs-studio
 
       # Database
       postgresql
-      pgmodeler
-
-      # Cultura e entretenimento
-      stremio
-
-      # Criptografia
-      openssl
     ];
     shellAliases = {
       "s" = "if [ -d .git ]; then git status; fi";
@@ -238,7 +215,6 @@
   };
 
   services = {
-    ollama.enable = true;
     postgresql = {
       enable = true;
       ensureDatabases = [ "lince" ];

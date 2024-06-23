@@ -3,7 +3,7 @@
 let
   black = "000000";
   white = "ffffff";
-  style = "bg:#${black} fg:#${white}";
+  # style = "bg:#${black} fg:#${white}";
   colorPalette = {
     black = "#${white}";
     red = "#${white}";
@@ -19,20 +19,14 @@ in {
   home = {
     persistence."/persist/home/eduardo" = {
       directories = [
-        ".local/state/lazygit"
-        ".local/share/Smart Code ltd/Stremio"
-        ".stremio-server"
         ".nixos"
         ".vida"
         "lince"
         "xaviduds.github.io"
         ".ssh"
         ".mozilla"
-        ".secrets"
         "projects"
-        ".config/obsidian"
-        ".config/gh"
-        ".config/pulse"
+        # ".config/pulse"
       ];
       allowOther = true;
     };
@@ -191,7 +185,7 @@ in {
     bash = {
       enable = true;
       initExtra = ''
-        eval "$(starship init bash)"
+        # eval "$(starship init bash)"
         tmux attach
         clear
         tmux
@@ -292,40 +286,6 @@ in {
           unit = " ";
         };
       }];
-    };
-
-    starship = {
-      enable = true;
-      settings = {
-        format = "$all";
-        character = {
-          success_symbol = "";
-          error_symbol = "Ⲫ";
-        };
-        cmd_duration = { style = "${style}"; };
-        directory = {
-          style = "${style}";
-          read_only = "⦵";
-          read_only_style = "${style}";
-          truncation_length = 10;
-          truncate_to_repo = false;
-        };
-        git_branch = {
-          symbol = " ";
-          style = "${style}";
-        };
-        git_commit = { style = "${style}"; };
-        git_state = { style = "${style}"; };
-        git_status = { style = "${style}"; };
-        nix_shell = {
-          disabled = false;
-          style = "${style}";
-          impure_msg = "[impure shell](${white})";
-          pure_msg = "[pure shell](${white})";
-          unknown_msg = "[unknown shell](${white})";
-          format = "via  [ ҉ $state( ($name))](${white}) ";
-        };
-      };
     };
 
     tmux = {
