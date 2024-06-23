@@ -8,7 +8,7 @@
     loader = {
       systemd-boot = {
         enable = true;
-        configurationLimit = 20;
+        configurationLimit = 5;
       };
       efi.canTouchEfiVariables = true;
     };
@@ -42,7 +42,7 @@
     isNormalUser = true;
     description = "eduardo";
     initialPassword = "1";
-    extraGroups = [ "audio" "networkmanager" "wheel" "libvirtd" "docker" ];
+    extraGroups = [ "audio" "networkmanager" "wheel" "libvirtd" ];
   };
 
   fileSystems."/persist".neededForBoot = true;
@@ -53,7 +53,6 @@
       # "/var/lib/bluetooth"
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
-      "/var/lib/waydroid"
     ];
     # files = [ ];
   };
@@ -110,22 +109,18 @@
     sessionVariables = { FLAKE = "/home/eduardo/.nixos"; };
     systemPackages = with pkgs; [
 
-      # Probably gonna stay
-
-      # Terminal
       alacritty
-
-      # Editor de texto
+      git
       helix
+      man
+      tmux
+      wl-clipboard
 
       # Language Servers
       ansible-language-server
-      gopls
-      lua-language-server
       marksman
       nil
       nodePackages.bash-language-server
-      nodePackages_latest.nodejs
       nodePackages.typescript-language-server
       python311Packages.python-lsp-server
       rust-analyzer
@@ -137,18 +132,13 @@
       # Criptografia
       openssl
 
-      # Versionamento
-      git
-
       # Terminal life
       eza
-      tmux
 
       # Utilities
       feh
       brightnessctl
       gscreenshot
-      man
       mesa
       nh
       nix-output-monitor
@@ -159,7 +149,6 @@
       unzip
       waybar
       wireplumber
-      wl-clipboard
 
       # Browser
       firefox
@@ -169,9 +158,6 @@
 
       # Office
       libreoffice
-
-      # Database
-      postgresql
     ];
     shellAliases = {
       "s" = "if [ -d .git ]; then git status; fi";
@@ -194,15 +180,11 @@
         "export NIXPKGS_ALLOW_UNFREE=1 && nh os switch -u -- --impure && wpctl set-volume @DEFAULT_SOURCE@ 0.1 && nh clean all ";
       "b" =
         "export NIXPKGS_ALLOW_UNFREE=1 && nh os switch -- --impure && wpctl set-volume @DEFAULT_SOURCE@ 0.1";
-      "t" = "tmux";
       "h" = "hx";
-      "y" = "yazi";
-      "lg" = "lazygit";
       "e" = "exit";
       "nd" = "nix flake update && nix develop && z";
       "ns" = "nix-shell";
       "n" = "cd ~/.nixos && z";
-      "sc" = "cd ~/.secrets && z";
       "d" = "cd ~/Downloads && z";
       "pro" = "cd ~/projects && z";
       "v" = "cd ~/.vida && zl";
@@ -265,7 +247,7 @@
   nix = {
     optimise = {
       automatic = true;
-      dates = [ "02:00" ];
+      dates = [ "22:11" ];
     };
     settings = {
       auto-optimise-store = true;
@@ -273,8 +255,8 @@
     };
     gc = {
       automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
+      dates = "daily";
+      options = "--delete-older-than 1d";
     };
   };
 
@@ -287,8 +269,8 @@
         "nixpkgs"
         "-L" # print build logs
       ];
-      dates = "02:00";
-      randomizedDelaySec = "45min";
+      dates = "22:11";
+      # randomizedDelaySec = "45min";
     };
     stateVersion = "23.11";
   };

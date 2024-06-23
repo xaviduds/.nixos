@@ -185,7 +185,6 @@ in {
     bash = {
       enable = true;
       initExtra = ''
-        # eval "$(starship init bash)"
         tmux attach
         clear
         tmux
@@ -209,16 +208,6 @@ in {
           "privacy.sanitize.pending" = ''
             [{"id":"shutdown","itemsToClear":["cache","offlineApps"],"options":{}},{"id":"newtab-container","itemsToClear":[],"options":{}}]'';
         };
-        userChrome = ''
-          /* Some css */
-          body {background-color: #000000;}
-        '';
-        bookmarks = [{
-          name = "whatsapp";
-          tags = [ "whats" ];
-          keyword = "whats";
-          url = "https://web.whatsapp.com/";
-        }];
         extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
           # to search for extension's names: nix flake show "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons"
           darkreader
@@ -277,15 +266,21 @@ in {
           "ui.cursor" = { modifiers = [ "reversed" ]; };
         };
       };
-      languages.language = [{
-        name = "nix";
-        auto-format = true;
-        formatter.command = "${pkgs.nixfmt-classic}/bin/nixfmt";
-        indent = {
-          tab-width = 4;
-          unit = " ";
-        };
-      }];
+      languages.language = [
+        {
+          name = "nix";
+          auto-format = true;
+          formatter.command = "${pkgs.nixfmt-classic}/bin/nixfmt";
+          indent = {
+            tab-width = 4;
+            unit = " ";
+          };
+        }
+        {
+          name = "python";
+          auto-format = true;
+        }
+      ];
     };
 
     tmux = {
@@ -324,31 +319,29 @@ in {
       systemd.enable = true;
       settings = [{
         layer = "top";
-        position = "bottom";
+        position = "top";
         spacing = 8;
-        modules-left = [ "custom/tmux" ];
-        modules-center = [ "tray" ];
+        modules-left = [ "custom/tmux" "tray" ];
+        modules-center = [ "clock" ];
         modules-right = [
-          "network"
-          "memory"
-          "cpu"
-          "temperature"
-          "disk"
-          "clock"
+          # "custom/volume"
+          # "custom/microphone"
           "pulseaudio"
+          "custom/wallpaper"
+          "temperature"
+          "network"
           "battery"
         ];
 
         "battery" = {
-          format = "{icon} {capacity}%";
-          format-charging = "󰂄 {capacity}%";
-          format-plugged = "󱘖 {capacity}%";
-          format-icons = [ "🪫" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+          format = "{icon}";
+          states = { critical = 20; };
+          format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
         };
 
         "clock" = {
           interval = 1;
-          format = "  {:%H:%M:%S %d/%m/%Y %A}";
+          format = "{:%H:%M:%S %d/%m/%Y %A}";
           tooltip = true;
           tooltip-format = "<tt><small>{calendar}</small></tt>";
           "calendar" = {
@@ -369,28 +362,50 @@ in {
           format = " {usage:2}%";
         };
 
+        "custom/microphone" = {
+          interval = 1;
+          exec = "~/.nixos/waybar_scripts/microphone.sh";
+          format = { };
+          on-click = "pavucontrol";
+          on-click-middle = "wpctl set-volume @DEFAULT_SOURCE@ 0";
+          on-click-right = "amixer set Capture toggle";
+        };
+
+        "custom/volume" = {
+          interval = 1;
+          exec = "~/.nixos/waybar_scripts/volume.sh";
+          format = { };
+          on-click = "pavucontrol";
+          on-click-middle = "amixer sset -q Master 0%";
+          on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+        };
+
         "custom/tmux" = {
           interval = 1;
-          exec = "~/.nixos/tmux.sh";
+          exec = "~/.nixos/waybar_scripts/tmux.sh";
           format = { };
+        };
+
+        "custom/wallpaper" = {
+          on-click = "~/.nixos/waybar_scripts/wallpaper_changer.sh";
+          format = "δ";
         };
 
         "disk" = {
           interval = 1;
-          format = "᠅ {used}/{total}";
+          format = "{used}";
         };
 
         "memory" = {
           interval = 1;
-          format = " {}%";
+          format = " {avail:2.0f}GB";
         };
 
         "network" = {
           interval = 10;
           format-icons = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
           format-disconnected = "󰤮 ";
-          format-wifi =
-            "↑ {bandwidthUpBytes} ↓ {bandwidthDownBytes} {essid} {icon} ";
+          format-wifi = "{icon} ";
           format-ethernet = " {bandwidthDownOctets}";
           on-click = "xterm -e nmtui";
         };
@@ -412,9 +427,9 @@ in {
         "temperature" = {
           interval = 1;
           hwmon-path = "/sys/class/hwmon/hwmon4/temp1_input";
-          format = " {temperatureC}°C";
+          format = "";
           critical-threshold = 80;
-          format-critical = "🔥 {temperatureC}°C";
+          format-critical = "";
         };
 
         "tray" = { show-passive-items = true; };
@@ -422,15 +437,155 @@ in {
       style = ''
         * {
           border: none;
-          border-radius: 0;
           font-family: JetBrainsMono Nerd Font;
+          font-size: 15px;
+          min-height: 10px
         }
+
         window#waybar {
-          background: #${black};
-          color: #${white};
+          background: transparent;
+          color: #ffffff;
         }
-        #workspaces button {
-          padding: 0 5px;
+
+        window#waybar.hidden {
+          opacity: 0.2;
+        }
+
+        #network,
+        #battery,
+        #custom-tmux,
+        #custom-wallpaper,
+        #custom-volume,
+        #custom-microphone,
+        #clock,
+        #disk,
+        #temperature,
+        #cpu,
+        #memory,
+        #pulseaudio {
+          margin-top: 6px;
+          margin-left: 2px;
+          padding-left: 10px;
+          padding-right: 10px;
+          margin-bottom: 6px;
+          border-radius: 5px;
+          transition: none;
+          box-shadow: rgba(0, 0, 0, 0.116) 2 2 5 2px;
+
+          color: #000000;
+        }
+
+        #network {
+          background: #bd93f9;
+        }
+
+        #custom-tmux {
+          padding-right: 20px;
+          box-shadow: rgba(0, 0, 0, 0.288) 2 2 5 2px;
+          padding-left: 20px;
+          padding-bottom: 3px;
+          background: rgb(203, 166, 247);
+          background: radial-gradient(circle, rgba(203, 166, 247, 1) 0%, rgba(193, 168, 247, 1) 12%, rgba(249, 226, 175, 1) 19%, rgba(189, 169, 247, 1) 20%, rgba(182, 171, 247, 1) 24%, rgba(198, 255, 194, 1) 36%, rgba(177, 172, 247, 1) 37%, rgba(170, 173, 248, 1) 48%, rgba(255, 255, 255, 1) 52%, rgba(166, 174, 248, 1) 52%, rgba(160, 175, 248, 1) 59%, rgba(148, 226, 213, 1) 66%, rgba(155, 176, 248, 1) 67%, rgba(152, 177, 248, 1) 68%, rgba(205, 214, 244, 1) 77%, rgba(148, 178, 249, 1) 78%, rgba(144, 179, 250, 1) 82%, rgba(180, 190, 254, 1) 83%, rgba(141, 179, 250, 1) 90%, rgba(137, 180, 250, 1) 100%);
+          background-size: 400% 400%;
+          animation: gradient_f 20s ease-in-out infinite;
+          transition: all 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
+        }
+
+        @keyframes gradient {
+          0% {
+            background-position: 0% 50%;
+          }
+
+          50% {
+            background-position: 100% 30%;
+          }
+
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+
+        @keyframes gradient_f {
+          0% {
+            background-position: 0% 200%;
+          }
+
+          50% {
+            background-position: 200% 0%;
+          }
+
+          100% {
+            background-position: 400% 200%;
+          }
+        }
+
+        @keyframes gradient_f_nh {
+          0% {
+            background-position: 0% 200%;
+          }
+
+          100% {
+            background-position: 200% 200%;
+          }
+        }
+
+        #memory {
+          background: #DDB6F2;
+        }
+        #custom-volume {
+          background: #DDB6F2;
+        }
+        #custom-microphone {
+          background: #DDB6F2;
+        }
+
+        #clock {
+          background: #ABE9B3;
+        }
+
+        #custom-wallpaper {
+          background: #F8BD96;
+        }
+
+        #disk {
+          background: #F8BD96;
+        }
+
+        #temperature {
+          background: #96CDFB;
+        }
+
+        #temperature.critical {
+          background: #db5344;
+        }
+
+        #cpu {
+          background: #FAE3B0;
+        }
+
+        #pulseaudio {
+          background: #FAE3B0;
+        }
+
+        #battery {
+          background: #B5E8E0;
+        }
+
+        #battery.critical:not(.charging) {
+          background-color: #B5E8E0;
+          color: #161320;
+          animation-name: blink;
+          animation-duration: 0.5s;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+          animation-direction: alternate;
+        }
+
+        @keyframes blink {
+          to {
+            background-color: #BF616A;
+            color: #B5E8E0;
+          }
         }
       '';
     };
