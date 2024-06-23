@@ -136,6 +136,7 @@
       eza
 
       # Utilities
+      ags
       feh
       brightnessctl
       gscreenshot
@@ -152,6 +153,9 @@
 
       # Browser
       firefox
+
+      # se livrar eventualmente
+      obsidian
 
       # Editor de foto/vídeo/3D
       gimp
@@ -183,7 +187,6 @@
       "h" = "hx";
       "e" = "exit";
       "nd" = "nix flake update && nix develop && z";
-      "ns" = "nix-shell";
       "n" = "cd ~/.nixos && z";
       "d" = "cd ~/Downloads && z";
       "pro" = "cd ~/projects && z";
@@ -193,6 +196,8 @@
       "co" = "cd ~/.config && zl";
       "dc" = "cd ~/ && z";
       ".." = "cd ..";
+      "ns" = "nix-shell";
+      "nspython" = "nix-shell ~/.vida/shells/python.nix";
     };
   };
 

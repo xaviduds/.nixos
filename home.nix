@@ -34,6 +34,7 @@ in {
     homeDirectory = "/home/eduardo";
     stateVersion = "23.11";
     sessionVariables = { EDITOR = "hx"; };
+    file = { "~/.config/ags/config.js".source = ./dotfiles/ags/config.js; };
   };
 
   wayland.windowManager.hyprland = {
@@ -46,7 +47,7 @@ in {
         "pkill waybar"
         "waybar"
         "swww-daemon"
-        "swww img ~/.nixos/wallpaper.png"
+        "~/.nixos/waybar_scripts/wallpaper_changer.sh"
         "sleep 5 && wpctl set-volume @DEFAULT_SOURCE@ 0.1"
       ];
       input = {
@@ -199,14 +200,15 @@ in {
           "signon.rememberSignons" = false;
           "browser.newtabpage.enabled" = false;
           "browser.urlbar.suggest.bookmark" = false;
+          "privacy.sanitize.pending" = ''
+            [{"id":"shutdown","itemsToClear":["cache","offlineApps"],"options":{}},{"id":"newtab-container","itemsToClear":[],"options":{}}]'';
           "browser.urlbar.suggest.history" = false;
           "browser.urlbar.suggest.openpage" = false;
           "browser.urlbar.suggest.searches" = false;
           "browser.urlbar.suggest.topsites" = false;
           "browser.aboutConfig.showWarning" = false;
           "app.shield.optoutstudies.enabled" = false;
-          "privacy.sanitize.pending" = ''
-            [{"id":"shutdown","itemsToClear":["cache","offlineApps"],"options":{}},{"id":"newtab-container","itemsToClear":[],"options":{}}]'';
+          "browser.translations.automaticallyPopup" = false;
         };
         extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
           # to search for extension's names: nix flake show "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons"
@@ -320,16 +322,16 @@ in {
       settings = [{
         layer = "top";
         position = "top";
-        spacing = 8;
         modules-left = [ "custom/tmux" "tray" ];
         modules-center = [ "clock" ];
         modules-right = [
-          # "custom/volume"
-          # "custom/microphone"
-          "pulseaudio"
-          "custom/wallpaper"
           "temperature"
+          "cpu"
+          "memory"
+          "disk"
+          "custom/wallpaper"
           "network"
+          "pulseaudio"
           "battery"
         ];
 
@@ -427,24 +429,24 @@ in {
         "temperature" = {
           interval = 1;
           hwmon-path = "/sys/class/hwmon/hwmon4/temp1_input";
-          format = "";
+          format = " {temperatureC:3}°C";
           critical-threshold = 80;
-          format-critical = "";
+          format-critical = " {temperatureC:3}°C";
         };
 
         "tray" = { show-passive-items = true; };
       }];
       style = ''
         * {
-          border: none;
           font-family: JetBrainsMono Nerd Font;
           font-size: 15px;
-          min-height: 10px
+          border: solid;
+          color: #${black};
+          background: #${white};
         }
 
         window#waybar {
           background: transparent;
-          color: #ffffff;
         }
 
         window#waybar.hidden {
@@ -464,128 +466,18 @@ in {
         #memory,
         #pulseaudio {
           margin-top: 6px;
-          margin-left: 2px;
+          margin-bottom: 6px;
+          margin-left: 4px;
+          margin-right: 4px;
+          border-radius: 5px;
           padding-left: 10px;
           padding-right: 10px;
-          margin-bottom: 6px;
-          border-radius: 5px;
           transition: none;
-          box-shadow: rgba(0, 0, 0, 0.116) 2 2 5 2px;
-
-          color: #000000;
-        }
-
-        #network {
-          background: #bd93f9;
-        }
-
-        #custom-tmux {
-          padding-right: 20px;
-          box-shadow: rgba(0, 0, 0, 0.288) 2 2 5 2px;
-          padding-left: 20px;
-          padding-bottom: 3px;
-          background: rgb(203, 166, 247);
-          background: radial-gradient(circle, rgba(203, 166, 247, 1) 0%, rgba(193, 168, 247, 1) 12%, rgba(249, 226, 175, 1) 19%, rgba(189, 169, 247, 1) 20%, rgba(182, 171, 247, 1) 24%, rgba(198, 255, 194, 1) 36%, rgba(177, 172, 247, 1) 37%, rgba(170, 173, 248, 1) 48%, rgba(255, 255, 255, 1) 52%, rgba(166, 174, 248, 1) 52%, rgba(160, 175, 248, 1) 59%, rgba(148, 226, 213, 1) 66%, rgba(155, 176, 248, 1) 67%, rgba(152, 177, 248, 1) 68%, rgba(205, 214, 244, 1) 77%, rgba(148, 178, 249, 1) 78%, rgba(144, 179, 250, 1) 82%, rgba(180, 190, 254, 1) 83%, rgba(141, 179, 250, 1) 90%, rgba(137, 180, 250, 1) 100%);
-          background-size: 400% 400%;
-          animation: gradient_f 20s ease-in-out infinite;
-          transition: all 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
-        }
-
-        @keyframes gradient {
-          0% {
-            background-position: 0% 50%;
-          }
-
-          50% {
-            background-position: 100% 30%;
-          }
-
-          100% {
-            background-position: 0% 50%;
-          }
-        }
-
-        @keyframes gradient_f {
-          0% {
-            background-position: 0% 200%;
-          }
-
-          50% {
-            background-position: 200% 0%;
-          }
-
-          100% {
-            background-position: 400% 200%;
-          }
-        }
-
-        @keyframes gradient_f_nh {
-          0% {
-            background-position: 0% 200%;
-          }
-
-          100% {
-            background-position: 200% 200%;
-          }
-        }
-
-        #memory {
-          background: #DDB6F2;
-        }
-        #custom-volume {
-          background: #DDB6F2;
-        }
-        #custom-microphone {
-          background: #DDB6F2;
-        }
-
-        #clock {
-          background: #ABE9B3;
-        }
-
-        #custom-wallpaper {
-          background: #F8BD96;
-        }
-
-        #disk {
-          background: #F8BD96;
-        }
-
-        #temperature {
-          background: #96CDFB;
-        }
-
-        #temperature.critical {
-          background: #db5344;
-        }
-
-        #cpu {
-          background: #FAE3B0;
-        }
-
-        #pulseaudio {
-          background: #FAE3B0;
-        }
-
-        #battery {
-          background: #B5E8E0;
+          box-shadow: rgba(0, 0, 0, 0.288) 0 0 5 2px;
         }
 
         #battery.critical:not(.charging) {
           background-color: #B5E8E0;
-          color: #161320;
-          animation-name: blink;
-          animation-duration: 0.5s;
-          animation-timing-function: linear;
-          animation-iteration-count: infinite;
-          animation-direction: alternate;
-        }
-
-        @keyframes blink {
-          to {
-            background-color: #BF616A;
-            color: #B5E8E0;
-          }
         }
       '';
     };
