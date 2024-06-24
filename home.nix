@@ -43,7 +43,7 @@ in {
       exec-once = [
         "firefox"
         "swww-daemon"
-        "~/.nixos/scripts/wallpaper_changer.sh"
+        "bash ~/.nixos/scripts/wallpaper.sh"
         "sleep 5 && wpctl set-volume @DEFAULT_SOURCE@ 0.1"
       ];
       input = {
@@ -276,6 +276,7 @@ in {
       newSession = false;
       resizeAmount = 5;
       shortcut = "a";
+      mouse = true;
       disableConfirmationPrompt = true;
       plugins = with pkgs; [ tmuxPlugins.resurrect ];
       extraConfig = ''

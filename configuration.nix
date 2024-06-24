@@ -110,32 +110,28 @@
     systemPackages = with pkgs; [
 
       alacritty
+      eza
+      firefox
       git
       helix
       man
+      nil
+      openssl
+      python311Packages.python-lsp-server
       tmux
       wl-clipboard
 
-      # Language Servers
+      # ainda incerto
       ansible-language-server
       marksman
-      nil
       nodePackages.bash-language-server
       nodePackages.typescript-language-server
-      python311Packages.python-lsp-server
       rust-analyzer
       rustfmt
       vscode-langservers-extracted
       zls
       yaml-language-server
 
-      # Criptografia
-      openssl
-
-      # Terminal life
-      eza
-
-      # Utilities
       feh
       brightnessctl
       gscreenshot
@@ -145,22 +141,11 @@
       nvd
       pavucontrol
       swww
-      unrar
       unzip
-      waybar
       wireplumber
-
-      # Browser
-      firefox
 
       # se livrar eventualmente
       obsidian
-
-      # Editor de foto/vídeo/3D
-      gimp
-
-      # Office
-      libreoffice
     ];
     shellAliases = {
       "s" = "if [ -d .git ]; then git status; fi";
