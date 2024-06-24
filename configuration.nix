@@ -136,7 +136,6 @@
       eza
 
       # Utilities
-      ags
       feh
       brightnessctl
       gscreenshot

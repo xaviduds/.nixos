@@ -24,6 +24,7 @@ in {
         "lince"
         "xaviduds.github.io"
         ".ssh"
+        ".tmux"
         ".mozilla"
         "projects"
       ];
@@ -270,8 +271,14 @@ in {
 
     tmux = {
       enable = true;
+      baseIndex = 1;
+      escapeTime = 1;
+      newSession = false;
+      resizeAmount = 5;
+      shortcut = "a";
+      disableConfirmationPrompt = true;
+      plugins = with pkgs; [ tmuxPlugins.resurrect ];
       extraConfig = ''
-        unbind r 
         bind-key h  select-pane -L
         bind-key j  select-pane -D
         bind-key k  select-pane -U
@@ -280,18 +287,11 @@ in {
         bind-key C-j  resize-pane -D 5
         bind-key C-k  resize-pane -U 5
         bind-key C-l  resize-pane -R 5
-        set -s escape-time 0
-        bind r source-file ~/.config/tmux/tmux.conf
-        set -g prefix C-a
-        set -g status off
-        set -g status-interval 1
-        set -g base-index 1
-        set -g mouse on
-        # set -g message-command-style fg='#${white}',bg='#${black}'           
-        # set -g message-style fg='#{$white}',bg='#${black}'
+        set -g message-command-style fg='#${white}',bg='#${black}'
+        set -g message-style fg='#{$white}',bg='#${black}'
         set -g @plugin 'tmux-plugins/tpm'
         set -g @plugin 'tmux-plugins/tmux-resurrect'
-        run '~/.tmux/plugins/tpm/tpm' #git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+        set -g status off
       '';
     };
   };

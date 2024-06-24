@@ -12,4 +12,8 @@ microphone_state=$(amixer -M get Capture | awk -F'[\\[\\]]' 'END{print $4}')
 printf "%s %s %s %s\n" "$(date)" \
 "$( [ "$volume_state" == "off" ] && printf "%s%s\n" "  " "$volume_percentage" || printf "%s%s\n" "  " "$volume_percentage")" \
 "$( [ "$microphone_state" == "off" ] && printf "%s%s\n" " " "$microphone_percentage" || printf "%s%s\n" " " "$microphone_percentage")" \
-" 󰁹 ᠅ $(df -h --output=source,size,used,avail | awk -F " " 'END{print $3}')"
+"᠅ $(df -h --output=source,size,used,avail | awk -F " " 'END{print $3}')"
+# wifi󰤨󰤮
+# cpu
+# ram
+# bateria󰁹
