@@ -196,6 +196,7 @@
       "co" = "cd ~/.config && zl";
       "dc" = "cd ~/ && z";
       ".." = "cd ..";
+      "wl" = "bash ~/.nixos/scripts/wallpaper.sh";
       "ns" = "nix-shell";
       "nspython" = "nix-shell ~/.vida/shells/python.nix";
     };

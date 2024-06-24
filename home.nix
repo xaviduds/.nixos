@@ -26,7 +26,6 @@ in {
         ".ssh"
         ".mozilla"
         "projects"
-        # ".config/pulse"
       ];
       allowOther = true;
     };
@@ -34,7 +33,6 @@ in {
     homeDirectory = "/home/eduardo";
     stateVersion = "23.11";
     sessionVariables = { EDITOR = "hx"; };
-    file = { "~/.config/ags/config.js".source = ./dotfiles/ags/config.js; };
   };
 
   wayland.windowManager.hyprland = {
@@ -43,11 +41,8 @@ in {
       monitor = ",highres,auto,1";
       exec-once = [
         "firefox"
-        "obsidian"
-        "pkill waybar"
-        "waybar"
         "swww-daemon"
-        "~/.nixos/waybar_scripts/wallpaper_changer.sh"
+        "~/.nixos/scripts/wallpaper_changer.sh"
         "sleep 5 && wpctl set-volume @DEFAULT_SOURCE@ 0.1"
       ];
       input = {
@@ -64,30 +59,17 @@ in {
       animations = { enabled = "false"; };
       misc = { disable_hyprland_logo = "true"; };
       bind = [
-        "SUPER SHIFT, W, exec, waybar"
-        "SUPER, W, exec, pkill waybar && waybar"
-        "SUPER CONTROL, W, exec, pkill waybar"
         "SUPER, Q, exec, alacritty"
         "SUPER, P, exec, pavucontrol"
         "SUPER, F, exec, firefox"
-        "SUPER, O, exec, obsidian"
         "SUPER, G, exec, gimp"
-        "SUPER, T, exec, xterm"
+        "SUPER, T, exec, xterm -e nmtui"
         "SUPER, C, killactive"
-        "SUPER, V, togglefloating"
         "SUPER, M, exit"
         "SUPER, h, movefocus, l"
         "SUPER, l, movefocus, r"
         "SUPER, k, movefocus, u"
         "SUPER, j, movefocus, d"
-        "SUPER CONTROL, h, movewindow, l"
-        "SUPER CONTROL, l, movewindow, r"
-        "SUPER CONTROL, k, movewindow, u"
-        "SUPER CONTROL, j, movewindow, d"
-        "SUPER ALT, l, moveactive, 50 0"
-        "SUPER ALT, h, moveactive, -50 0"
-        "SUPER ALT, k, moveactive, 0 -50"
-        "SUPER ALT, j, moveactive, 0 50"
         "SUPER SHIFT, l, resizeactive, 50 0"
         "SUPER SHIFT, h, resizeactive, -50 0"
         "SUPER SHIFT, k, resizeactive, 0 -50"
@@ -115,7 +97,7 @@ in {
         "SUPER, Print, exec, gscreenshot --selection"
         ", XF86AudioRaiseVolume,exec, amixer sset -q Master 5%+"
         ", XF86AudioLowerVolume,exec, amixer sset -q Master 5%-"
-        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" # && pkill waybar && waybar
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         ", XF86MonBrightnessUp, exec, brightnessctl s +5%"
         ", XF86MonBrightnessDown, exec, brightnessctl s 5%-"
       ];
@@ -190,18 +172,19 @@ in {
         clear
         tmux
         clear
+        bash ~/.nixos/scripts/sysinfo.sh
       '';
     };
     firefox = {
       enable = true;
       profiles.default = {
         settings = {
+          "privacy.sanitize.pending" = ''
+            [{"id":"shutdown","itemsToClear":["cache","offlineApps"],"options":{}},{"id":"newtab-container","itemsToClear":[],"options":{}}]'';
           "browser.download.panel.shown" = true;
           "signon.rememberSignons" = false;
           "browser.newtabpage.enabled" = false;
           "browser.urlbar.suggest.bookmark" = false;
-          "privacy.sanitize.pending" = ''
-            [{"id":"shutdown","itemsToClear":["cache","offlineApps"],"options":{}},{"id":"newtab-container","itemsToClear":[],"options":{}}]'';
           "browser.urlbar.suggest.history" = false;
           "browser.urlbar.suggest.openpage" = false;
           "browser.urlbar.suggest.searches" = false;
@@ -303,182 +286,12 @@ in {
         set -g status off
         set -g status-interval 1
         set -g base-index 1
-        set -g default-terminal "screen-256color"
         set -g mouse on
-        set -g status-bg '#${black}'
-        set -g status-fg '#${white}'
-        set -g message-command-style fg='#${white}',bg='#${black}'           
-        set -g message-style fg='#{$white}',bg='#${black}'
-        set -g status-right ""
+        # set -g message-command-style fg='#${white}',bg='#${black}'           
+        # set -g message-style fg='#{$white}',bg='#${black}'
         set -g @plugin 'tmux-plugins/tpm'
         set -g @plugin 'tmux-plugins/tmux-resurrect'
         run '~/.tmux/plugins/tpm/tpm' #git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-      '';
-    };
-
-    waybar = {
-      enable = true;
-      systemd.enable = true;
-      settings = [{
-        layer = "top";
-        position = "top";
-        modules-left = [ "custom/tmux" "tray" ];
-        modules-center = [ "clock" ];
-        modules-right = [
-          "temperature"
-          "cpu"
-          "memory"
-          "disk"
-          "custom/wallpaper"
-          "network"
-          "pulseaudio"
-          "battery"
-        ];
-
-        "battery" = {
-          format = "{icon}";
-          states = { critical = 20; };
-          format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
-        };
-
-        "clock" = {
-          interval = 1;
-          format = "{:%H:%M:%S %d/%m/%Y %A}";
-          tooltip = true;
-          tooltip-format = "<tt><small>{calendar}</small></tt>";
-          "calendar" = {
-            mode = "year";
-            mode-mon-col = 3;
-            weeks-pos = "right";
-            on-scroll = 1;
-          };
-          "actions" = {
-            on-click-right = "mode";
-            on-scroll-up = "shift_up";
-            on-scroll-down = "shift_down";
-          };
-        };
-
-        "cpu" = {
-          interval = 1;
-          format = " {usage:2}%";
-        };
-
-        "custom/microphone" = {
-          interval = 1;
-          exec = "~/.nixos/waybar_scripts/microphone.sh";
-          format = { };
-          on-click = "pavucontrol";
-          on-click-middle = "wpctl set-volume @DEFAULT_SOURCE@ 0";
-          on-click-right = "amixer set Capture toggle";
-        };
-
-        "custom/volume" = {
-          interval = 1;
-          exec = "~/.nixos/waybar_scripts/volume.sh";
-          format = { };
-          on-click = "pavucontrol";
-          on-click-middle = "amixer sset -q Master 0%";
-          on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-        };
-
-        "custom/tmux" = {
-          interval = 1;
-          exec = "~/.nixos/waybar_scripts/tmux.sh";
-          format = { };
-        };
-
-        "custom/wallpaper" = {
-          on-click = "~/.nixos/waybar_scripts/wallpaper_changer.sh";
-          format = "δ";
-        };
-
-        "disk" = {
-          interval = 1;
-          format = "{used}";
-        };
-
-        "memory" = {
-          interval = 1;
-          format = " {avail:2.0f}GB";
-        };
-
-        "network" = {
-          interval = 10;
-          format-icons = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
-          format-disconnected = "󰤮 ";
-          format-wifi = "{icon} ";
-          format-ethernet = " {bandwidthDownOctets}";
-          on-click = "xterm -e nmtui";
-        };
-
-        "pulseaudio" = {
-          format = "{icon} {volume}% {format_source}";
-          format-muted = "︎︎︎︎︎︎ {︎format_source}";
-          format-source = " {volume}%";
-          format-source-muted = " {volume}%";
-          format-icons = {
-            headphone = "";
-            default = [ "" "" " " ];
-          };
-          on-click = "pavucontrol";
-          on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-          on-click-middle = "amixer set Capture toggle";
-        };
-
-        "temperature" = {
-          interval = 1;
-          hwmon-path = "/sys/class/hwmon/hwmon4/temp1_input";
-          format = " {temperatureC:3}°C";
-          critical-threshold = 80;
-          format-critical = " {temperatureC:3}°C";
-        };
-
-        "tray" = { show-passive-items = true; };
-      }];
-      style = ''
-        * {
-          font-family: JetBrainsMono Nerd Font;
-          font-size: 15px;
-          border: solid;
-          color: #${black};
-          background: #${white};
-        }
-
-        window#waybar {
-          background: transparent;
-        }
-
-        window#waybar.hidden {
-          opacity: 0.2;
-        }
-
-        #network,
-        #battery,
-        #custom-tmux,
-        #custom-wallpaper,
-        #custom-volume,
-        #custom-microphone,
-        #clock,
-        #disk,
-        #temperature,
-        #cpu,
-        #memory,
-        #pulseaudio {
-          margin-top: 6px;
-          margin-bottom: 6px;
-          margin-left: 4px;
-          margin-right: 4px;
-          border-radius: 5px;
-          padding-left: 10px;
-          padding-right: 10px;
-          transition: none;
-          box-shadow: rgba(0, 0, 0, 0.288) 0 0 5 2px;
-        }
-
-        #battery.critical:not(.charging) {
-          background-color: #B5E8E0;
-        }
       '';
     };
   };
