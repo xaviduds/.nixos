@@ -40,12 +40,8 @@ in {
     enable = true;
     settings = {
       monitor = ",highres,auto,1";
-      exec-once = [
-        "firefox"
-        "swww-daemon"
-        "bash ~/.nixos/scripts/wallpaper.sh"
-        "sleep 5 && wpctl set-volume @DEFAULT_SOURCE@ 0.1"
-      ];
+      exec-once =
+        [ "firefox" "sleep 5 && wpctl set-volume @DEFAULT_SOURCE@ 0.1" ];
       input = {
         kb_layout = "br";
         kb_variant = "abnt2";
@@ -173,7 +169,7 @@ in {
         clear
         tmux
         clear
-        bash ~/.nixos/scripts/sysinfo.sh
+        bash ~/.nixos/fetch.sh
       '';
     };
     firefox = {

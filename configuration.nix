@@ -123,7 +123,6 @@
 
       # ainda incerto
       ansible-language-server
-      marksman
       nodePackages.bash-language-server
       nodePackages.typescript-language-server
       rust-analyzer
@@ -140,7 +139,6 @@
       nix-output-monitor
       nvd
       pavucontrol
-      swww
       unzip
       wireplumber
 
@@ -180,7 +178,6 @@
       "co" = "cd ~/.config && zl";
       "dc" = "cd ~/ && z";
       ".." = "cd ..";
-      "wl" = "bash ~/.nixos/scripts/wallpaper.sh";
       "ns" = "nix-shell";
       "nspython" = "nix-shell ~/.vida/shells/python.nix";
     };
