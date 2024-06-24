@@ -56,11 +56,10 @@ gh auth login
 ```
 ```bash
 # Then, after all the keys have been configured, clone the repos:
-gh repo clone xaviduds/.nixos
+git clone git@github.com:xaviduds/.nixos.git ~/.nixos
 gh repo clone xaviduds/xaviduds.github.io
 gh repo clone xaviduds/.vida
 gh repo clone lince-social/lince
 ```
 After that the finishing touches are:
-1. Enabling the installed firefox extensions, loggin in GitHub, Whastsapp Web, Gmail, Notion...
-2. And opening Obsidian to set it to the .vida vault.
+1. Enabling the installed firefox extensions, loggin in GitHub, Whastsapp Web e Gmail.
