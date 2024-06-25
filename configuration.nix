@@ -117,20 +117,14 @@
       python311Packages.python-lsp-server
       tmux
       unzip
+      wireplumber
       wl-clipboard
 
       # ainda incerto
-      ansible-language-server
       nodePackages.typescript-language-server
       rust-analyzer
       rustfmt
       vscode-langservers-extracted
-      zls
-      yaml-language-server
-
-      mesa
-      pavucontrol
-      wireplumber
 
       # se livrar eventualmente
       obsidian
