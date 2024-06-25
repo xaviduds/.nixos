@@ -156,6 +156,8 @@
 
       "h" = "hx";
       "f" = "bash ~/.nixos/fetch.sh";
+      "lofid" = "bash ~/.vida/lofi.sh &";
+      "lofi" = "bash ~/.vida/lofi.sh";
 
       "ns" = "nix-shell";
       "nspython" = "nix-shell ~/.vida/shells/python.nix";

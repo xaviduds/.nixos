@@ -60,6 +60,7 @@ in {
       misc = { disable_hyprland_logo = "true"; };
       bind = [
         "SUPER, Q, exec, alacritty"
+        "SUPER, W, exec, alacritty -e bash ~/.vida/lofi.sh"
         "SUPER, P, exec, pavucontrol"
         "SUPER, F, exec, firefox"
         "SUPER, T, exec, obsidian"
@@ -99,8 +100,8 @@ in {
         ", XF86AudioRaiseVolume,exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+"
         ", XF86AudioLowerVolume,exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"
         ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        "SUPER,P, exec, wpctl, set-volume @DEFAULT_SOURCE@ 0.01+"
-        "SUPER,O, exec, wpctl, set-volume @DEFAULT_SOURCE@ 0.01-"
+        "SUPER,XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_SOURCE@ 0.01+"
+        "SUPER,XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_SOURCE@ 0.01-"
         ", XF86MonBrightnessUp, exec, brightnessctl s +5%"
         ", XF86MonBrightnessDown, exec, brightnessctl s 5%-"
       ];
