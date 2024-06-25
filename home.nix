@@ -99,6 +99,7 @@ in {
         ", XF86AudioRaiseVolume,exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+"
         ", XF86AudioLowerVolume,exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"
         ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        "SUPER, XF86AudioRaiseVolume, exec, wpctl, set-volume @DEFAULT_SOURCE@ 0.01+"
         ", XF86MonBrightnessUp, exec, brightnessctl s +5%"
         ", XF86MonBrightnessDown, exec, brightnessctl s 5%-"
       ];
@@ -106,10 +107,6 @@ in {
   };
   dconf.settings = {
     "org/gnome/desktop/interface" = { color-scheme = "prefer-dark"; };
-    # "org/virt-manager/virt-manager/connections" = {
-    #   autoconnect = [ "qemu:///system" ];
-    #   uris = [ "qemu:///system" ];
-    # };
   };
   gtk = {
     enable = true;
@@ -118,11 +115,11 @@ in {
       package = pkgs.gnome.gnome-themes-extra;
     };
   };
-  qt = {
-    enable = true;
-    platformTheme = { name = "adwaita"; };
-    style = { name = "adwaita-dark"; };
-  };
+  # qt = {
+  #   enable = true;
+  #   platformTheme = { name = "adwaita"; };
+  #   style = { name = "adwaita-dark"; };
+  # };
   programs = {
     home-manager.enable = true;
 
@@ -180,8 +177,6 @@ in {
       enable = true;
       profiles.default = {
         settings = {
-          "privacy.sanitize.pending" = ''
-            [{"id":"shutdown","itemsToClear":["cache","offlineApps"],"options":{}},{"id":"newtab-container","itemsToClear":[],"options":{}}]'';
           "browser.download.panel.shown" = true;
           "signon.rememberSignons" = false;
           "browser.newtabpage.enabled" = false;

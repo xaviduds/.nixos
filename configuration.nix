@@ -159,13 +159,14 @@
       "e" = "exit";
 
       "h" = "hx";
+      "f" = "bash ~/.nixos/fetch.sh";
 
       "ns" = "nix-shell";
       "nspython" = "nix-shell ~/.vida/shells/python.nix";
 
       "u" = "sudo nix flake update ~/.nixos/";
       "b" = "sudo nixos-rebuild switch --flake ~/.nixos#default";
-      "ncs" = "nix-collect-garbage -d && nix-store --gc";
+      "ncs" = "nix-collect-garbage -d";
       "bah" = "u && b && ncs";
     };
   };
