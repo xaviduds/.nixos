@@ -62,7 +62,7 @@ in {
         "SUPER, Q, exec, alacritty"
         "SUPER, P, exec, pavucontrol"
         "SUPER, F, exec, firefox"
-        "SUPER, O, exec, obsidian"
+        "SUPER, T, exec, obsidian"
         "SUPER, G, exec, gimp"
         "SUPER, T, exec, xterm -e nmtui"
         "SUPER, C, killactive"
@@ -99,7 +99,8 @@ in {
         ", XF86AudioRaiseVolume,exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+"
         ", XF86AudioLowerVolume,exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"
         ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        "SUPER, XF86AudioRaiseVolume, exec, wpctl, set-volume @DEFAULT_SOURCE@ 0.01+"
+        "SUPER,P, exec, wpctl, set-volume @DEFAULT_SOURCE@ 0.01+"
+        "SUPER,O, exec, wpctl, set-volume @DEFAULT_SOURCE@ 0.01-"
         ", XF86MonBrightnessUp, exec, brightnessctl s +5%"
         ", XF86MonBrightnessDown, exec, brightnessctl s 5%-"
       ];

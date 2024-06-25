@@ -113,18 +113,14 @@
       man
       nil
       nodePackages.bash-language-server
-      openssl
       python311Packages.python-lsp-server
       tmux
-      unzip
-      wireplumber
+      # wireplumber
       wl-clipboard
 
       # ainda incerto
-      nodePackages.typescript-language-server
       rust-analyzer
       rustfmt
-      vscode-langservers-extracted
 
       # se livrar eventualmente
       obsidian
