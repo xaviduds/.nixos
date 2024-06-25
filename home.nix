@@ -24,7 +24,7 @@ in {
         "lince"
         "xaviduds.github.io"
         ".ssh"
-        ".tmux"
+        ".config/obsidian"
         ".mozilla"
         "projects"
       ];
@@ -40,8 +40,11 @@ in {
     enable = true;
     settings = {
       monitor = ",highres,auto,1";
-      exec-once =
-        [ "firefox" "sleep 5 && wpctl set-volume @DEFAULT_SOURCE@ 0.1" ];
+      exec-once = [
+        "firefox"
+        "obsidian"
+        "sleep 5 && wpctl set-volume @DEFAULT_SOURCE@ 0.1"
+      ];
       input = {
         kb_layout = "br";
         kb_variant = "abnt2";
@@ -59,6 +62,7 @@ in {
         "SUPER, Q, exec, alacritty"
         "SUPER, P, exec, pavucontrol"
         "SUPER, F, exec, firefox"
+        "SUPER, O, exec, obsidian"
         "SUPER, G, exec, gimp"
         "SUPER, T, exec, xterm -e nmtui"
         "SUPER, C, killactive"
@@ -92,8 +96,8 @@ in {
         "SUPER SHIFT, 9, movetoworkspace, 9"
         "SUPER SHIFT, 0, movetoworkspace, 10"
         "SUPER, Print, exec, gscreenshot --selection"
-        ", XF86AudioRaiseVolume,exec, amixer sset -q Master 5%+"
-        ", XF86AudioLowerVolume,exec, amixer sset -q Master 5%-"
+        ", XF86AudioRaiseVolume,exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+"
+        ", XF86AudioLowerVolume,exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"
         ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         ", XF86MonBrightnessUp, exec, brightnessctl s +5%"
         ", XF86MonBrightnessDown, exec, brightnessctl s 5%-"
@@ -102,10 +106,10 @@ in {
   };
   dconf.settings = {
     "org/gnome/desktop/interface" = { color-scheme = "prefer-dark"; };
-    "org/virt-manager/virt-manager/connections" = {
-      autoconnect = [ "qemu:///system" ];
-      uris = [ "qemu:///system" ];
-    };
+    # "org/virt-manager/virt-manager/connections" = {
+    #   autoconnect = [ "qemu:///system" ];
+    #   uris = [ "qemu:///system" ];
+    # };
   };
   gtk = {
     enable = true;
@@ -192,10 +196,7 @@ in {
         };
         extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
           # to search for extension's names: nix flake show "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons"
-          darkreader
           news-feed-eradicator
-          enhancer-for-youtube
-          onetab
           privacy-badger
           ublock-origin
           videospeed
@@ -274,7 +275,6 @@ in {
       shortcut = "a";
       mouse = true;
       disableConfirmationPrompt = true;
-      plugins = with pkgs; [ tmuxPlugins.resurrect ];
       extraConfig = ''
         bind-key h  select-pane -L
         bind-key j  select-pane -D
@@ -284,10 +284,7 @@ in {
         bind-key C-j  resize-pane -D 5
         bind-key C-k  resize-pane -U 5
         bind-key C-l  resize-pane -R 5
-        set -g message-command-style fg='#${white}',bg='#${black}'
         set -g message-style fg='#{$white}',bg='#${black}'
-        set -g @plugin 'tmux-plugins/tpm'
-        set -g @plugin 'tmux-plugins/tmux-resurrect'
         set -g status off
       '';
     };

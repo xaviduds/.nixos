@@ -42,7 +42,7 @@
     isNormalUser = true;
     description = "eduardo";
     initialPassword = "1";
-    extraGroups = [ "audio" "networkmanager" "wheel" "libvirtd" ];
+    extraGroups = [ "audio" "networkmanager" "wheel" ];
   };
 
   fileSystems."/persist".neededForBoot = true;
@@ -50,7 +50,6 @@
     hideMounts = true;
     directories = [
       "/etc/NetworkManager/system-connections"
-      # "/var/lib/bluetooth"
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
     ];
@@ -65,11 +64,8 @@
   programs = {
     hyprland.enable = true;
     dconf.enable = true;
-    virt-manager.enable = true;
     fuse.userAllowOther = true;
   };
-
-  virtualisation = { libvirtd.enable = true; };
 
   networking = {
     hostName = "nixos";
@@ -94,8 +90,6 @@
   };
   console.keyMap = "br-abnt2";
 
-  sound.enable = true;
-
   hardware = { pulseaudio.enable = false; };
 
   security = { rtkit.enable = true; };
@@ -106,24 +100,27 @@
     [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
 
   environment = {
-    sessionVariables = { FLAKE = "/home/eduardo/.nixos"; };
     systemPackages = with pkgs; [
 
       alacritty
+      brightnessctl
       eza
+      feh
       firefox
       git
+      gscreenshot
       helix
       man
       nil
+      nodePackages.bash-language-server
       openssl
       python311Packages.python-lsp-server
       tmux
+      unzip
       wl-clipboard
 
       # ainda incerto
       ansible-language-server
-      nodePackages.bash-language-server
       nodePackages.typescript-language-server
       rust-analyzer
       rustfmt
@@ -131,30 +128,17 @@
       zls
       yaml-language-server
 
-      feh
-      brightnessctl
-      gscreenshot
       mesa
-      nh
-      nix-output-monitor
-      nvd
       pavucontrol
-      unzip
       wireplumber
 
       # se livrar eventualmente
       obsidian
     ];
     shellAliases = {
-      "s" = "if [ -d .git ]; then git status; fi";
-      "z" =
-        "clear && eza -T -L 2 --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
-      "zl" =
-        "clear && eza -a --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
-      "zs" =
-        "clear && eza -a --icons=always --group-directories-first -s size -r -I .git -lh --no-user --no-permissions --git-repos --git --no-time --total-size && s";
       "sshgithub" =
         "ssh-keygen -t ed25519 -C 'xaviduds@gmail.com' && eval '$(ssh-agent -s)' && ssh-add ~/.ssh/id_ed25519 && cat ~/.ssh/id_ed25519.pub";
+      "s" = "if [ -d .git ]; then git status; fi";
       "aa" = "git add .";
       "p" = "git push";
       "gp" = "git pull";
@@ -162,13 +146,13 @@
       "a" = "git add";
       "c" = "git commit";
       "cc" = "git add . && git commit -m 'commit' && git push && zl";
-      "bah" =
-        "export NIXPKGS_ALLOW_UNFREE=1 && nh os switch -u -- --impure && wpctl set-volume @DEFAULT_SOURCE@ 0.1 && nh clean all ";
-      "b" =
-        "export NIXPKGS_ALLOW_UNFREE=1 && nh os switch -- --impure && wpctl set-volume @DEFAULT_SOURCE@ 0.1";
-      "h" = "hx";
-      "e" = "exit";
-      "nd" = "nix flake update && nix develop && z";
+
+      "z" =
+        "clear && bash ~/.nixos/fetch.sh && eza -T -L 2 --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
+      "zl" =
+        "clear && bash ~/.nixos/fetch.sh && eza -a --icons=always --group-directories-first -s name -I .git -lh --no-user --no-permissions --git-repos --git --no-time && s";
+      "zs" =
+        "clear && bash ~/.nixos/fetch.sh && eza -a --icons=always --group-directories-first -s size -r -I .git -lh --no-user --no-permissions --git-repos --git --no-time --total-size && s";
       "n" = "cd ~/.nixos && z";
       "d" = "cd ~/Downloads && z";
       "pro" = "cd ~/projects && z";
@@ -178,8 +162,17 @@
       "co" = "cd ~/.config && zl";
       "dc" = "cd ~/ && z";
       ".." = "cd ..";
+      "e" = "exit";
+
+      "h" = "hx";
+
       "ns" = "nix-shell";
       "nspython" = "nix-shell ~/.vida/shells/python.nix";
+
+      "u" = "sudo nix flake update ~/.nixos/";
+      "b" = "sudo nixos-rebuild switch --flake ~/.nixos#default";
+      "ncs" = "nix-collect-garbage -d && nix-store --gc";
+      "bah" = "u && b && ncs";
     };
   };
 
@@ -203,12 +196,14 @@
         };
       };
     };
+
     pipewire = {
       enable = true;
       alsa.enable = true;
       pulse.enable = true;
       wireplumber.enable = true;
     };
+
     thermald.enable = true;
     power-profiles-daemon.enable = false;
     auto-cpufreq = {
@@ -232,18 +227,9 @@
   ];
 
   nix = {
-    optimise = {
-      automatic = true;
-      dates = [ "22:11" ];
-    };
     settings = {
       auto-optimise-store = true;
       experimental-features = [ "nix-command" "flakes" ];
-    };
-    gc = {
-      automatic = true;
-      dates = "daily";
-      options = "--delete-older-than 1d";
     };
   };
 
@@ -256,8 +242,6 @@
         "nixpkgs"
         "-L" # print build logs
       ];
-      dates = "22:11";
-      # randomizedDelaySec = "45min";
     };
     stateVersion = "23.11";
   };
