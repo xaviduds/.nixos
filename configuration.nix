@@ -144,7 +144,14 @@
       ".." = "cd ..";
       "e" = "exit";
 
+      # "ns" = "nix-shell ~/.nixos/shells/";
       "ns" = "nix-shell";
+      "nslince" = "nix-shell ~/.nixos/shells/lince.py";
+      "nsreact" = "nix-shell ~/.nixos/shells/react.nix";
+      "nspython" = "nix-shell ~/.nixos/shells/python.nix";
+      "nsrust" = "nix-shell ~/.nixos/shells/rust.nix";
+      "nsds" = "nix-shell ~/.nixos/shells/data_science.nix";
+
       "nd" = "nix flake update && nix develop && z";
       "u" = "sudo nix flake update ~/.nixos/";
       "b" = "sudo nixos-rebuild switch --flake ~/.nixos#default";
