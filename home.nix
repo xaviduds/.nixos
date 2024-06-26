@@ -192,12 +192,9 @@ in {
           "browser.translations.automaticallyPopup" = false;
         };
         extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
-          # to search for extension's names: nix flake show "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons"
-          news-feed-eradicator
           privacy-badger
           ublock-origin
           videospeed
-          web-archives
         ];
       };
     };
