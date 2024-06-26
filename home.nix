@@ -18,16 +18,8 @@ in {
   imports = [ inputs.impermanence.nixosModules.home-manager.impermanence ];
   home = {
     persistence."/persist/home/eduardo" = {
-      directories = [
-        ".nixos"
-        "vida"
-        "lince"
-        "xaviduds.github.io"
-        ".ssh"
-        ".config/obsidian"
-        ".mozilla"
-        "projects"
-      ];
+      directories =
+        [ ".nixos" "vida" "lince" "xaviduds.github.io" ".ssh" ".mozilla" ];
       allowOther = true;
     };
     username = "eduardo";
@@ -60,11 +52,8 @@ in {
       misc = { disable_hyprland_logo = "true"; };
       bind = [
         "SUPER, Q, exec, alacritty"
-        "SUPER, W, exec, alacritty -e bash ~/.vida/valor/lofi.sh"
         "SUPER, P, exec, pavucontrol"
         "SUPER, F, exec, firefox"
-        "SUPER, T, exec, obsidian"
-        "SUPER, G, exec, gimp"
         "SUPER, T, exec, xterm -e nmtui"
         "SUPER, C, killactive"
         "SUPER, M, exit"
@@ -117,11 +106,6 @@ in {
       package = pkgs.gnome.gnome-themes-extra;
     };
   };
-  # qt = {
-  #   enable = true;
-  #   platformTheme = { name = "adwaita"; };
-  #   style = { name = "adwaita-dark"; };
-  # };
   programs = {
     home-manager.enable = true;
 

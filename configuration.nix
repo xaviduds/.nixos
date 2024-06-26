@@ -62,9 +62,10 @@
   };
 
   programs = {
+    fuse.userAllowOther = true;
     hyprland.enable = true;
     dconf.enable = true;
-    fuse.userAllowOther = true;
+    light.enable = true;
   };
 
   networking = {
@@ -101,25 +102,16 @@
 
   environment = {
     systemPackages = with pkgs; [
-
       alacritty
       brightnessctl
       eza
       feh
       firefox
       git
-      gscreenshot
       helix
       man
-      nil
-      nodePackages.bash-language-server
-      python311Packages.python-lsp-server
       tmux
-      wl-clipboard
-      nodePackages.typescript-language-server
-      vscode-langservers-extracted
-      rust-analyzer
-      rustfmt
+
     ];
     shellAliases = {
       "sshgithub" =
@@ -142,7 +134,7 @@
       "n" = "cd ~/.nixos && z";
       "d" = "cd ~/Downloads && z";
       "pro" = "cd ~/projects && z";
-      "v" = "cd ~/.vida && zl";
+      "v" = "cd ~/vida && z";
       "lc" = "cd ~/lince && z";
       "li" = "cd ~/lince && z";
       "i" = "cd ~/lince && z";
@@ -152,20 +144,15 @@
       ".." = "cd ..";
       "e" = "exit";
 
+      "ns" = "nix-shell";
       "nd" = "nix flake update && nix develop && z";
       "u" = "sudo nix flake update ~/.nixos/";
       "b" = "sudo nixos-rebuild switch --flake ~/.nixos#default";
-      "ncs" = "nix-collect-garbage -d";
+      "ncs" = "nix-collect-garbage -d && df -h";
       "bah" = "u && b && ncs";
-
-      "ns" = "nix-shell";
-      "nspython" = "nix-shell ~/.vida/shells/python.nix";
-      "nslofi" = "nix-shell -p mpv yt-dlp";
 
       "h" = "hx";
       "f" = "bash ~/.nixos/fetch.sh";
-      "lofid" = "bash ~/.vida/valor/lofi.sh &";
-      "lofi" = "bash ~/.vida/valor/lofi.sh";
     };
   };
 
@@ -220,9 +207,18 @@
   ];
 
   nix = {
+    optimise = {
+      automatic = true;
+      dates = [ "22:11" ];
+    };
     settings = {
       auto-optimise-store = true;
       experimental-features = [ "nix-command" "flakes" ];
+    };
+    gc = {
+      automatic = true;
+      dates = "daily";
+      options = "--delete-older-than 1d";
     };
   };
 
@@ -235,6 +231,8 @@
         "nixpkgs"
         "-L" # print build logs
       ];
+      dates = "22:11";
+      randomizedDelaySec = "45min";
     };
     stateVersion = "23.11";
   };
