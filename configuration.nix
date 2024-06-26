@@ -117,6 +117,8 @@
       tmux
       # wireplumber
       wl-clipboard
+      mpv
+      yt-dlp
 
       # ainda incerto
       rust-analyzer
@@ -148,6 +150,8 @@
       "pro" = "cd ~/projects && z";
       "v" = "cd ~/.vida && zl";
       "lc" = "cd ~/lince && z";
+      "li" = "cd ~/lince && z";
+      "i" = "cd ~/lince && z";
       "x" = "cd ~/xaviduds.github.io && z";
       "co" = "cd ~/.config && zl";
       "dc" = "cd ~/ && z";
@@ -156,12 +160,13 @@
 
       "h" = "hx";
       "f" = "bash ~/.nixos/fetch.sh";
-      "lofid" = "bash ~/.vida/lofi.sh &";
-      "lofi" = "bash ~/.vida/lofi.sh";
+      "lofid" = "bash ~/.vida/valor/lofi.sh &";
+      "lofi" = "bash ~/.vida/valor/lofi.sh";
 
       "ns" = "nix-shell";
       "nspython" = "nix-shell ~/.vida/shells/python.nix";
 
+      "nd" = "nix flake update && nix develop && z";
       "u" = "sudo nix flake update ~/.nixos/";
       "b" = "sudo nixos-rebuild switch --flake ~/.nixos#default";
       "ncs" = "nix-collect-garbage -d";

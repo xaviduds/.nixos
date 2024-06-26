@@ -60,7 +60,7 @@ in {
       misc = { disable_hyprland_logo = "true"; };
       bind = [
         "SUPER, Q, exec, alacritty"
-        "SUPER, W, exec, alacritty -e bash ~/.vida/lofi.sh"
+        "SUPER, W, exec, alacritty -e bash ~/.vida/valor/lofi.sh"
         "SUPER, P, exec, pavucontrol"
         "SUPER, F, exec, firefox"
         "SUPER, T, exec, obsidian"
