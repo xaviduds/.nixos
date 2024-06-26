@@ -12,6 +12,6 @@ echo ""
 printf "%s %s %s %s %s\n" \
 "󰁹 $(cat /sys/class/power_supply/BAT0/capacity)%" \
 "  $(date +"%Y-%m-%d %H:%M:%S %A")" \
-"$( [ "$volume_state" == "MUTED" ] && printf "%s%s%s\n" "  " "$volume_percentage" "%"|| printf "%s%s%s\n" "  " "$volume_percentage" "%")" \
+"$( [ "$volume_state" == "MUTED" ] && printf "%s%s%s\n" " " "$volume_percentage" "%"|| printf "%s%s%s\n" "  " "$volume_percentage" "%")" \
 "$( [ "$microphone_state" == "MUTED" ] && printf "%s%s%s\n" " " "$microphone_percentage" "%" || printf "%s%s%s\n" " " "$microphone_percentage" "%")" \
 "| $(tmux list-windows -F '#{window_index}#{window_flags}' | awk '{gsub(/\*$/, "*"); printf "%s ", $0} END {print ""}')"

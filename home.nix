@@ -183,11 +183,11 @@ in {
       };
     };
 
-    git = {
-      enable = true;
-      userName = "xaviduds";
-      userEmail = "xaviduds@gmail.com";
-    };
+    # git = {
+    #   enable = true;
+    #   userName = "xaviduds";
+    #   userEmail = "xaviduds@gmail.com";
+    # };
 
     helix = {
       enable = true;
