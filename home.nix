@@ -159,6 +159,7 @@ in {
         bash ~/.nixos/fetch.sh
       '';
     };
+
     firefox = {
       enable = true;
       profiles.default = {
@@ -182,12 +183,6 @@ in {
         ];
       };
     };
-
-    # git = {
-    #   enable = true;
-    #   userName = "xaviduds";
-    #   userEmail = "xaviduds@gmail.com";
-    # };
 
     helix = {
       enable = true;
