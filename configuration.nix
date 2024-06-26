@@ -115,17 +115,11 @@
       nodePackages.bash-language-server
       python311Packages.python-lsp-server
       tmux
-      # wireplumber
       wl-clipboard
-      mpv
-      yt-dlp
-
-      # ainda incerto
+      nodePackages.typescript-language-server
+      vscode-langservers-extracted
       rust-analyzer
       rustfmt
-
-      # se livrar eventualmente
-      obsidian
     ];
     shellAliases = {
       "sshgithub" =
@@ -158,19 +152,20 @@
       ".." = "cd ..";
       "e" = "exit";
 
-      "h" = "hx";
-      "f" = "bash ~/.nixos/fetch.sh";
-      "lofid" = "bash ~/.vida/valor/lofi.sh &";
-      "lofi" = "bash ~/.vida/valor/lofi.sh";
-
-      "ns" = "nix-shell";
-      "nspython" = "nix-shell ~/.vida/shells/python.nix";
-
       "nd" = "nix flake update && nix develop && z";
       "u" = "sudo nix flake update ~/.nixos/";
       "b" = "sudo nixos-rebuild switch --flake ~/.nixos#default";
       "ncs" = "nix-collect-garbage -d";
       "bah" = "u && b && ncs";
+
+      "ns" = "nix-shell";
+      "nspython" = "nix-shell ~/.vida/shells/python.nix";
+      "nslofi" = "nix-shell -p mpv yt-dlp";
+
+      "h" = "hx";
+      "f" = "bash ~/.nixos/fetch.sh";
+      "lofid" = "bash ~/.vida/valor/lofi.sh &";
+      "lofi" = "bash ~/.vida/valor/lofi.sh";
     };
   };
 

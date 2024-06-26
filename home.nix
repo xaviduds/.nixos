@@ -20,7 +20,7 @@ in {
     persistence."/persist/home/eduardo" = {
       directories = [
         ".nixos"
-        ".vida"
+        "vida"
         "lince"
         "xaviduds.github.io"
         ".ssh"
